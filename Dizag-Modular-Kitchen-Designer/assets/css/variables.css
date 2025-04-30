@@ -1,0 +1,36 @@
+:root {
+	--body-color:                 #ffffff;
+	--white-color:                #FFFFFF;
+	--primary-color:              #1d9e26;
+	--primary-dark-color:         #4e5353;
+	--section-bg-color:           #f0f8ff;
+	--dark-color:                 #000000;
+	--grey-color:                 #d0d1d1;
+	--light-grey-color:           #f0f0f0;
+	--blue-grey-color:            #f3fafa;
+	--p-color:                    #e6a009;
+	--dark-red-color:             rgb(78, 3, 3);
+  
+	--body-font-family:           "Oswald", system-ui;
+  
+	--navbar-height:          80px;
+  
+	--section-max-width:          1600px;
+  
+	--h5-font-size:               24px;
+	--p-font-size:                20px;
+	--middle-font-size:           18px;
+	--p-font-size-mobile:         15px;
+	--mini-font-size:             15px;
+	--small-font-size:            10px;
+	--copyright-text-font-size:   16px;
+	--product-link-font-size:     14px;
+	--custom-link-font-size:      12px;
+	--large-font-size:            22px;
+  
+	--font-weight-thin:           100;
+	--font-weight-light:          300;
+	--font-weight-normal:         400;
+	--font-weight-bold:           700;
+	--font-weight-black:          900;
+} 

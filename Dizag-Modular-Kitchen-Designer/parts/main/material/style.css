@@ -1,0 +1,24 @@
+.material-items-section{
+    /*padding: 50px 0;*/
+}
+
+.block-material-list
+{
+    gap: 14px;
+}
+
+.block-material-item > p{
+    color: var(--dark-color);
+}
+
+.block-material-item:hover * {
+    color: var(--p-color);
+}
+
+.active > p {
+    color: var(--primary-color) !important;
+}
+
+.block-material-item{
+    cursor: pointer;
+}
