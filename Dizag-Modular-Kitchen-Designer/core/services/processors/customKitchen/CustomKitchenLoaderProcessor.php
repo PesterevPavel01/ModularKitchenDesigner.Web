@@ -1,10 +1,8 @@
 <?php
     require_once get_template_directory() . '/core/Result.php';
     require_once get_template_directory() . '/core/HttpConnector.php';
-
-    global $ApiUrl;
-
-    Class MaterialLoaderProcessor
+    
+    Class CustomKitchenLoaderProcessor
     {
 
         public $Url;
@@ -14,12 +12,12 @@
         public function __construct($ApiUrl){
             $this->HttpConnector = new HttpConnector();
             $this->Result = new BaseResult();
-            $this->Url = $ApiUrl . "v3/MaterialSelectionItem/GetByKitchenTypeCode/";
+            $this->Url = $ApiUrl . "v1/KustomKitchen/";
         }
 
-        public function GetByKitchenTypeCode($KitchenTypeCode)
+        public function GetByCode($kitchenCode)
         {
-            $this->Result = $this->HttpConnector->GetByUrl( $this->Url . urlencode($KitchenTypeCode));
+            $this->Result = $this->HttpConnector->GetByUrl( $this->Url ."GetByCode/". urlencode($kitchenCode));
             return $this->Result;
         }
     }

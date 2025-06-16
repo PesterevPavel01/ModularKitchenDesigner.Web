@@ -41,7 +41,7 @@ if($priceSegment){
                             <?$item['previewImageSrc'] = 'kitchen_preview_image.png'?>
                             <img class="height-100px" src="<?= theme_image($item['previewImageSrc'],true)?>">
                             <block class="flex-column">
-                                <h5 class="kitchen-type-item-content middle-font code"><?=$item['code']?></h5>
+                                <h5 class="kitchen-type-item-content medium-font code"><?=$item['code']?></h5>
                                 <p class="kitchen-type-item-content black"><?=$item['title']?></p> 
                             </block>
                         </block>
@@ -58,13 +58,14 @@ if($priceSegment){
                 'PARAMETER' =>  $args['PARAMETERS']['PARAMETER'],
                 'TEMPLATE_PART_TO_UPDATE' => $args['PARAMETERS']["TEMPLATE_PART_TO_UPDATE"],
                 'HTML_BLOCK_TO_UPDATE_CLASS' => $args['PARAMETERS']['HTML_BLOCK_TO_UPDATE_CLASS'],
-            ]);?>
+            ]);
+    ?>
     </section>
     <?
     }else{
     ?>
         <p class="error-message">Не удалось получить данные</p>
-<?
+    <?
     }
 }
 ?>

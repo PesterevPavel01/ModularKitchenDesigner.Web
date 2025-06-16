@@ -1,11 +1,18 @@
-<?php get_header(); ?>
+<?php 
+ get_header();
+?>
 <header>
     <?get_template_part("parts/navigation/preloader")?>
     <?get_template_part("parts/navigation/navbar")?>
 </header>
+
+<?php the_content(); ?>
+
 <main>
-    <?//get_template_part("parts/navigation/popup")?>
+    //get_template_part("parts/navigation/popup")
     <section class="section-content flex-column gap40">
+    
+    <? if(is_user_logged_in()){?>
         <?get_template_part("parts/main/module/module",null,
             [
                 'PARAMETER' => "ВЕРХНИЕ",
@@ -39,8 +46,17 @@
                     'HTML_BLOCK_TO_UPDATE_CLASS' => 'material-items-section',
                 ]);?>
         </section>
+    <?}
+    else{
+        ?>
+        <section class="flex-column gap10">
+            <p class="black">Для работы с колькулятором необходимо</p>
+            <a class="flex-column dark-red large-font" href="<?= wp_logout_url( get_site_url() . "/autorization/") ?>">АВТОРИЗОВАТЬСЯ</a>
+        </section>
+        <?
+    }
+    ?>
     </section>
-    <??>
 </main>
 
 <?php get_footer();?>

@@ -35,7 +35,7 @@ if($Result->isSuccess())
                     <li class="price-segment-nav-item ajax-update-button" id="price-segment-<?=$item['code']?>">
                         <input type="hidden" id="value" value=<?=$item['title']?>>
                         <input type="hidden" id="sub-value" value=<?null?>>
-                        <p class="price-segment-nav-content flex-column middle-font"><?=$item['title']?></p>
+                        <p class="price-segment-nav-content flex-column medium-font normal-font"><?=$item['title']?></p>
                     </li>
                 <?}?>
             

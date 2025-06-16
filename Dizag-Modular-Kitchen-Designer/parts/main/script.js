@@ -16,6 +16,27 @@ function  AjaxTriggersInit()
         });
     });
 
+    let $biSquareList =  $(this).find('.check-square-list');
+    
+    $biSquareList.each(function() {
+
+        let $checkSquareTop = $biSquareList.find('.bi-square.top , .bi-check-square.top')
+        
+        $checkSquareTop.each(function() {
+            $(this).off('click').on('click', function(e) {
+                CheckSquareClick($(this),$checkSquareTop)
+            });
+        });
+
+        $checkSquareBottom = $biSquareList.find('.bi-square.bottom , .bi-check-square.bottom')
+        
+        $checkSquareBottom.each(function() {
+            $(this).off('click').on('click', function(e) {
+                CheckSquareClick($(this),$checkSquareBottom)
+            });
+        });
+    });
+
     $('#create-custom-order-button').off('click').on('click', function(e) {
         AjaxCreateCustomOrder();
     });
@@ -49,13 +70,11 @@ function AjaxCreateCustomOrder() {
 
         let data = GetParams('#create-custom-order-button');
         performAjaxRequest(data, '#create-custom-order-button');
-
     })
 }
 
 function performAjaxRequest(data, unlockedElement) {
     $.ajax({
-        
         type: 'POST',
         url: ajax_url,
         data: data,
@@ -64,9 +83,8 @@ function performAjaxRequest(data, unlockedElement) {
         contentType: false, // Обязательно указать false
         
         success: function(data) {
-        
+            
             $arParams = JSON.parse(data);
-            console.log($arParams);
         
             $('.' + $arParams.HTML_BLOCK).html($arParams.HTML_CONTENT);
         
@@ -95,5 +113,23 @@ function Select($currentBtn, $updateButtons)
             if (!$(this).is($currentBtn))
                 $(this).removeClass('active');
         });
+    }
+}
+
+function CheckSquareClick($currentBtn, $updateButtons)
+{
+    if($currentBtn.hasClass('bi-square')){
+        $currentBtn.addClass('bi-check-square').removeClass('bi-square');
+        if(!$updateButtons)
+            return;
+        if ($updateButtons.length > 0) {
+            $updateButtons.each(function() {
+                if (!$(this).is($currentBtn))
+                    $(this).addClass('bi-square').removeClass('bi-check-square');
+            });
+        }
+    }
+    else{
+        $currentBtn.addClass('bi-square').removeClass('bi-check-square');
     }
 }

@@ -5,12 +5,14 @@ require_once get_template_directory() . '/core/services/processors/module/Module
 global $ApiUrl;
 
 $moduleTypeTitle = isset($args['PARAMETER']) ? $args['PARAMETER'] : null;
+//$moduleTypeTitle = "ВЕРХНИЕ";
 
 if($moduleTypeTitle){
     
     $Result = new BaseResult();
     $MaterialLoaderProcessor = new ModuleLoaderProcessor($ApiUrl);
     $Result = $MaterialLoaderProcessor->Process($moduleTypeTitle);
+    
     if($Result->isSuccess())
     {
     ?>
@@ -18,7 +20,7 @@ if($moduleTypeTitle){
         <?get_template_part("parts/main/titles/section-title",null,
                 [
                     'PREFIX' => $args['PARAMETER'],
-                    'TEXT' => 'Модуль'
+                    'TEXT' => 'МОДУЛИ'
                 ]);?>
                 
         <div class="modules-list-container">

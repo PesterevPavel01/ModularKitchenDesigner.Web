@@ -12,7 +12,13 @@
         public function __construct($ApiUrl){
             $this->HttpConnector = new HttpConnector();
             $this->Result = new BaseResult();
-            $this->Url = $ApiUrl . "v1/KitchenType/";
+            $this->Url = $ApiUrl . "v4/KitchenType/";
+        }
+
+        public function GetByCode($code)
+        {
+            $this->Result = $this->HttpConnector->GetByUrl( $this->Url ."GetByCode/". urlencode($code));
+            return $this->Result;
         }
 
         public function GetByPriceSegmentTitle($priceSegmentTitle)

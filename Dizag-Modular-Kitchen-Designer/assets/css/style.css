@@ -163,7 +163,7 @@ MAIN
 }
 
 .grey{
-  color: var(--grey-color);
+  color: var(--grey-color) !important;
 }
 
 .dark-red{
@@ -178,7 +178,7 @@ MAIN
   font-weight: var(--font-weight-bold);
 }
 
-.middle-font{
+.medium-font{
   font-size: var(--middle-font-size);
 }
 

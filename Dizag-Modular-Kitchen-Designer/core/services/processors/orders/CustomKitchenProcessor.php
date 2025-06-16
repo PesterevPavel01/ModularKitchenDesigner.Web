@@ -12,24 +12,13 @@
         public function __construct($ApiUrl){
             $this->HttpConnector = new HttpConnector();
             $this->Result = new BaseResult();
-            $this->Url = $ApiUrl . "v1/Order/CustomKitchen";
+            $this->Url = $ApiUrl . "v1/KustomKitchen/";
         }
 
-        public function Process($body)
+        public function GetByCode($kitchenCode)
         {
-            $Date=new DateTime();
-
-            try
-            {
-                $this->Result=$this->HttpConnector->GetDataByUrl($this->Url,$body);
-            }
-            catch (Exception $e)
-            {
-                $this->Result->ErrorMessage = $e->getMessage();
-                $this->Result->ObjectName = "CustomKitchenProcessor";
-            }
-
-            return  $this->Result;
+            $this->Result = $this->HttpConnector->GetByUrl( $this->Url ."GetByCode/". urlencode($kitchenCode));
+            return $this->Result;
         }
     }
 ?>

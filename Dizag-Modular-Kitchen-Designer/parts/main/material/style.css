@@ -5,14 +5,19 @@
 .block-material-list
 {
     gap: 14px;
+    display: table;
 }
 
 .block-material-item > p{
     color: var(--dark-color);
 }
 
-.block-material-item:hover * {
+.block-material-item:hover > p {
     color: var(--p-color);
+}
+
+.block-material-item:hover > div:hover {
+    color: var(--primary-color);
 }
 
 .active > p {
@@ -21,4 +26,14 @@
 
 .block-material-item{
     cursor: pointer;
+    display: table-row;
+}
+
+.block-material-item-content{
+    display: table-cell;
+    padding: 8px;
+}
+
+.bi-check-square{
+    color: var(--primary-color);
 }
