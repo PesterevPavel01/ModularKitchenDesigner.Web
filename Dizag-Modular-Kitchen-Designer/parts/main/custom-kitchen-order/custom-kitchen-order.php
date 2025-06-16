@@ -150,7 +150,7 @@ $CustomKitchenResult = $CustomKitchenProcessor->GetByCode($kitchenCode);
 
 if($CustomKitchenResult->isSuccess())
 {
-    $item = $Result->data;
+    $item = $CustomKitchenResult->data;
     $price = number_format((float)$item['price'],2,',',' ');
     $width = number_format((float)$item['width'],1,',',' ');
 ?>
