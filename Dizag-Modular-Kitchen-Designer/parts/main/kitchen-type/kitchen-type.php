@@ -20,13 +20,13 @@ if($priceSegment){
     if($Result->isSuccess())
     {
     ?>
-        <block class="kitchen-type flex-column-start">
+        <block class="kitchen-type flex-column-start gap40">
         <?get_template_part("parts/main/titles/section-title",null,
             [
-                'PREFIX' => 'Модульные',
-                'TEXT' => 'Кухни'
+                'PREFIX' => 'МОДУЛЬНЫЕ',
+                'TEXT' => 'КУХНИ'
             ]);?>
-            <ul class="kitchen-type-list flex-column-start ajax-update-trigger">
+            <ul class="kitchen-type-list flex-row-start ajax-update-trigger">
                 <input type="hidden" id="action" value=<?=$args["ACTION"]?>>
                 <input type="hidden" id="template_part_to_update" value=<?=$args["TEMPLATE_PART_TO_UPDATE"]?>>
                 <input type="hidden" id="html_block_to_update" value=<?=$args['HTML_BLOCK_TO_UPDATE_CLASS']?>>
@@ -51,7 +51,7 @@ if($priceSegment){
         </block>
 
 
-    <section class="material-items-section flex-column-start gap20" id = 'material-items-section'>
+    <section class="material-items-section flex-column-start gap40" id = 'material-items-section'>
     <?get_template_part("parts/main/material/material",null,
             [
                 'ACTION' => $args['PARAMETERS']['ACTION'],

@@ -31,7 +31,7 @@ if($kitchenTypeCode){
         <block class="block-material flex-column-start gap20">
             <?get_template_part("parts/main/titles/section-title",null,
                 [
-                    'PREFIX' => 'Материалы ',
+                    'PREFIX' => 'МАТЕРИАЛЫ ',
                     'TEXT' => $Result->data[0]['kitchenType']
                 ]);?>
 
@@ -64,7 +64,7 @@ if($kitchenTypeCode){
         </block>
         
         <??>
-        <section class="custom-kitchen-order-section flex-column-start">
+        <section class="custom-kitchen-order-section flex-column-start gap40">
             <?get_template_part("parts/main/custom-kitchen-order/custom-kitchen-order",null,
             [
                 /*

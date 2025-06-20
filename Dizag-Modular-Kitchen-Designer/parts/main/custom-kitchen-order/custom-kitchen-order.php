@@ -77,11 +77,9 @@ $KitchenTypeProcessor = new KitchenTypeLoaderProcessor($ApiUrl);
 $Result = $KitchenTypeProcessor->GetByCode($args['PARAMETER']['KITCHEN_TYPE_CODE']);
 
 if(!$Result->isSuccess())
-{
-    ?>
+{?>
     <p class="error-message"><?=$Result->ErrorMessage?></p>
-    <?
-}
+<?}
 
 $current_user = wp_get_current_user();
 $user_login = $current_user->user_login;
@@ -157,8 +155,8 @@ if($CustomKitchenResult->isSuccess())
     <block class="custom-kitchen-order flex-column-start gap20">
     <?get_template_part("parts/main/titles/section-title",null,
         [
-            'PREFIX' => 'Параметры',
-            'TEXT' => 'Кухни'
+            'PREFIX' => 'ПАРАМЕТРЫ',
+            'TEXT' => 'КУХНИ'
         ]);?>
         <ul class="flex-column-start gap20">
             <li class="flex-column-start order-value">
@@ -179,7 +177,13 @@ if($CustomKitchenResult->isSuccess())
             </li>
         </ul>
     </block>
-<?
+
+    <?get_template_part("parts/main/specification/specification",null,
+        [
+            'PARAMETER' => [
+                'SPECIFICATION' => $item['specification']
+            ]
+        ]);
 }else{
 ?>
     <p class="error-message"><?=$CustomKitchenResult->ErrorMessage?></p>

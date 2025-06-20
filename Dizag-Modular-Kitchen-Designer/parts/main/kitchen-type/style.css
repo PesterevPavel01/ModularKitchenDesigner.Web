@@ -1,15 +1,15 @@
-.kitchen-type-section{
-    /*padding: 40px 15px;*/
-    gap: 20px;
+.kitchen-type{
+    width: 100%;
 }
 
 .kitchen-type-list
 {
+    width: 100%;
+    /*padding: 0 40px;*/
+    display: grid;
+    margin: auto;
+    grid-template-columns: repeat(auto-fill,minmax(220px,1fr));
     gap: 14px;
-}
-
-.kitchen-type{
-    gap: 20px;
 }
 
 .kitchen-type-item > p{
@@ -31,4 +31,5 @@
 
 .kitchen-type-item{
     cursor: pointer;
+    max-width: 100%;
 }

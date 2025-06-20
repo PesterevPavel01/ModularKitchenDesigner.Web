@@ -15,12 +15,12 @@
     <? if(is_user_logged_in()){?>
         <?get_template_part("parts/main/module/module",null,
             [
-                'PARAMETER' => "Верхний",
+                'PARAMETER' => "ВЕРХНИЕ",
             ]);?>
 
         <?get_template_part("parts/main/module/module",null,
             [
-                'PARAMETER' => "Нижний",
+                'PARAMETER' => "НИЖНИЕ",
             ]);?>
 
         <?get_template_part("parts/main/price-segment/price-segment",null,
@@ -37,7 +37,7 @@
                     'HTML_BLOCK_TO_UPDATE_CLASS' => 'material-items-section',
                 ]
             ]);?>
-        <section class="kitchen-type-section flex-column-start"  id = 'kitchen-type-section'>
+        <section class="kitchen-type-section flex-column-start gap40"  id = 'kitchen-type-section'>
             <?get_template_part("parts/main/kitchen-type/kitchen-type",null,
                 [
                     'ACTION' => 'content_update',

@@ -258,6 +258,22 @@ transform: scale(1.2); /* Увеличиваем масштаб */
   CONTAINERS            
 -----------------------------------------*/
 
+.table{
+  display: table;
+  align-items: start;
+}
+
+.table-row{
+  display: table-row;
+  align-items: start;
+  width: 100%;
+}
+
+.table-cell{
+  display: table-cell;
+  padding: 10px;
+}
+
 .flex-row {
   display: flex;
   flex-direction: row;

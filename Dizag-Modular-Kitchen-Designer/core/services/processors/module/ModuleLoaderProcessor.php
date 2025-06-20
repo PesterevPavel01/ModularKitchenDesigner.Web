@@ -12,7 +12,7 @@
         public function __construct($ApiUrl){
             $this->HttpConnector = new HttpConnector();
             $this->Result = new BaseResult();
-            $this->Url = $ApiUrl . "v1/Module/";
+            $this->Url = $ApiUrl . "v4/Module/";
         }
 
         public function Process($moduleTypeTitle)

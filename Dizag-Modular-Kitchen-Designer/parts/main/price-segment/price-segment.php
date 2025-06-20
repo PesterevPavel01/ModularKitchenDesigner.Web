@@ -19,8 +19,8 @@ if($Result->isSuccess())
         
             <?get_template_part("parts/main/titles/section-title",null,
             [
-                'PREFIX' => 'Ценовой',
-                'TEXT' => 'Сегмент'
+                'PREFIX' => 'ЦЕНОВОЙ',
+                'TEXT' => 'СЕГМЕНТ'
             ]);?>
 
             <ul class="price-segment-navbar-nav flex-row ajax-update-trigger">

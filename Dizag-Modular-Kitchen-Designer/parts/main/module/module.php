@@ -18,7 +18,7 @@ if($moduleTypeTitle){
         <?get_template_part("parts/main/titles/section-title",null,
                 [
                     'PREFIX' => $args['PARAMETER'],
-                    'TEXT' => 'Модуль'
+                    'TEXT' => 'МОДУЛИ'
                 ]);?>
                 
         <div class="modules-list-container">
