@@ -1,4 +1,29 @@
 <?php 
+require_once get_template_directory() . '/inc/extensions/ConteinerDI.php';
+
+function my_custom_global_variable() {
+	global $ApiUrl;
+	$ApiUrl = 'http://localhost:8080/api/';
+	global $GutenbergUrl;
+	$GutenbergUrl = 'http://localhost:3000/';
+}
+
+add_action('init', 'my_custom_global_variable');
+
+//CREATE DI CONTEINER
+function DI_conteiner(){
+	// Инициализация контейнера
+	global $СontainerDI;
+	$СontainerDI = new ContainerDI();
+}
+
+add_action('init', 'DI_conteiner', 11);
+
+//REGISTRATION AJAX
+require_once get_template_directory() . '/inc/ajax-scripts-setup.php';
+require_once get_template_directory() . '/inc/ajax-pdf-creator.php';
+require_once get_template_directory() . '/inc/ajax-content-updater.php';
+
 //THEME SUPPORTS
 add_action( 'after_setup_theme', function(){
 	add_theme_support( 'title-tag' );
@@ -10,19 +35,8 @@ add_action( 'after_setup_theme', function(){
 });
 
 //THEME EXTRAS
-//require_once get_template_directory() . '/inc/post-types.php';
-//require_once get_template_directory() . '/inc/spa.php';
 require_once get_template_directory() . '/inc/theme-image.php';
-//require_once get_template_directory() . '/parts/main/kitchen-type/ajax.php';
-//require_once get_template_directory() . '/parts/main/price-segment/ajax.php';
-require_once get_template_directory() . '/parts/main/ajax.php';
 
-function my_custom_global_variable() {
-	global $ApiUrl;
-	$ApiUrl = 'http://localhost:8080/api/';
-}
-
-add_action('init', 'my_custom_global_variable');
 
 //THEME MENUS
 add_action( 'after_setup_theme', 'theme_register_nav_menu' );
@@ -60,6 +74,7 @@ function theme_styles_and_scripts() {
 	enqueue_versioning_style( 'css-kitchen-type-style', $main_parts_url, $main_parts_path, 'kitchen-type/style.css', []);
 	enqueue_versioning_style( 'css-material-style', $main_parts_url, $main_parts_path, 'material/style.css', []);
 	enqueue_versioning_style( 'css-module-style', $main_parts_url, $main_parts_path, 'module/style.css', []);
+	enqueue_versioning_style( 'css-pdf-order-creator-style', $main_parts_url, $main_parts_path, 'pdf-order-creator/style.css', []);
 	enqueue_versioning_style( 'css-section-title-style', $main_parts_url, $main_parts_path, 'titles/style.css', []);
 
 	wp_enqueue_style('google-fonts-oswald', 'https://fonts.googleapis.com/css2?family=Oswald:wght@200..700&display=swap', false);

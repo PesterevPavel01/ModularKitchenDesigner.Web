@@ -1,0 +1,12 @@
+.content-pdf-download-link{
+    display: none;
+}
+
+.content-pdf-download-link.active{
+    display: block;
+}
+
+.content-pdf-download-link:focus{
+    outline: none;
+}
+

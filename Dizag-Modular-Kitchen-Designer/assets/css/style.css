@@ -114,15 +114,6 @@ a:hover {
   background: var(--primary-color);
   color: var(--white-color);
 }
-
-/*---------------------------------------
-ADAPTIVE
------------------------------------------*/
-@media(max-width:460px){
-  .mobile-none{
-    display: none;
-  }
-}
 /*---------------------------------------
 MAIN              
 -----------------------------------------*/
@@ -198,6 +189,22 @@ MAIN
   cursor: pointer;
 }
 
+.m-width-70{
+  min-width: 70px;
+}
+
+.m-width-80{
+  min-width: 80px;
+}
+
+.m-width-100{
+  min-width: 100px;
+}
+
+.m-width-120{
+  min-width: 120px;
+}
+
 .height-100{
   height: 100%;
 }
@@ -267,6 +274,11 @@ transform: scale(1.2); /* Увеличиваем масштаб */
   display: table-row;
   align-items: start;
   width: 100%;
+  cursor: pointer;
+}
+
+.table-row:hover > p{
+  color: var(--primary-color);
 }
 
 .table-cell{
@@ -721,4 +733,36 @@ body.noscroll {
 /*    color: rgb(250, 250, 250);
   }
 
+}*/
+/*---------------------------------------
+ADAPTIVE
+-----------------------------------------*/
+@media(max-width:460px){
+  .mobile-none{
+    display: none !important;
+  }
+
+  .m-width-70{
+    min-width: 35px;
+  }
+
+  .m-width-80{
+    min-width: 40px;
+  }
+
+  .m-width-100{
+    min-width: 50px;
+  }
+
+  .m-width-120{
+    min-width: 60px;
+  }
+
+  .table-cell{
+    padding: 3px;
+  }
+
+  p{
+    line-height: 20px;
+  }
 }

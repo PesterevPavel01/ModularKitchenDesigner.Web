@@ -9,6 +9,10 @@ $(document).ready(function() {
         
         $quantityInput = $currentLi.find('#quantity');
         
+        $quantityInput.on('change input', function() {
+            quantityChange();
+        });
+
         $quantityInput.on('input', function() {
 
             var quantityValue = $(this).val();
@@ -23,3 +27,15 @@ $(document).ready(function() {
 
     });
 });
+   
+function quantityChange() {
+
+    //очистка отчета по стоимости и спецификации при изменении выбора модулей или их количества
+    const $section = $('.custom-kitchen-order-section');
+    
+    if ($section.length) {
+        $section.empty();
+    } else {
+        console.warn('Блок .custom-kitchen-order-section не найден');
+    }
+}

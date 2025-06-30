@@ -14,7 +14,7 @@
         <a class="navbar-brand height-100" href="/">
             <div class="container-logo flex-column height-100">
                 <div class="custom-logo flex-row-start height-100">
-                    <img class="logo-icon cover height-100" src="<?=theme_image('logo.png',true,'/assets/img/')?>">
+                    <img class="logo-icon cover height-100" src="<?=theme_image('logo',true,'/assets/img/')?>">
                     </img>
                     <div class="logo black flex-column">
                         <p class="logo-main">Дизаж</p>

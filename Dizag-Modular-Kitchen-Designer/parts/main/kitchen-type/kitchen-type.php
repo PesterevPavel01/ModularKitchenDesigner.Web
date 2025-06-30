@@ -39,7 +39,7 @@ if($priceSegment){
                         <input type="hidden" id="value" value=<?=$item['code']?>>
                         <block class="flex-row gap10">
                             <?$item['previewImageSrc'] = 'kitchen_preview_image.png'?>
-                            <img class="height-100px" src="<?= theme_image($item['previewImageSrc'],true)?>">
+                            <img class="height-100px" src="<?= theme_image($item['code'],true, '/assets/img/kitchen/')?>">
                             <block class="flex-column">
                                 <h5 class="kitchen-type-item-content medium-font code"><?=$item['code']?></h5>
                                 <p class="kitchen-type-item-content black"><?=$item['title']?></p> 

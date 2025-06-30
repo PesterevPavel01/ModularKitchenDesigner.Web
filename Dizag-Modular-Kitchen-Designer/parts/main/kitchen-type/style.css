@@ -33,3 +33,8 @@
     cursor: pointer;
     max-width: 100%;
 }
+
+.kitchen-type-item > block > img{
+    overflow: hidden;
+    object-fit: fill;
+}

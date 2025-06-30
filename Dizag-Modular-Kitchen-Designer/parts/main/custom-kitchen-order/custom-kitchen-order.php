@@ -72,14 +72,14 @@ else
 $materialsTop = $args['PARAMETER']['MATERIALS']['TOP'];
 $materialsBottom = $args['PARAMETER']['MATERIALS']['BOTTOM'];
 
-$Result = new BaseResult();
+$KitchenTypeResult = new BaseResult();
 $KitchenTypeProcessor = new KitchenTypeLoaderProcessor($ApiUrl);
-$Result = $KitchenTypeProcessor->GetByCode($args['PARAMETER']['KITCHEN_TYPE_CODE']);
+$KitchenTypeResult = $KitchenTypeProcessor->GetByCode($args['PARAMETER']['KITCHEN_TYPE_CODE']);
 
-if(!$Result->isSuccess())
+if(!$KitchenTypeResult->isSuccess())
 {?>
-    <p class="error-message"><?=$Result->ErrorMessage?></p>
-<?}
+    <p class="error-message"><?=$KitchenTypeResult->ErrorMessage?></p>
+    <?}
 
 $current_user = wp_get_current_user();
 $user_login = $current_user->user_login;
@@ -89,10 +89,11 @@ $body =
     [
         'userLogin' => $user_login,
         'userId' => (string)$user_id,
-        'kitchenType' => $Result->data[0]['title']
-    ]
-];
+        'kitchenType' => $KitchenTypeResult->data[0]['title']
+        ]
+    ];
     
+$Result = new BaseResult();
 $KitchenProcessor = new KitchenCreatorProcessor($ApiUrl);
 $Result = $KitchenProcessor->Process($body); 
 
@@ -146,10 +147,11 @@ $CustomKitchenProcessor = new CustomKitchenLoaderProcessor($ApiUrl);
 $CustomKitchenResult = new BaseResult();
 $CustomKitchenResult = $CustomKitchenProcessor->GetByCode($kitchenCode);
 
+
 if($CustomKitchenResult->isSuccess())
 {
     $item = $CustomKitchenResult->data;
-    $price = number_format((float)$item['price'],2,',',' ');
+    $price = number_format((float)$item['price'],1,',',' ');
     $width = number_format((float)$item['width'],1,',',' ');
 ?>
     <block class="custom-kitchen-order flex-column-start gap20">
@@ -183,6 +185,22 @@ if($CustomKitchenResult->isSuccess())
             'PARAMETER' => [
                 'SPECIFICATION' => $item['specification']
             ]
+        ]);
+
+    $arrayForPdfCreator = 
+    [
+        'KITCHEN_TYPE' => $KitchenTypeResult->data[0],
+        'SECTIONS' => $args['PARAMETER']['SECTIONS'],
+        'MATERIALS' => [
+            'TOP' => $args['PARAMETER']['MATERIALS']['TOP'],
+            'BOTTOM' =>  $args['PARAMETER']['MATERIALS']['BOTTOM']
+        ],
+        'SPECIFICATION' => $item['specification']
+    ];
+
+    get_template_part("parts/main/pdf-order-creator/pdf-order-creator",null,
+        [
+            'PARAMETERS' => $arrayForPdfCreator
         ]);
 }else{
 ?>

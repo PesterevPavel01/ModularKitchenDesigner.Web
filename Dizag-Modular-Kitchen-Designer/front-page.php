@@ -9,7 +9,6 @@
 <?php the_content(); ?>
 
 <main>
-    //get_template_part("parts/navigation/popup")
     <section class="section-content flex-column gap40">
     
     <? if(is_user_logged_in()){?>

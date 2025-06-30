@@ -40,6 +40,13 @@ function  AjaxTriggersInit()
     $('#create-custom-order-button').off('click').on('click', function(e) {
         AjaxCreateCustomOrder();
     });
+
+    $ajax_generate_pdf_part = pdf_order_creator_url + "script.js";
+
+    $.getScript($ajax_generate_pdf_part)
+    .done(function() {
+        InitializeCreatePdfOrderButton();
+    })
 }
 
 function AjaxContentUpdate($currentBtn) {
@@ -67,7 +74,6 @@ function AjaxCreateCustomOrder() {
 
     $.getScript(main_parts_url + "custom-order-creator.js")
     .done(function() {
-
         let data = GetParams('#create-custom-order-button');
         performAjaxRequest(data, '#create-custom-order-button');
     })

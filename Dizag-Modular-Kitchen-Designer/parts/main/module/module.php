@@ -37,7 +37,7 @@ if($moduleTypeTitle){
                         <p class="black mini-font"><?=$item['width']?></p>
                     </li>
                     <li class="scale_image_parent">
-                        <img src="<?= theme_image($item['previewImageSrc'],true)?>" alt="" class="module-image scale">
+                        <img src="<?= theme_image($item['code'],true)?>" alt="" class="module-image scale">
                     </li>
                     <li class = "quantity flex-row">
                         <p>Количество: </p>

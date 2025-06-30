@@ -16,7 +16,14 @@
             
             <li class="table-row">
                 <?php foreach($specification[0] as $key => $value) { ?>
-                    <p class="table-cell order-value-content grey"> 
+                    <p class="table-cell order-value-content grey
+                    <?=($key === "title" 
+                                    || $key === "unitPrice" 
+                                    || $key === "totalPrice"
+                                    || $key === "quantity") 
+                                    ? "" 
+                                    : " mobile-none"?>
+                    "> 
                     <?php switch ($key) {
                         case "title":
                             echo "Компонент";
@@ -53,11 +60,22 @@
 
                 <li class="table-row">
 
-                        <?foreach($specificationItem as $value){?>
+                        <?foreach($specificationItem as $key => $value){?>
 
-                                <p class="table-cell order-value-content black"> 
-                                    <?=$value?>
-                                </p> 
+                            <p class="table-cell order-value-content
+                                <?=($key === "title" 
+                                    || $key === "unitPrice" 
+                                    || $key === "totalPrice"
+                                    || $key === "quantity") 
+                                    ? " black" 
+                                    : " grey medium-font mobile-none"?>
+
+                                <?=$key === "totalPrice" ? " m-width-120 normal-font" : ""?>
+                                <?=$key === "quantity" ? " m-width-70" : ""?>
+                                <?=$key === "unitPrice" ? " m-width-100" : ""?>
+                                    "> 
+                                    <?=($key === "unitPrice" || $key === "totalPrice") ? number_format((float)$value,0,',',' ') : $value?>
+                            </p> 
 
                         <?}?>
 
