@@ -38,10 +38,10 @@ function AjaxProcess(data, unlockedElement) {
         contentType: false, // Обязательно указать false
         
         success: function(response) {
-            console.log(response);
+            //console.log(response);
             $('.content-pdf-download-link').attr('href', response.data);
             $('.content-pdf-download-link').addClass('active');
-            console.log($('.content-pdf'));
+            window.open(response.data, '_blank');
             if(unlockedElement)
                 $(unlockedElement).removeClass('process');
         }

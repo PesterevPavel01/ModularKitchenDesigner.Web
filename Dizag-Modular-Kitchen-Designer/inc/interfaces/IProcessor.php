@@ -1,5 +1,5 @@
 <?
-interface IPDFGeneratorProcessor {
+interface IProcessor {
     public function Process(array $data): string;
 }
 ?>

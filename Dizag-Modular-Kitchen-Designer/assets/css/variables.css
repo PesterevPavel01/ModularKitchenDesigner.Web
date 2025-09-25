@@ -1,8 +1,8 @@
 :root {
-	--body-color:                 #ffffff;
+	--body-color:                 #f6f6f6;
 	--white-color:                #FFFFFF;
 	--primary-color:              #1d9e26;
-	--primary-dark-color:         #4e5353;
+	--primary-dark-color:         #9aa3a3;
 	--section-bg-color:           #f0f8ff;
 	--dark-color:                 #000000;
 	--grey-color:                 #d0d1d1;
@@ -10,16 +10,24 @@
 	--blue-grey-color:            #f3fafa;
 	--p-color:                    #e6a009;
 	--dark-red-color:             rgb(78, 3, 3);
+	--dark-blue-color:            rgb(11, 12, 80);
   
 	--body-font-family:           "Oswald", system-ui;
+	--title-font-family:          'PT Sans', Helvetica, Arial, sans-serif;
+	--catalog-font-family:        'PT Sans', Helvetica, Arial, sans-serif;
+	
   
 	--navbar-height:          80px;
   
 	--section-max-width:          1600px;
   
+
+	--bootstrap-icon-size:         40px;
+	--bootstrap-icon-size-medium:  30px;
+
 	--h5-font-size:               24px;
-	--p-font-size:                20px;
-	--middle-font-size:           18px;
+	--p-font-size:                18px;
+	--middle-font-size:           16px;
 	--p-font-size-mobile:         15px;
 	--mini-font-size:             15px;
 	--small-font-size:            10px;

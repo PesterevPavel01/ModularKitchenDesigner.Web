@@ -1,16 +1,6 @@
-<nav class="navbar">
+<nav class="navbar-section headroom">
 
-    <div class="container height-100">
-        
-        <?/*?>
-        <div class="hamb">
-            <div class="hamb-field" id="hamb">
-                <span class="bar"></span>
-                <span class="bar"></span>
-                <span class="bar"></span>
-            </div>
-        </div>
-        <?*/?>
+    <div class="navbar-container flex-container height-100">
         <a class="navbar-brand height-100" href="/">
             <div class="container-logo flex-column height-100">
                 <div class="custom-logo flex-row-start height-100">
@@ -18,7 +8,7 @@
                     </img>
                     <div class="logo black flex-column">
                         <p class="logo-main">Дизаж</p>
-                        <p class="logo-footer">МОДУЛЬНЫЕ КУХНИ</p>
+                        <p class="logo-footer">ПРОИЗВОДСТВО МЕБЕЛИ</p>
                     </div>
                 </div>
             </div>
@@ -30,25 +20,16 @@
                     ?>
                     <li class="flex-column">
                         <p class="login white mobile-none"><?=$current_user->user_login?></p>
-                        <a class="flex-column white" href="<?= wp_logout_url( get_site_url() . "/autorization/") ?>">
+                        <a class="flex-column white" href="<?= wp_logout_url( get_site_url() . "/authorization/") ?>">
                             <div class="bi bi-box-arrow-right"></div>
-                            <label class="small-font pointer navbar-label">выход</label>
+                            <?/*?><label class="small-font pointer navbar-label">выход</label><?*/?>
                         </a>
                     </li>
                 <?}else{?>
                     <li class>
-                        <a class="bi bi-person-circle white" href="/autorization/"></a>
+                        <a class="bi bi-person-circle white" href="/authorization/"></a>
                     </li>
                 <?}?>
-                <?/*?>
-                <li class="nav-item">
-                    <a class="nav-link" href="gallery.html">МЕНЮ 2</a>
-                </li>
-            
-                <li class="nav-item">
-                    <a class="nav-link" href="about.html">МЕНЮ 3</a>
-                </li>
-                <?*/?>
             </ul>
         </div>
     </div>

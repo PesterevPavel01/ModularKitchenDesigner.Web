@@ -1,23 +1,24 @@
 <?php
     require_once get_template_directory() . '/core/Result.php';
     require_once get_template_directory() . '/core/HttpConnector.php';
-    
-    Class CustomKitchenLoaderProcessor
+
+    Class PermissionProcessor
     {
 
         public $Url;
         public $HttpConnector;
         public $Result;
 
-        public function __construct($ApiUrl){
+        public function __construct($clientServiceUrl){
             $this->HttpConnector = new HttpConnector();
             $this->Result = new BaseResult();
-            $this->Url = $ApiUrl . "v1/CustomKitchen/";
+            $this->Url = $clientServiceUrl . "v2/user/";
         }
 
-        public function GetByCode($kitchenCode)
+        public function Process($userName)
         {
-            $this->Result = $this->HttpConnector->GetByUrl( $this->Url ."GetByCode/". urlencode($kitchenCode));
+            $Result = new BaseResult();
+            $this->Result = $this->HttpConnector->GetMessageByUrl( $this->Url . urlencode($userName) ."/roles");
             return $this->Result;
         }
     }

@@ -1,6 +1,6 @@
 <?
-require_once get_template_directory() . '/core/services/processors/pdf-generator/PDFGeneratorProcessor.php';
-require_once get_template_directory() . '/inc/interfaces/IPDFGeneratorProcessor.php';
+require_once get_template_directory() . '/core/services/processors/pdf-generator/GotenbergPdfCreatorProcessor.php';
+require_once get_template_directory() . '/inc/interfaces/IProcessor.php';
 
 class ContainerDI {
    
@@ -15,8 +15,8 @@ class ContainerDI {
     
     private function create_service(string $id) {
         switch ($id) {
-            case IPDFGeneratorProcessor::class:
-                return new PDFGeneratorProcessor();
+            case IProcessor::class:
+                return new GotenbergPdfCreatorProcessor();
             // Можно добавить другие сервисы
             default:
                 throw new Exception("Service $id not found");

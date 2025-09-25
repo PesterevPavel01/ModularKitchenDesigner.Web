@@ -64,6 +64,7 @@ function theme_styles_and_scripts() {
 
 	wp_enqueue_style('google-fonts-oswald', 'https://fonts.googleapis.com/css2?family=Oswald:wght@200..700&display=swap', false);
 	wp_enqueue_style('google-fonts-allison', 'https://fonts.googleapis.com/css2?family=Allison&display=swap', false);
+	wp_enqueue_style('google-fonts-pt-sans', 'https://fonts.googleapis.com/css2?family=PT+Sans:wght@400;700&display=swap', array(), null);
 
 
 	//Enqueue .js files	

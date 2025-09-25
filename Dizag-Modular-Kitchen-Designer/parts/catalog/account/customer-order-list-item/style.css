@@ -1,0 +1,36 @@
+.customer-order-list-item{
+    height: 80px;
+    width: 100%;
+}
+
+.customer-order-list-item > i{
+    color: var(--primary-dark-color);
+    max-width: 80px;
+    height: 40px;
+    margin: auto;
+    font-size: var(--bootstrap-icon-size);
+}
+
+.panel-control {
+    color: var(--primary-dark-color);
+}
+
+.panel-control > i{
+    max-width: 80px;
+    height: 30px;
+    font-size: var(--bootstrap-icon-size-medium);
+}
+
+.customer-order-list-item > p{
+    font-size: var(--middle-font-size);
+}
+
+.customer-order-list-item span,
+.customer-order-list-item button
+{
+    font-size: var(--mini-font-size);
+}
+
+.panel-control{
+    padding-right: 15px;
+}

@@ -1,29 +1,29 @@
 <?
-require_once get_template_directory() . '/inc/interfaces/IPDFGeneratorProcessor.php';
+require_once get_template_directory() . '/inc/interfaces/IProcessor.php';
 
-class PDFGeneratorProcessor implements IPDFGeneratorProcessor {
+class GotenbergPdfCreatorProcessor implements IProcessor {
     private $upload_dir;
+    private $gotenbergUrl;
     
     public function __construct() {
-        $this->upload_dir = wp_upload_dir();
+        global $PdfOrderUploads;
+        global $GotenbergUrl;
+        $this->upload_dir['path'] = $PdfOrderUploads['path'];
+        $this->upload_dir['url'] = $PdfOrderUploads['url'];
+        $this->gotenbergUrl = $GotenbergUrl;
     }
 
-    public function Process(array $data, string $gutenbergUrl): string {
+    public function Process(array $data): string {
 
-        $html = $this->generate_html_content($data);
-        //return $html;
-        $pdf_content = $this->send_to_gotenberg($html, $gutenbergUrl);
-        return $this->save_pdf_file($pdf_content);
+        $pdf_content = $this->send_to_gotenberg($data['HTML']);
+
+        $file = $this->save_pdf_file($pdf_content);
+        
+        return $file['url'];
     }
     
-    private function generate_html_content($data) {
-        ob_start();
-        get_template_part('parts/templates/pdf-order-template', null, $data);
-        $html = ob_get_clean();
-        return  $html;
-    }
-    
-    private function send_to_gotenberg($html, $gutenbergUrl) {
+    private function send_to_gotenberg($html) {
+
         // Правильная подготовка multipart запроса
         $boundary = wp_generate_password(24, false); // Убедитесь, что граница не содержит специальных символов
         $payload = "--$boundary\r\n";
@@ -36,7 +36,7 @@ class PDFGeneratorProcessor implements IPDFGeneratorProcessor {
         $payload .= "--$boundary--\r\n";
         
         // Отправка запроса
-        $response = wp_remote_post($gutenbergUrl . 'forms/chromium/convert/html', [
+        $response = wp_remote_post($this->gotenbergUrl . 'forms/chromium/convert/html', [
             'headers' => [
                 'Content-Type' => 'multipart/form-data; boundary='.$boundary,
             ],
@@ -54,14 +54,15 @@ class PDFGeneratorProcessor implements IPDFGeneratorProcessor {
         return $pdf_content;
     }
     
-    private function save_pdf_file($pdf_content) {
+    private function save_pdf_file($pdf_content){
         
         // Сохранение файла
-        $upload_dir = wp_upload_dir();
-        $filepath = $upload_dir['path'] . '/order_'.time().'.pdf';
+        $fileName = '/order_'.time().'.pdf';
+        $filepath =  $this->upload_dir['path'] . $fileName;
         file_put_contents($filepath, $pdf_content);
-
-        return $upload_dir['url'].'/'.basename($filepath);
+        $file['url'] = $this->upload_dir['url'] . $fileName;
+        $file['path'] = $this->upload_dir['path'] . $fileName;
+        return $file;
     }
 
 }

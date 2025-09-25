@@ -7,7 +7,7 @@ $(document).ready(function() {
         
         $currentLi = $(this);
         
-        $quantityInput = $currentLi.find('#quantity');
+        $quantityInput = $currentLi.find('.quantity-value');
         
         $quantityInput.on('change input', function() {
             quantityChange();
@@ -35,7 +35,5 @@ function quantityChange() {
     
     if ($section.length) {
         $section.empty();
-    } else {
-        console.warn('Блок .custom-kitchen-order-section не найден');
     }
 }

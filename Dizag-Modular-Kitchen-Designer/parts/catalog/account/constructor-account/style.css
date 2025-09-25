@@ -1,0 +1,32 @@
+.navigation-block > *{
+    font-size: var(--bootstrap-icon-size);
+}
+
+.navigation-block{
+    padding: 0 0 20px 0;
+}
+
+/* Стили для полноэкранного слайдера */
+.account-swiper {
+    width: 100%;
+    height: 100%; /* На всю высоту viewport */
+    min-height: 500px;
+}
+
+.account-swiper .swiper-wrapper {
+    height: 100%;
+}
+
+.account-swiper .swiper-slide {
+    width: 100%;
+    height: 100%;
+    margin: auto;
+    overflow: hidden;
+}
+
+.customer-section,
+.approval-section {
+    width: 100%;
+    height: 100%;
+    padding: 20px;
+}

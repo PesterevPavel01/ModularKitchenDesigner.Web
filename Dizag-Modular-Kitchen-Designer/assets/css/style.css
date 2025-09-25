@@ -122,6 +122,10 @@ MAIN
   padding: 90px 0;
 }
 
+.white-background{
+  background-color:  var(--white-color);
+}
+
 .section-content > section{
   padding: 0 30px;
   width: 100%;
@@ -145,6 +149,14 @@ MAIN
   gap: 10px;
 }
 
+.gap6{
+  gap: 6px;
+}
+
+.gap2{
+  gap: 2px;
+}
+
 .black {
   color: var(--dark-color);
 }
@@ -152,7 +164,9 @@ MAIN
 .white{
   color: var(--white-color);
 }
-
+.primary-dark{
+  color: var(--primary-dark-color)!important;
+}
 .grey{
   color: var(--grey-color) !important;
 }
@@ -205,6 +219,14 @@ MAIN
   min-width: 120px;
 }
 
+.mx-width-350{
+  max-width: 350px;
+}
+
+.mx-width-1380{
+  max-width: 1380px;
+}
+
 .height-100{
   height: 100%;
 }
@@ -219,6 +241,13 @@ MAIN
 
 .height-300px{
   height: 300px;
+}
+
+/*---------------------------------------
+ELEMENTOR PAGES             
+-----------------------------------------*/
+.main-switch-kitchen-block{
+ cursor: pointer;
 }
 
 /*---------------------------------------
@@ -283,13 +312,13 @@ transform: scale(1.2); /* Увеличиваем масштаб */
 
 .table-cell{
   display: table-cell;
-  padding: 10px;
+  padding: 5px 10px 5px 0;
 }
 
 .flex-row {
   display: flex;
   flex-direction: row;
-  width: 100%;          
+  width: 100%;       
 }
 
 .flex-row-center {
@@ -309,7 +338,15 @@ transform: scale(1.2); /* Увеличиваем масштаб */
   display: flex;
   width: 100%;  
   justify-content: start;
-  align-items: start;   
+  align-items: center;
+  gap: 10px;     
+}
+
+.flex-row-end {
+  display: flex;
+  width: 100%;  
+  justify-content: end;
+  align-items: center;
   gap: 10px;     
 }
 
@@ -329,15 +366,22 @@ transform: scale(1.2); /* Увеличиваем масштаб */
   justify-content: start;
 }
 
+.flex-container{
+  display: flex;
+  align-items: center;
+}
 
 .flex-column > p {
   align-content: center;
 }
 
+.none{
+  display: none;
+}
 /*---------------------------------------
   NAVIGATION               
 -----------------------------------------*/
-.navbar {
+.navbar-section {
   height: 80px;
   padding: 0 20px;
   background: var(--dark-color);
@@ -364,6 +408,7 @@ transform: scale(1.2); /* Увеличиваем масштаб */
   margin: auto;
   margin-right: 0;
   height: 100%;
+  justify-content: flex-end;
 }
 
 .container{
@@ -593,28 +638,59 @@ body.noscroll {
   overflow: hidden;
 }
 
-/*---------------------------------------
-  CUSTOM BUTTON & ICON              
+/*----------------------------------------
+  CUSTOM CONTROLS & ICON              
 -----------------------------------------*/
+.custom-checkbox{
+  border-color: var(--primary-color);
+  accent-color: var(--primary-color) !important;
+}
+
+.btn-primary {
+  --bs-btn-active-bg: var(--dark-color) !important;
+  --bs-btn-active-border-color: var(--dark-color) !important;
+}
+
 .custom-btn {
   background: var(--p-color);
-  border-radius: 20px;
+  border-radius: 10px  !important;
   color: var(--white-color);
   font-size: var(--copyright-text-font-size);
   text-transform: uppercase;
-  padding: 16.50px 20px;
+  padding: 16px 20px;
   display: inline-block;
   font-weight: 600;
-  text-align: center;
-  cursor: pointer;
+  text-align: center  !important;
+  cursor: pointer  !important;
+}
+
+
+.custom-btn:hover,
+.btn-primary:hover,
+.slick-slideshow .custom-btn:hover {
+  background: var(--primary-color);
+  color: var(--white-color);
 }
 
 .custom-btn.black{
   background: var(--dark-color);
 }
 
-.btn{
-  transform: translate(0, 45px)
+.custom-btn.white{
+  background: var(--white-color);
+  border: 1px solid var(--grey-color);
+  color: var(--dark-color);
+  width: 100%;
+}
+
+.custom-btn.white:hover{
+  background: var(--light-grey-color) !important;
+}
+
+.btn-primary{
+  background-color: var(--white-color);
+  border: 0.5px solid var(--primary-dark-color) ;
+  color:var(--dark-color) ; /* цвет текста */
 }
 
 .social-btn {
@@ -640,12 +716,6 @@ body.noscroll {
   font-size: var(--product-link-font-size);
 }
 
-.custom-btn:hover,
-.slick-slideshow .custom-btn:hover {
-  background: var(--primary-color);
-  color: var(--white-color);
-}
-
 .custom-icon {
   color: var(--white-color);
   font-size: 24px;
@@ -663,6 +733,14 @@ body.noscroll {
 .featured-icon {
   color: var(--grey-color);
   font-size: 52px;
+}
+
+.bi-check-square , .bi-square{
+  cursor: pointer;
+}
+
+.bi-check-square , .bi-square:hover{
+  color: var(--primary-color);
 }
 
 /*---------------------------------------
@@ -758,11 +836,17 @@ ADAPTIVE
     min-width: 60px;
   }
 
-  .table-cell{
-    padding: 3px;
+  .m-width-1360{
+    min-width: 1360;
   }
-
+  
   p{
     line-height: 20px;
+  }
+
+  .table-cell{
+      font-size: 10px;
+      line-height: 12px;
+      padding: 3px;
   }
 }

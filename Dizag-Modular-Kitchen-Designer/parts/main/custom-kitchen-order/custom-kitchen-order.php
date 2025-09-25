@@ -8,6 +8,7 @@ require_once get_template_directory() . '/core/services/processors/kitchen/Kitch
 require_once get_template_directory() . '/core/validators/CustomKitchenParameterValidator.php';
 
 global $ApiUrl;
+global $Discount;
 
 /*Array 
 ( 
@@ -147,28 +148,53 @@ $CustomKitchenProcessor = new CustomKitchenLoaderProcessor($ApiUrl);
 $CustomKitchenResult = new BaseResult();
 $CustomKitchenResult = $CustomKitchenProcessor->GetByCode($kitchenCode);
 
-
 if($CustomKitchenResult->isSuccess())
 {
+
+    $discount = $Discount;
     $item = $CustomKitchenResult->data;
     $price = number_format((float)$item['price'],1,',',' ');
+    $discountedPrice = number_format((float)($item['price'] * (1-$discount)),1,',',' ');
     $width = number_format((float)$item['width'],1,',',' ');
 ?>
     <block class="custom-kitchen-order flex-column-start gap20">
-    <?get_template_part("parts/main/titles/section-title",null,
-        [
-            'PREFIX' => 'ПАРАМЕТРЫ',
-            'TEXT' => 'КУХНИ'
-        ]);?>
+    
+        <?get_template_part("parts/main/titles/section-title",null,
+            [
+                'PREFIX' => 'ПАРАМЕТРЫ',
+                'TEXT' => 'КУХНИ'
+            ]);?>
+            
         <ul class="flex-column-start gap20">
-            <li class="flex-column-start order-value">
-                <p class="order-value-content black">
-                    <span>
-                        Стоимость, руб :
-                    </span> 
-                    <?=$price?>
-                </p> 
-            </li>
+
+            <?if($args['PARAMETER']['PRICE_TYPES']['RETAIL']
+            || (!$args['PARAMETER']['PRICE_TYPES']['RETAIL'] && !$args['PARAMETER']['PRICE_TYPES']['DISCOUNTED'])):?>
+
+                <li class="flex-column-start order-value">
+                    <p class="order-value-content black">
+                        <span>
+                            Стоимость, руб :
+                        </span> 
+                        <?=$price?>
+                    </p> 
+                </li>
+
+            <?endif;?>
+
+            <?if($args['PARAMETER']['PRICE_TYPES']['DISCOUNTED']
+            || (!$args['PARAMETER']['PRICE_TYPES']['RETAIL'] && !$args['PARAMETER']['PRICE_TYPES']['DISCOUNTED'])):?>
+
+                <li class="flex-column-start order-value">
+                    <p class="order-value-content black">
+                        <span>
+                            Стоимость с учетом скидки, руб :
+                        </span> 
+                        <?=$discountedPrice?>
+                    </p> 
+                </li>
+
+            <?endif;?>
+
             <li class="flex-column-start order-value">
                 <p class="order-value-content black">
                     <span>
@@ -179,23 +205,27 @@ if($CustomKitchenResult->isSuccess())
             </li>
         </ul>
     </block>
-
+    
     <?get_template_part("parts/main/specification/specification",null,
         [
             'PARAMETER' => [
-                'SPECIFICATION' => $item['specification']
+                'SPECIFICATION' => $item['moduleSpecifications'],
+                'PRICE_TYPES' =>  $args['PARAMETER']['PRICE_TYPES'],
+                'PRICE' => $item['price'],
             ]
         ]);
 
     $arrayForPdfCreator = 
     [
         'KITCHEN_TYPE' => $KitchenTypeResult->data[0],
+        'PRICE' => $item['price'],
         'SECTIONS' => $args['PARAMETER']['SECTIONS'],
         'MATERIALS' => [
             'TOP' => $args['PARAMETER']['MATERIALS']['TOP'],
             'BOTTOM' =>  $args['PARAMETER']['MATERIALS']['BOTTOM']
         ],
-        'SPECIFICATION' => $item['specification']
+        'SPECIFICATION' => $item['moduleSpecifications'],
+        'PRICE_TYPES' =>  $args['PARAMETER']['PRICE_TYPES']
     ];
 
     get_template_part("parts/main/pdf-order-creator/pdf-order-creator",null,

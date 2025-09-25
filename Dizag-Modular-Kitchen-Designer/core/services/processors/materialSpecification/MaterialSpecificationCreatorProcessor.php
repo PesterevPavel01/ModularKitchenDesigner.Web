@@ -21,7 +21,7 @@
 
             try
             {
-                $this->Result=$this->HttpConnector->GetDataByUrl($this->Url,$body);
+                $this->Result=$this->HttpConnector->GetDataByUrl($this->Url, $body);
             }
             catch (Exception $e)
             {

@@ -1,6 +1,5 @@
 <?$json_data = htmlspecialchars(json_encode($args['PARAMETERS'], JSON_UNESCAPED_UNICODE | JSON_HEX_QUOT | JSON_HEX_APOS), ENT_QUOTES, 'UTF-8');
 ?>
-
 <block class = "pdf-order-creator-section" id = "pdf-order-creator-section">
     <input type = "hidden" name="generate_pdf" value="1">
     <input type = "hidden" id="parameters" value="<?=$json_data?>">

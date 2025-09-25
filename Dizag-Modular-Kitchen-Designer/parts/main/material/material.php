@@ -28,7 +28,8 @@ if($kitchenTypeCode){
     
     if($Result->isSuccess())
     {?>
-        <block class="block-material flex-column-start gap20">
+        <block class="block-material flex-column-start gap20" id='material-items'>
+            
             <?get_template_part("parts/main/titles/section-title",null,
                 [
                     'PREFIX' => 'МАТЕРИАЛЫ ',
@@ -52,15 +53,29 @@ if($kitchenTypeCode){
                     <div class="block-material-item-content bi bi-square top"></div>
                     <div class="block-material-item-content bi bi-square bottom"></div>
                 </li>
-                <?}?>
+            <?}?>
             </ul>
         </block>
+
+        
         <block class="create-custom-order-btn flex-column-start gap20">
+            
+            <ul class="prise-switcher flex-row-start gap20 check-square-list">
+                <li>
+                    <p class="block-material-item-content primary-dark">вывести только розничные цены</p> 
+                    <div class="block-material-item-content bi bi-square price-types" id="retail-price-check-box"></div>
+                </li>
+                <li>
+                    <p class="block-material-item-content primary-dark">вывести только цены со скидкой</p> 
+                    <div class="block-material-item-content bi bi-square price-types" id="discounted-price-check-box"></div>
+                </li>
+            </ul>
+
             <input type="hidden" id="action" value=<?=$args['PARAMETERS']['ACTION']?>>
             <input type="hidden" id="template_part_to_update" value=<?=$args['PARAMETERS']['TEMPLATE_PART_TO_UPDATE']?>>
             <input type="hidden" id="html_block_to_update" value=<?=$args['PARAMETERS']['HTML_BLOCK_TO_UPDATE_CLASS']?>>
             <input type="hidden" id="custom-order-kitchen-code" value=<?=$args['PARAMETER']?>>
-            <div class="custom-btn black" id="create-custom-order-button">Расчитать</div>
+            <div class="custom-btn black" id="create-custom-order-button">Рассчитать</div>
         </block>
         
         <??>

@@ -11,6 +11,7 @@ if($moduleTypeTitle){
     $Result = new BaseResult();
     $MaterialLoaderProcessor = new ModuleLoaderProcessor($ApiUrl);
     $Result = $MaterialLoaderProcessor->Process($moduleTypeTitle);
+
     if($Result->isSuccess())
     {
     ?>
@@ -41,7 +42,7 @@ if($moduleTypeTitle){
                     </li>
                     <li class = "quantity flex-row">
                         <p>Количество: </p>
-                        <input type="number" step="1" min="0" max="100" value="0" id="quantity" name="quantity"/>
+                        <input type="number" step="1" min="0" max="100" value="0" class="quantity-value" name="quantity"/>
                     </li>
                 </ul>
             </div>

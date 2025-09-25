@@ -1,5 +1,5 @@
+<img class="logo-icon cover height-100" src="<?=theme_image('logo',true,'/assets/img/')?>">
 <h2>Модульная кухня "<?=$args['KITCHEN_TYPE']['title']?>"</h2>
-
 <p>Материалы:</p>
 <ul class = "list">
     <li><p>Верх: <?=$args['MATERIALS']['TOP']['VALUE']['TITLE']?></p></li>
@@ -9,7 +9,7 @@
 <p>Модули:</p>
 <ul class = "list">
 <?foreach ($args['SECTIONS'] as $section) {?>
-    <li><p><?=$section['moduleCode']?> - <?=$section['quantity']?> шт.</p></li>
+    <li><p><?=$section['moduleTitle']?> ( <?=$section['moduleCode']?> ) - <?=$section['quantity']?> шт.</p></li>
 <?}?>
 </ul>
 <br>
@@ -17,11 +17,18 @@
 <?get_template_part("parts/main/specification/specification",null,
         [
             'PARAMETER' => [
-                'SPECIFICATION' =>$args['SPECIFICATION']
+                'SPECIFICATION' =>$args['SPECIFICATION'],
+                'PRICE_TYPES' => $args['PRICE_TYPES'],
+                'PRICE' => $args['PRICE']
             ]
         ]);
 ?>
 <style>
+
+    .height-100{
+        height: 100px;   
+    }
+
     .list {
         list-style-type: none;
         margin: 0;
@@ -34,7 +41,7 @@
     }
 
     .list > li{
-        padding: 0 10px;
+        padding: 0;
     }
 
     .custom-kitchen-specification{
@@ -70,10 +77,28 @@
 
     .table-cell{
         display: table-cell;
-        padding: 2px 4px;
+        padding: 10px 10px 0 0;
+        min-width: 60px;
+    }
+
+    .pdf-none{
+        display: none;
     }
 
     p{
-        font-size: 10px;
+        font-size: 14px;
+    }
+    
+    .table-cell{
+        font-size: 12px;
+    }
+    .specification-module-title{
+        padding-top: 10px;
+        padding-bottom: 10px;
+        border-top: 1px solid black;
+        /*border-bottom: 1px solid var(--dark-blue-color);*/
+        color:  rgb(11, 12, 80);
+        font-size: 14px;
+        background-color: #d0d1d1;
     }
 </style>

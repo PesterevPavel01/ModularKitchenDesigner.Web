@@ -35,6 +35,16 @@ function  AjaxTriggersInit()
                 CheckSquareClick($(this),$checkSquareBottom)
             });
         });
+
+        $checkSquarePriceTypes = $biSquareList.find('.bi-square.price-types , .bi-check-square.price-types')
+        
+        console.log($checkSquarePriceTypes);
+
+        $checkSquarePriceTypes.each(function() {
+            $(this).off('click').on('click', function(e) {
+                CheckSquareClick($(this),$checkSquarePriceTypes)
+            });
+        });
     });
 
     $('#create-custom-order-button').off('click').on('click', function(e) {

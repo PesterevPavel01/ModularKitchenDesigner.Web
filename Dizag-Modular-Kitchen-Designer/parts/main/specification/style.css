@@ -1,0 +1,9 @@
+.specification-module-title{
+    padding-top: 10px;
+    padding-bottom: 10px;
+    border-top: 1px solid var(--dark-blue-color);
+    /*border-bottom: 1px solid var(--dark-blue-color);*/
+    color: var(--dark-blue-color);
+    /*font-size: var(--p-font-size);*/
+    background-color: var(--grey-color);
+}

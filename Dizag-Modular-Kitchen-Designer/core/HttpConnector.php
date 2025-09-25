@@ -24,6 +24,7 @@
             }
 
             $curl_result = curl_exec($curl);
+
             $result = new BaseResult();
 
             if (!$curl_result) {
@@ -33,7 +34,18 @@
                 curl_close($curl);
                 return $result;
             }
+            
+            $http_code = curl_getinfo($curl, CURLINFO_HTTP_CODE);
 
+            if($http_code >= 400)
+            {
+                $result->ErrorMessage = json_decode($curl_result, true);
+                $result->ErrorCode = $http_code;
+                $result->ObjectName = "HttpConnector";
+                curl_close($curl);
+                return $result;
+            }
+            
             curl_close($curl);
             
             // Декодируем JSON ответ
@@ -50,13 +62,26 @@
             $result->connectionTime = $response['connectionTime'];
             return $result;
         }
-        /*
-        public function GetByUrl($Url, $bodyData)
+
+        public function GetMessageByUrl($Url, $bodyData = [])
         {
+            // Инициализация cURL
+            $curl = curl_init();
+
             curl_setopt($curl, CURLOPT_RETURNTRANSFER, true);
             curl_setopt($curl, CURLOPT_URL, $Url);
+            
+            // Установите метод запроса GET
+            curl_setopt($curl, CURLOPT_HTTPGET, true);
+
             // Установите максимальное время ожидания (например, 10 секунд)
             curl_setopt($curl, CURLOPT_TIMEOUT, 10);
+
+            // Если есть данные для передачи в запросе, добавьте их к URL
+            if (!empty($bodyData)) {
+                $Url .= '?' . http_build_query($bodyData);
+                curl_setopt($curl, CURLOPT_URL, $Url);
+            }
 
             $curl_result = curl_exec($curl);
 
@@ -69,24 +94,28 @@
                 curl_close($curl);
                 return $result;
             }
-
-            curl_close($curl);
-    
-            $response=json_decode($curl_result,true);
             
-            if(!$response['isSuccess'])
+            $http_code = curl_getinfo($curl, CURLINFO_HTTP_CODE);
+
+            if($http_code >= 400)
             {
-                $result->ErrorMessage = $response['errorMessage'];
-                $result->ErrorCode = $response['errorCode'];
-                $result->ObjectName =  $response['objectName'];
+                $result->ErrorMessage = json_decode($curl_result, true);
+                $result->ErrorCode = $http_code;
+                $result->ObjectName = "HttpConnector";
+                curl_close($curl);
                 return $result;
             }
+            
+            curl_close($curl);
 
-            $result->data=$response['data'];
-            $result->connectionTime=$response['connectionTime'];
+            // Декодируем JSON ответ
+            $response = json_decode($curl_result, true);
+
+            $result->data = $response;
+
             return $result;
         }
-        */
+
         public function GetDataByUrl($Url, $bodyData)
         {
             $result = new BaseResult();
@@ -120,6 +149,16 @@
                     $result->ErrorCode = $http_code;
                     $result->ObjectName = "HttpConnector";
                     $result->data=$curl_result;
+                    return $result;
+                }
+
+                $http_code = curl_getinfo($curl, CURLINFO_HTTP_CODE);
+
+                if($http_code >= 400)
+                {
+                    $result->ErrorMessage = json_decode($curl_result, true);
+                    $result->ErrorCode = $http_code;
+                    $result->ObjectName = "HttpConnector";
                     return $result;
                 }
             }
@@ -191,5 +230,24 @@
             
         }
     }
+/*global $exchangeServiceUrl;
+
+$response = wp_remote_post($exchangeServiceUrl . 'v1/autorize/autenticate', array(
+    'timeout' => 30,
+    'headers' => array(
+        'Content-Type' => 'application/json',
+        'accept' => 'application/json'
+    ),
+    'body' => json_encode(array(
+        'userName' => 'Administrator',
+        'password' => 'Qwerty1234!'
+    ))
+));
+
+if (!is_wp_error($response)) {
+    $body = wp_remote_retrieve_body($response);
+    $token = json_decode($body);
+    // Обработка ответа
+}*/
 
 ?>
