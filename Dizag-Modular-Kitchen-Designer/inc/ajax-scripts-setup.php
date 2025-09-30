@@ -25,3 +25,26 @@ function ajax_scripts_setup() {
     wp_localize_script( 'content-update-js', 'pdf_order_creator_url', $pdf_order_creator_url );
     wp_localize_script( 'pdf-order-creator-js', 'ajax_url', $ajax_url);
 }
+
+function enqueue_template_part_styles_scripts($part_path, $title) {
+	
+	$handle = 'css-' . $title . '-style';
+    $handle_js = 'js-' . $title . '-style';
+	
+	$path = $part_path . '/';
+	
+	$ajax_url = admin_url('admin-ajax.php');
+    $catalog_parts_url = get_template_directory_uri() . '/parts/catalog/';
+
+	$url = get_template_directory_uri() . str_replace(get_template_directory(), '', $part_path) . '/';
+
+	if (!wp_style_is($handle, 'enqueued'))
+	{
+		enqueue_versioning_style($handle, $url, $path, 'style.css');
+	}
+
+	enqueue_versioning_script($handle_js, $url, $path, 'script.js', ['jquery-init']);
+
+    wp_localize_script( $handle_js, 'ajax_url', $ajax_url);
+    wp_localize_script( $handle_js, 'catalog_parts_url', $catalog_parts_url );
+}

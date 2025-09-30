@@ -34,6 +34,12 @@ if($inputParameter){
 
     $customerResult = $UserRegistrationProcessor->Process($login, $password, $role);
 
+    if(!$Result->isSuccess())
+    {?>
+        <p><?=$Result->ErrorMessage?></p>
+        <?return;
+    }
+
 }
 
 $Result = new BaseResult();

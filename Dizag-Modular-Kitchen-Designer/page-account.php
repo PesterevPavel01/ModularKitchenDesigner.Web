@@ -10,7 +10,7 @@
 <main>
     <?get_template_part("parts/navigation/navbar")?>
     
-    <section class="section-content flex-column gap40 mx-width-1380">
+    <section class="section-content flex-column gap40 mx-width-1380 m-auto">
     
     <? if(is_user_logged_in()){
 

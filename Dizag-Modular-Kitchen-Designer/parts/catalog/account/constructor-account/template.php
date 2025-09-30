@@ -20,7 +20,7 @@ enqueue_template_part_styles_scripts( __DIR__, "constructor-account");//подк
 <div class="account-swiper">
     <div class="swiper-wrapper slider">
         <section class="customer-section m-0 swiper-slide">
-            <?get_template_part("parts/catalog/account/customer-order-list/template");?>
+            <?get_template_part("parts/catalog/account/customer-account/template");?>
         </section>
 
         <section class="approval-section m-0 swiper-slide">
@@ -28,3 +28,6 @@ enqueue_template_part_styles_scripts( __DIR__, "constructor-account");//подк
         </section>
     </div>
 </div>
+
+<?get_template_part("parts/catalog/account/approval-form/template");?>
+<??>

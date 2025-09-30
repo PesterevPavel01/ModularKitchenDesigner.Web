@@ -11,21 +11,21 @@ $roles = $current_user->roles;
 if($current_user){
 
     if(in_array('constructor',$roles) || in_array('customer', $roles)){
-        
+
         $Result = new BaseResult();
 
         $PermissionProcessor = new PermissionProcessor($clientServiceUrl);
     
         $Result = $PermissionProcessor->Process($current_user->user_login);
 
-        if($Result->isSuccess() && in_array('customer', $Result->data["roles"])){
+        if($Result->isSuccess() && in_array('customer', $Result->data["roles"]) && $Result->data["externalId"] != "none"){
             ?>
                 <section class="section-custormer-account account-trigger-form">
                     <?get_template_part("parts/catalog/account/customer-account/template");?>
                 </section>
             <?
         }
-        elseif($Result->isSuccess() && in_array('constructor', $Result->data["roles"])){
+        elseif($Result->isSuccess() && in_array('constructor', $Result->data["roles"]) && $Result->data["externalId"] != "none"){
             ?>
                 <section class="section-constructor-account account-trigger-form">
                     <?get_template_part("parts/catalog/account/constructor-account/template");?>

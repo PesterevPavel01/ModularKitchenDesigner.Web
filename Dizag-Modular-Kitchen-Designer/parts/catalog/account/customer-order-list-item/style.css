@@ -13,6 +13,7 @@
 
 .panel-control {
     color: var(--primary-dark-color);
+    max-width: 100% !important;
 }
 
 .panel-control > i{
@@ -33,4 +34,8 @@
 
 .panel-control{
     padding-right: 15px;
+}
+
+.panel-control button{
+    min-width: 130px;
 }

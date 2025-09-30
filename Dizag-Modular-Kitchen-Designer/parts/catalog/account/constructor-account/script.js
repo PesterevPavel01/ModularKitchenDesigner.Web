@@ -2,8 +2,6 @@ $(document).ready(AccountInit);
 
 function  AccountInit()
 {
-  
-
     let $AccountSection = $('.account-trigger-form');
 
     let $triggerForms = $AccountSection.find('.update-trigger');

@@ -42,6 +42,7 @@ add_action('init', 'DI_conteiner', 11);
 require_once get_template_directory() . '/inc/ajax-scripts-setup.php';
 require_once get_template_directory() . '/inc/ajax-pdf-creator.php';
 require_once get_template_directory() . '/inc/ajax-content-updater.php';
+require_once get_template_directory() . '/inc/catalog/ajax-catalog-content-updater.php';
 
 //THEME SUPPORTS
 add_action( 'after_setup_theme', function(){
@@ -130,18 +131,4 @@ function enqueue_versioning_script( $handle,$url, $path, $file_src, $deps = [], 
 function enqueue_versioning_style( $handle, $url, $path, $file_src, $deps = [], $media = 'all'){
 	wp_enqueue_style($handle, $url . $file_src, $deps, file_exists($path . $file_src) ? filemtime($path . $file_src) : null, $media);
 }	
-
-function enqueue_template_part_styles_scripts($part_path, $title) {
-	$handle = 'css-' . $title . '-style';
-	$path = $part_path . '/';
-	
-	$url = get_template_directory_uri() . str_replace(get_template_directory(), '', $part_path) . '/';
-
-	if (!wp_style_is($handle, 'enqueued'))
-	{
-		enqueue_versioning_style($handle, $url, $path, 'style.css');
-	}
-
-	enqueue_versioning_script($handle, $url, $path, 'script.js', ['jquery-init']);
-}
 ?>

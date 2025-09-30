@@ -1,0 +1,26 @@
+.customer-order-list {
+    font-family: var(--catalog-font-family);
+}
+
+.customer-order-list .title{
+    font-weight: bold;
+    font-size: var(--p-font-size);
+    padding-left: 15px;
+    min-height: 38px;
+    align-content: center;
+}
+
+.order-list-parameters-section ul{
+    padding: 30px;
+    border-radius: 15px;
+    min-width: 350px;
+}
+
+.new-comments-block>li,
+.custom-checkbox{
+    cursor: pointer;
+}
+
+.new-comments-block button{
+    font-size: var(--custom-link-font-size);
+}
