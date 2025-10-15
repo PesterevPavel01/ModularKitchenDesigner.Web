@@ -30,7 +30,7 @@ Class UserRegistrationProcessor
                     "role" => $role
                 ];
 
-                $this->Result=$this->HttpConnector->GetDataByUrl($this->Url . 'create', $body);
+                $this->Result=$this->HttpConnector->wp_post($this->Url . 'create', $body);
             }
         }
 

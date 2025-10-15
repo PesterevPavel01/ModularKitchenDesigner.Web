@@ -16,10 +16,15 @@ function theme_image($image_name = 'placeholder', $src = true, $dir = '/assets/i
 		$image_url = $image_url  . ".jpg";
 		$image_path = $image_path  . ".jpg";
 	}
-	else if ( file_exists($image_path . ".jpg") )
+	else if ( file_exists($image_path . ".jpeg") )
 	{
 		$image_url = $image_url  . ".jpeg";
 		$image_path = $image_path  . ".jpeg";
+	}
+	else if ( file_exists($image_path .  ".svg") )
+	{
+		$image_url = $image_url  . ".svg";
+		$image_path = $image_path  . ".svg";
 	}
 	else
 		$image_url = get_template_directory_uri() . '/assets/img/module/error.png';

@@ -42,7 +42,7 @@ add_action('init', 'DI_conteiner', 11);
 require_once get_template_directory() . '/inc/ajax-scripts-setup.php';
 require_once get_template_directory() . '/inc/ajax-pdf-creator.php';
 require_once get_template_directory() . '/inc/ajax-content-updater.php';
-require_once get_template_directory() . '/inc/catalog/ajax-catalog-content-updater.php';
+require_once get_template_directory() . '/inc/ajax-default-content-updater.php';
 
 //THEME SUPPORTS
 add_action( 'after_setup_theme', function(){
@@ -70,7 +70,7 @@ function theme_register_nav_menu() {
 //bootstrap
 
 function enqueue_bootstrap_conditional() {
-    if (is_page('account')) {
+    if (!is_page('kitchen')) {
         wp_enqueue_style('bootstrap-css', 'https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css');
         wp_enqueue_script('bootstrap-js', 'https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js', array(), '5.3.0', true);
     }
@@ -87,6 +87,10 @@ function theme_styles_and_scripts() {
 	$main_parts_path = get_template_directory() . '/parts/main/';
 	$js_path = get_template_directory() . '/assets/js/';
 	
+    if (is_page('kitchen')) {
+        enqueue_versioning_style('custom-flex-css',  $css_url, $css_path, 'flex-style.css', ['css-variables']);
+    }
+
 	//Enqueue main theme style
 	wp_enqueue_style( 'css-main', get_stylesheet_uri(), []);
 	
@@ -114,6 +118,7 @@ function theme_styles_and_scripts() {
 
 	//Enqueue .js files	
 	enqueue_versioning_script( 'jquery-init', $js_url , $js_path, 'lib/jQuery-init.js', ['jquery']);
+	wp_enqueue_script('jquery-blockui', 'https://cdnjs.cloudflare.com/ajax/libs/jquery.blockUI/2.70/jquery.blockUI.min.js', ['jquery'], '2.70', true);
 	enqueue_versioning_script( 'headroom-js', $js_url , $js_path, 'lib/Headroom.js', ['jquery-init']);
 	enqueue_versioning_script( 'jq-headroom-js', $js_url , $js_path,  'lib/jQuery.headroom.js', ['headroom-js']);
 	enqueue_versioning_script( 'swiper-js', $js_url , $js_path,  'lib/swiper-bundle.min.js', ['jquery']);

@@ -2,7 +2,7 @@
 enqueue_template_part_styles_scripts( __DIR__, "customer-account");//подключаю файл <style class="css"></style>
 ?>
 
-<section class="customer-order-list d-flex flex-column align-items-start gap20 flex-lg-row w-100 catalog_content_update">
+<section class="customer-order-list d-flex flex-column align-items-start gap-3 flex-lg-row w-100 catalog_content_update">
 
     <?get_template_part("parts/catalog/account/customer-order-list/template", null,                 
         [
@@ -15,11 +15,11 @@ enqueue_template_part_styles_scripts( __DIR__, "customer-account");//подкл�
         ]);
     ?>
 
-    <section class="order-list-parameters-section flex-column align-items-start justify-content-start gap20 m-0  order-1 order-lg-2">
+    <form class="order-list-parameters-section d-flex flex-column align-items-start justify-content-start gap-3 m-0  order-1 order-lg-2">
         
-        <t2 class="title">Параметры</t2>
+        <t2 class="title ps-2">Параметры</t2>
 
-        <ul class="parameters-section d-flex flex-column align-items-start justify-content-start gap10 white-background m-0 " id = "catalog-order-list-ajax-trigger-conteiner">
+        <ul class="parameters-section d-flex flex-column align-items-start justify-content-start gap10 white-background m-0 p-4" id = "catalog-order-list-ajax-trigger-conteiner">
 
             <input type="hidden" id="catalog-order-list-template_part_to_update" value=<?="parts/catalog/account/customer-order-list/template"?>>
             <input type="hidden" id="catalog-order-list-html_block_to_update" value=<?="customer-account-oder-list-section"?>>
@@ -46,13 +46,13 @@ enqueue_template_part_styles_scripts( __DIR__, "customer-account");//подкл�
                 <span class="checkbox_label">сначала старые заказы</span>
             </li>
 
-            <button class="btn btn-primary w-100 catalog-ajax-button" id = "order-list-parameters-button">
+            <button class="btn btn-primary w-100 catalog-ajax-button mt-2" id = "order-list-parameters-button">
                 <span class="btn_label">Применить</span>
                 <span class="bi bi-arrow-repeat"></span>
             </button>
 
         </ul>
-
+<?/*
         <t2 class="title">Последняя активность</t2>
 
         <ul class="new-comments-block d-flex flex-column align-items-start justify-content-start w-100 gap10 white-background m-0">
@@ -109,7 +109,7 @@ enqueue_template_part_styles_scripts( __DIR__, "customer-account");//подкл�
             </li>
 
         </ul>
-
-    </section>
+*/?>
+    </form>
 
 </section>

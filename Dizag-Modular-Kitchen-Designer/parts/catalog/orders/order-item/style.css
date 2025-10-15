@@ -1,0 +1,18 @@
+.catalog-oder-item-section{
+    background-color: var(--body-color);
+    min-height: 50px;
+    padding: 15px;
+}
+
+.order-item-top i{
+    height: 30px;
+    font-size: var(--bootstrap-icon-size-medium);
+}
+
+.order-item-top span{
+    font-size: var(--mini-font-size);
+}
+
+.icon-remove-section{
+    font-size: var(--mini-font-size) !important;
+}

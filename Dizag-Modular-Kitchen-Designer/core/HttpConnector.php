@@ -3,6 +3,112 @@
     
     Class HttpConnector
     {
+        public function wp_patch($Url, $bodyData = [], $token = null)
+        {
+            $result = new BaseResult();
+            
+            // Подготавливаем заголовки
+            $headers = [
+                'Content-Type' => 'application/json',
+                'Accept' => 'application/json',
+                'User-Agent' => 'WordPress/' . get_bloginfo('version')
+            ];
+            
+            // Добавляем Bearer token если передан и валиден
+            if (!is_null($token) && is_string($token) && !empty(trim($token))) {
+                $headers['Authorization'] = 'Bearer ' . sanitize_text_field($token);
+            }
+        
+            $request_args = [
+                'method' => 'PATCH', // Указываем метод PATCH
+                'headers' => $headers,
+                'body' => wp_json_encode($bodyData),
+                'timeout' => 30,
+                'redirection' => 5,
+                'httpversion' => '1.1',
+                'blocking' => true,
+                'sslverify' => apply_filters('https_local_ssl_verify', false)
+            ];
+        
+            $response = wp_remote_request($Url, $request_args); // Используем wp_remote_request для PATCH
+            
+            // Записываем время соединения
+            $result->connectionTime = current_time('mysql');
+        
+            // Обработка ответа
+            if (is_wp_error($response)) {
+                $result->ErrorMessage = 'Network error: ' . $response->get_error_message();
+                $result->ErrorCode = 500;
+                $result->data = null;
+                $result->ObjectName = 'HTTP_Request';
+            } else {
+                $response_code = wp_remote_retrieve_response_code($response);
+                $response_body = wp_remote_retrieve_body($response);
+                
+                $result->ErrorMessage = ($response_code >= 200 && $response_code < 300) ? null : get_status_header_desc($response_code);
+                $result->ErrorCode = $response_code;
+                $result->data = json_decode($response_body, true);
+                $result->ObjectName = 'API_Response';
+            }
+        
+            return $result;
+        }
+
+
+        public function wp_post($Url, $bodyData, $token = null)
+        {
+            $result = new BaseResult();
+        
+            // Подготавливаем заголовки
+            $headers = [
+                'Content-Type' => 'application/json',
+                'Accept' => 'application/json',
+                'User-Agent' => 'WordPress/' . get_bloginfo('version')
+            ];
+            
+            // Добавляем Bearer token если передан и валиден
+            if (!is_null($token) && is_string($token) && !empty(trim($token))) {
+                $headers['Authorization'] = 'Bearer ' . sanitize_text_field($token);
+            }
+        
+            $request_args = [
+                'headers' => $headers,
+                'body' => wp_json_encode($bodyData),
+                'timeout' => 30,
+                'redirection' => 5,
+                'httpversion' => '1.1',
+                'blocking' => true,
+                'sslverify' => apply_filters('https_local_ssl_verify', false)
+            ];
+        
+            $response = wp_remote_post($Url, $request_args);
+            
+            // Записываем время соединения
+            $result->connectionTime = current_time('mysql');
+        
+            // Обработка ответа
+            if (is_wp_error($response)) {
+                $result->ErrorMessage = 'Network error: ' . $response->get_error_message();
+                $result->ErrorCode = 500;
+                $result->data = null;
+                $result->ObjectName = 'HTTP_Request';
+            } else {
+                $response_code = wp_remote_retrieve_response_code($response);
+                $response_body = wp_remote_retrieve_body($response);
+                
+                // Используем ErrorMessage вместо message
+                $result->ErrorMessage = ($response_code >= 200 && $response_code < 300) ? null : get_status_header_desc($response_code);
+                $result->ErrorCode = $response_code;
+                $result->data = json_decode($response_body, true);
+                $result->ObjectName = 'API_Response';
+                
+                // Если нужно сохранить success флаг, можно добавить свойство
+                // или использовать isSuccess() метод
+            }
+        
+            return $result;
+        }
+
         public function GetByUrl($Url, $bodyData = [])
         {
             // Инициализация cURL

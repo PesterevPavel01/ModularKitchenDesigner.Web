@@ -1,0 +1,11 @@
+.facade-configurator-component-list > :first-child {
+    border-radius: 15px 15px 0px 0px;
+}
+
+.facade-configurator-component-list > :last-child {
+    border-radius: 0px 0px 15px 15px;
+}
+
+.facade-configurator-component{
+    height: 60px;
+}

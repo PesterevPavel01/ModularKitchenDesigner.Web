@@ -7,7 +7,6 @@
     color: var(--primary-dark-color);
     max-width: 80px;
     height: 40px;
-    margin: auto;
     font-size: var(--bootstrap-icon-size);
 }
 
@@ -30,10 +29,6 @@
 .customer-order-list-item button
 {
     font-size: var(--mini-font-size);
-}
-
-.panel-control{
-    padding-right: 15px;
 }
 
 .panel-control button{

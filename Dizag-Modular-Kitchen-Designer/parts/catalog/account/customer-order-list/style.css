@@ -3,9 +3,11 @@
 }
 
 .customer-account-oder-list-section .list-items > :first-child {
-    border-radius: 15px 15px 0px 0px;
+    border-top-right-radius: 15px;
+    border-top-left-radius: 15px;
 }
 
 .customer-account-oder-list-section .list-items > :last-child {
-    border-radius: 0px 0px 15px 15px;
+    border-bottom-right-radius: 15px;
+    border-bottom-left-radius: 15px;
 }

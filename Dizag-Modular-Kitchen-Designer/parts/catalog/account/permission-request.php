@@ -17,9 +17,10 @@ if($inputParameter){
     $UserPasswordProcessor = new UserPasswordProcessor();
 
     $password = $UserPasswordProcessor->Process();
-
+    
     $customerResult = new BaseResult();
 
+    
     $UserRegistrationProcessor = new UserRegistrationProcessor($clientServiceUrl);
 
     $roles = $current_user->roles;
@@ -34,12 +35,11 @@ if($inputParameter){
 
     $customerResult = $UserRegistrationProcessor->Process($login, $password, $role);
 
-    if(!$Result->isSuccess())
+    if(!$customerResult->isSuccess())
     {?>
-        <p><?=$Result->ErrorMessage?></p>
+        <p><?=esc_html($customerResult->ErrorMessage)?></p>
         <?return;
     }
-
 }
 
 $Result = new BaseResult();
@@ -52,16 +52,12 @@ if(!$Result->isSuccess())
 {
     if($Result->ErrorMessage === "User not found!")
     {?>
-        <input type="hidden" id="action" value=<?=$args["ACTION"]?>>
-        <input type="hidden" id="template_part_to_update" value=<?=$args["TEMPLATE_PART_TO_UPDATE"]?>>
-        <input type="hidden" id="html_block_to_update" value=<?=$args['HTML_BLOCK_TO_UPDATE_CLASS']?>>
-        <input type="hidden" id="sub-action" value=<?=$args['PARAMETERS']['ACTION']?>>
-        <p class="error-message black">У пользователя нет необходимых прав, обратитесь к администратору!</p>
-        <block class = "permission-request-section" id = "permission-request-section">
-            <div class = "custom-btn black ajax-update-button" id = "permission-request-btn" type="submit">
-                <input type = "hidden" id="value" value="<?=$current_user->user_login?>">
+        <p class="error-message black p-3">У пользователя нет необходимых прав, обратитесь к администратору!</p>
+        <block class = "permission-request-section p-3" id = "permission-request-section">
+            <button type="submit" class = "custom-btn black ajax-update-button" id = "permission-request-btn" type="submit">
+                <input type = "hidden" id="value" name="PARAMETER" value="<?=esc_attr($current_user->user_login)?>">
                 <label>Отправить запрос</label>
-            </div>
+            </button>
         </block>
     <?
     }

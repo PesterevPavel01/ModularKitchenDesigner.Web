@@ -1,42 +1,33 @@
 
-$(document).ready(ApprovalInit);
+$(document).ready(ApprovalCustomerInit);
 
-function ApprovalInit()
+function ApprovalCustomerInit()
 {  
-    ApprovalModalInit();
+    ApprovalCustomerModalInit();
 }
 
-function ApprovalModalInit(){
+function ApprovalCustomerModalInit(){
     
-    var approveModal = $('#approve-modal');
+    var approveModal = $('#approve-customer-modal');
 
     approveModal.off('show.bs.modal').on('show.bs.modal', function (event) {
-        // Получаем кнопку, вызвавшую модальное окно
+
+        ClearApprovalCustomerModal(approveModal);
+
         var button = event.relatedTarget;
-        // Получаем данные из атрибутов data-bs-*
+
         var userId = button.getAttribute('data-bs-login');
         var userName = button.getAttribute('data-bs-name');
 
-        // Заполняем поля формы с помощью jQuery
-        approveModal.find('#customer-name').text(userName);  // текстовое поле       // текстовое поле
-        approveModal.find('#customer-login').val(userId);            // hidden input
+        approveModal.find('#approval-customer-name').text(userName);  // текстовое поле       // текстовое поле
+        approveModal.find('#approval-customer-login').val(userId);    // hidden input
     });
 }
 
-function saveChanges() {
-    let $approveModal = $('#approve-modal');
-    let $customerId = $approveModal.find('#customer-login').val();
-    let $customerCode = $approveModal.find('#customer-code').val();
-    
-    let cleanedCode = $customerCode.replace(/\s/g, '');
-    let isValid = cleanedCode.length >= 11;
-    
-    // Проверка и вывод сообщения
-    isValid ? console.log($customerCode) : console.error('Ошибка');
-    
-    if (!isValid) return false;
-    
-    // Логика сохранения
-    // ...
-    return true;
+// Функция для очистки модального окна
+function ClearApprovalCustomerModal(modal) {
+    modal.find('#result-ajax-request').empty();    
+    modal.find('#customer-code').val('');          
+    modal.find('.alert').remove();                 // Удаляем все алерты (если есть)
+    modal.find('.error-message').remove();         // Удаляем сообщения об ошибках
 }

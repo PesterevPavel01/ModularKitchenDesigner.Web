@@ -1,0 +1,22 @@
+.section-order {
+    font-family: var(--catalog-font-family);
+}
+
+.section-order span,
+.section-order button
+{
+    font-size: var(--mini-font-size);
+}
+
+.section-order .title{
+    font-weight: bold;
+    font-size: var(--p-font-size);
+    padding-left: 15px;
+    min-height: 38px;
+    align-content: center;
+}
+
+.panel-control button{
+    min-width: 130px;
+}
+

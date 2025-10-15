@@ -33,15 +33,20 @@ if($current_user){
             <?
         }else{
         ?>
-            <section class="permission-request-section ajax-update-trigger flex-column gap40">
-                <?get_template_part("parts/catalog/account/permission-request",null,
-                    [
-                        'ACTION' => 'content_update',
-                        'PARAMETER' =>  null,
-                        'TEMPLATE_PART_TO_UPDATE' => "parts/catalog/account/permission-request",
-                        'HTML_BLOCK_TO_UPDATE_CLASS' => 'permission-request-section',
-                    ]);?>
-            </section>
+            <form class="permission-request-section  <?/*ajax-update-trigger*/?> flex-column gap40" data-ajax-default-content-updater="refresh">
+                
+                <input type="hidden" id="BLOCKED_ELEMENT" name = "BLOCKED_ELEMENT" value = "#permission-request-section-content">
+                <input type="hidden" id="TEMPLATE_PART" name = "TEMPLATE_PART" value = "parts/catalog/account/permission-request">
+                <input type="hidden" id="action" name = "action" value="default_content_updater">
+                <input type="hidden" id="TARGET_CONTEINER"  name = "TARGET_CONTEINER" value="#permission-request-section-content">
+
+                <div class="permission-request-section-content" id = "permission-request-section-content">
+                    <?get_template_part("parts/catalog/account/permission-request",null,
+                        [
+                            'PARAMETER' =>  null,
+                        ]);?>
+                </div>
+            </form>
         <?
         }
     }else

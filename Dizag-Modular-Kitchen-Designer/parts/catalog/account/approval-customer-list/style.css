@@ -1,22 +1,13 @@
-.approval-customer-list {
-    font-family: var(--catalog-font-family);
-}
-.approval-customer-list .title{
-    font-weight: bold;
-    font-size: var(--p-font-size);
-    padding-left: 15px;
-    min-height: 38px;
-    align-content: center;
-}
-
 .list-items{
     width: 100%;
 }
 
-.customer-list-section .list-items > :first-child {
-    border-radius: 15px 15px 0px 0px;
+.approval-customer-list .list-items > :first-child {
+    border-top-right-radius: 15px;
+    border-top-left-radius: 15px;
 }
 
-.customer-list-section .list-items > :last-child {
-    border-radius: 0px 0px 15px 15px;
+.approval-customer-list .list-items > :last-child {
+    border-bottom-right-radius: 15px;
+    border-bottom-left-radius: 15px;
 }

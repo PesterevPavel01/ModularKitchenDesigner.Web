@@ -7,7 +7,8 @@ function ajax_scripts_setup() {
 
     $main_parts_url = get_template_directory_uri() . '/parts/main/';
     $main_parts_path = get_template_directory() . '/parts/main/';
-    $assets_path = get_template_directory() . '/parts/assets/';
+    $assets_ajax_scripts_path = get_template_directory() . '/assets/js/ajax/';
+    $assets_ajax_scripts_url = get_template_directory_uri() . '/assets/js/ajax/';
 
     $pdf_order_creator_url = get_template_directory_uri() . '/parts/main/pdf-order-creator/';
     $pdf_order_creator_path = get_template_directory() . '/parts/main/pdf-order-creator/';
@@ -15,8 +16,11 @@ function ajax_scripts_setup() {
     $js_url = get_template_directory_uri() . '/assets/js/';
 	$js_path = get_template_directory() . '/assets/js/';
 
+    $preloader_url = get_template_directory_uri() . '/assets/img/icons/oval.svg';
+
     enqueue_versioning_script( 'params-default-creator-js', $main_parts_url, $main_parts_path, 'params-default-creator.js', ['jquery-init']);
     enqueue_versioning_script( 'content-update-js', $main_parts_url, $main_parts_path,  'script.js', ['params-default-creator-js']);
+    enqueue_versioning_script( 'default-content-updater-js', $assets_ajax_scripts_url, $assets_ajax_scripts_path,  'ajax-default-content-updater.js', ['jquery-init']);
     enqueue_versioning_script( 'pdf-order-creator-js', $pdf_order_creator_url , $pdf_order_creator_path,  'script.js', ['content-update-js']);
 
 
@@ -24,6 +28,8 @@ function ajax_scripts_setup() {
     wp_localize_script( 'content-update-js', 'main_parts_url', $main_parts_url );
     wp_localize_script( 'content-update-js', 'pdf_order_creator_url', $pdf_order_creator_url );
     wp_localize_script( 'pdf-order-creator-js', 'ajax_url', $ajax_url);
+    wp_localize_script( 'default-content-updater-js', 'ajax_url', $ajax_url);
+    wp_localize_script( 'default-content-updater-js', 'preloader_url', $preloader_url );
 }
 
 function enqueue_template_part_styles_scripts($part_path, $title) {

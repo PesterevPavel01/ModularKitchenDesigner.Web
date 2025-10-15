@@ -45,11 +45,11 @@ else
 }
 
 ?>
-<section class="customer-account-oder-list-section flex-column-start gap20 w-100 order-2 order-lg-1">
+<section class="customer-account-oder-list-section d-flex flex-column align-items-start w-100 justify-content-start gap-3 w-100 order-2 order-lg-1">
     
     <block class="title-block  d-flex align-items-center w-100 justify-content-between">
         
-        <t2 class="title">Заказы</t2>
+        <t2 class="title ps-2">Заказы</t2>
 
         <?if(in_array('customer', $roles)){?>
 
@@ -66,7 +66,7 @@ else
 
     </block> 
 
-    <block class="list-items flex-column-start gap2">
+    <block class="list-items d-flex flex-column align-items-start w-100 justify-content-start gap-1">
 
         <?foreach($Result->data as $item){
 

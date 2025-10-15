@@ -1,0 +1,29 @@
+
+.catalog-order-item-specification span{
+    font-size: var(--small-font-size);
+}
+
+.catalog-order-item-specification{
+    border-radius: 10px;
+    width: 300px;
+}
+
+.catalog-order-item-specification input{
+    border: 1px solid var(--primary-dark-color);
+    border-radius: 5px;
+    height: 40px;
+}
+
+.specification-item-add-new > i{
+    font-size: var(--bootstrap-icon-size-medium);
+}
+
+.specification-list-item-remove{
+    height: 40px;
+    width: 20px;
+}
+
+.specification-list-item-remove:hover > * ,
+.specification-item-add-new:hover > * {
+    color: var(--dark-color) !important;
+}
