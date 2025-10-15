@@ -11,12 +11,14 @@ $current_user = wp_get_current_user();
 
 $roles = $current_user->roles;
 
-$arParams = $args['PARAMETER'];
+$arParams = $args;
 
 $Result = new BaseResult();
 
 if(in_array('constructor', $roles))
 {
+    $role = 'constructor';
+
     $OrdersByPeriodProcessor = new OrdersByPeriodProcessor($orderServiceUrl);
 
     $Result = $OrdersByPeriodProcessor->Process($arParams);
@@ -29,6 +31,8 @@ if(in_array('constructor', $roles))
     
 }elseif(in_array('customer', $roles))
 {
+    $role = 'customer';
+
     $OrdersByCustomerProcessor = new OrdersByCustomerProcessor($orderServiceUrl);
 
     $Result = $OrdersByCustomerProcessor->Process($current_user->user_login, $arParams);
@@ -45,7 +49,7 @@ else
 }
 
 ?>
-<section class="customer-account-oder-list-section d-flex flex-column align-items-start w-100 justify-content-start gap-3 w-100 order-2 order-lg-1">
+<section class="customer-account-oder-list-content d-flex flex-column align-items-start w-100 justify-content-start gap-3 w-100 order-2 order-lg-1">
     
     <block class="title-block  d-flex align-items-center w-100 justify-content-between">
         
@@ -77,6 +81,7 @@ else
                     'ORDER_CODE' => $item['code'],
                     'IS_CUSTOM' => $item['isCustom'],
                     'IS_COMPLETED' => $item['isCompleted'],
+                    'ROLE' => $role
                 ]
             ]);
 

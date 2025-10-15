@@ -23,7 +23,7 @@ if($arParams){
     <block class="panel-control flex-row-end d-flex justify-content-end align-items-center flex-xl-row p-2">
         <div class="d-flex flex-column w-100 justify-content-end align-items-center gap-1 flex-xl-row">
             <button type="button" class="btn btn-primary"
-                data-bs-toggle="modal" 
+                data-bs-toggle="modal"
                 data-bs-target="#remove-customer-modal"
                 data-bs-login="<?=htmlspecialchars($arParams['CLIENT_LOGIN'])?>"
                 data-bs-name="<?=htmlspecialchars($arParams['CLIENT_NAME'])?>">

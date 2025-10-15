@@ -550,6 +550,18 @@ body.noscroll {
   overflow: hidden;
 }
 
+/*
+ MODAL FORM
+*/
+
+.modal-content p,
+.modal-content span
+{
+    font-size: var(--p-font-size);
+    color: var(--p-font-size);
+    font-family: var(--body-font-family) !important;
+}
+
 /*----------------------------------------
   CUSTOM CONTROLS & ICON              
 -----------------------------------------*/

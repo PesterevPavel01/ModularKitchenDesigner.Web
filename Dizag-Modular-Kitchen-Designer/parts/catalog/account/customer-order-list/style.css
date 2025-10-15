@@ -2,12 +2,12 @@
     width: 100%;
 }
 
-.customer-account-oder-list-section .list-items > :first-child {
+.customer-account-oder-list-content .list-items > :first-child {
     border-top-right-radius: 15px;
     border-top-left-radius: 15px;
 }
 
-.customer-account-oder-list-section .list-items > :last-child {
+.customer-account-oder-list-content .list-items > :last-child {
     border-bottom-right-radius: 15px;
     border-bottom-left-radius: 15px;
 }

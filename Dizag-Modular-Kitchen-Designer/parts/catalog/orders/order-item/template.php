@@ -10,6 +10,7 @@ if(!$arParams)
 ?>
 
 <section class="catalog-oder-item-section d-flex flex-column gap20 w-100">
+    
     <block class="order-item-top d-flex align-items-center w-100 justify-content-between w-100">
         <div class ="d-flex justify-content-start w-100 align-items-center gap-2">
             <i class="bi bi-exclamation-circle d-flex justify-content-start align-items-center"

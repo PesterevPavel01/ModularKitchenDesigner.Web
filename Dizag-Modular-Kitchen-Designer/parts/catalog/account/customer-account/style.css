@@ -1,15 +1,15 @@
-.customer-order-list {
-    font-family: var(--catalog-font-family);
+.customer-account-content {
+    font-family: var(--catalog-font-family) !important;
 }
 
-.customer-order-list .title{
+.customer-account-content .title{
     font-weight: bold;
     font-size: var(--p-font-size);
     min-height: 38px;
     align-content: center;
 }
 
-.order-list-parameters-section ul{
+.order-list-parameters-form ul{
     border-radius: 15px;
     min-width: 350px;
 }

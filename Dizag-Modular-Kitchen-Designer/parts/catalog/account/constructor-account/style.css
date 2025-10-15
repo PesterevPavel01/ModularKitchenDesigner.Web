@@ -30,16 +30,10 @@
     height: 100%;
 }
 
-.modal-header p,
-.modal-header span
-{
-    font-size: var(--p-font-size);
-    color: var(--p-font-size);
-}
-
 .approval-customer-section {
     font-family: var(--catalog-font-family);
 }
+
 .customer-list-title-conteiner .title{
     font-weight: bold;
     font-size: var(--p-font-size);

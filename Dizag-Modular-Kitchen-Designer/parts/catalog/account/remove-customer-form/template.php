@@ -19,7 +19,7 @@ enqueue_template_part_styles_scripts( __DIR__, "remove-customer-form");
             <div class="modal-body d-flex flex-column justify-content-start align-items-start m-0 gap-2">
                 <p class="m-0">Вы собираетесь удалить пользователя!</p>
                 <!-- Дополнительные поля формы -->
-                <div class="remove-customer-result w-100" id = 'remove-customer-result'>
+                <div class="remove-customer-result" id = 'remove-customer-result'>
                 </div>
             </div>
             <div class="modal-footer">

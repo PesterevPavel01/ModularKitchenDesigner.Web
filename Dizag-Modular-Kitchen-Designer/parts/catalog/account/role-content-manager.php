@@ -21,14 +21,14 @@ if($current_user){
         if($Result->isSuccess() && in_array('customer', $Result->data["roles"]) && $Result->data["externalId"] != "none"){
             ?>
                 <section class="section-custormer-account account-trigger-form">
-                    <?get_template_part("parts/catalog/account/customer-account/template");?>
+                    <?get_template_part("parts/catalog/account/customer-account/template", null, ['ROLE' => 'customer']);?>
                 </section>
             <?
         }
         elseif($Result->isSuccess() && in_array('constructor', $Result->data["roles"]) && $Result->data["externalId"] != "none"){
             ?>
                 <section class="section-constructor-account account-trigger-form">
-                    <?get_template_part("parts/catalog/account/constructor-account/template");?>
+                    <?get_template_part("parts/catalog/account/constructor-account/template", null, ['ROLE' => 'constructor']);?>
                 </section>
             <?
         }else{
