@@ -9,6 +9,8 @@ function my_custom_global_variable() {
 	$ApiUrl = 'http://localhost:8080/api/';
 	global $exchangeServiceUrl;
 	$exchangeServiceUrl = 'http://localhost:8091/api/';
+	global $componentServiceUrl;
+	$componentServiceUrl = 'http://localhost:8091/api/';
 	global $clientServiceUrl;
 	$clientServiceUrl = 'http://localhost:8091/api/';
 	global $moduleServiceUrl;
@@ -73,6 +75,8 @@ function enqueue_bootstrap_conditional() {
     if (!is_page('kitchen')) {
         wp_enqueue_style('bootstrap-css', 'https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css');
         wp_enqueue_script('bootstrap-js', 'https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js', array(), '5.3.0', true);
+		wp_enqueue_style('select2-css', 'https://cdn.jsdelivr.net/npm/select2@4.1.0-rc.0/dist/css/select2.min.css');
+        wp_enqueue_script('select2-js', 'https://cdn.jsdelivr.net/npm/select2@4.1.0-rc.0/dist/js/select2.min.js', array(), '5.3.0', true);
     }
 }
 add_action('wp_enqueue_scripts', 'enqueue_bootstrap_conditional', 5);

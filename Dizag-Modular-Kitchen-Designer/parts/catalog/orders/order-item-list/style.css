@@ -1,0 +1,12 @@
+.catalog-oder-section{
+    background-color: var(--body-color);
+}
+
+.order-item-top i{
+    height: 30px;
+    font-size: var(--bootstrap-icon-size-medium);
+}
+
+.order-item-top span{
+    font-size: var(--mini-font-size);
+}

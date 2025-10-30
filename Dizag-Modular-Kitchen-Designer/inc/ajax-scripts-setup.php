@@ -21,6 +21,7 @@ function ajax_scripts_setup() {
     enqueue_versioning_script( 'params-default-creator-js', $main_parts_url, $main_parts_path, 'params-default-creator.js', ['jquery-init']);
     enqueue_versioning_script( 'content-update-js', $main_parts_url, $main_parts_path,  'script.js', ['params-default-creator-js']);
     enqueue_versioning_script( 'default-content-updater-js', $assets_ajax_scripts_url, $assets_ajax_scripts_path,  'ajax-default-content-updater.js', ['jquery-init']);
+    enqueue_versioning_script( 'file-content-updater-js', $assets_ajax_scripts_url, $assets_ajax_scripts_path,  'ajax-file-content-updater.js', ['jquery-init']);
     enqueue_versioning_script( 'pdf-order-creator-js', $pdf_order_creator_url , $pdf_order_creator_path,  'script.js', ['content-update-js']);
 
 
@@ -28,8 +29,13 @@ function ajax_scripts_setup() {
     wp_localize_script( 'content-update-js', 'main_parts_url', $main_parts_url );
     wp_localize_script( 'content-update-js', 'pdf_order_creator_url', $pdf_order_creator_url );
     wp_localize_script( 'pdf-order-creator-js', 'ajax_url', $ajax_url);
+    
     wp_localize_script( 'default-content-updater-js', 'ajax_url', $ajax_url);
     wp_localize_script( 'default-content-updater-js', 'preloader_url', $preloader_url );
+    
+    wp_localize_script( 'file-content-updater-js', 'ajax_url', $ajax_url);
+    wp_localize_script( 'file-content-updater-js', 'preloader_url', $preloader_url );
+    wp_localize_script( 'file-content-updater-js', 'ajax_nonce', wp_create_nonce('blueprint_upload_nonce'));
 }
 
 function enqueue_template_part_styles_scripts($part_path, $title) {

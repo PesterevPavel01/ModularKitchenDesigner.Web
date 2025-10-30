@@ -1,17 +1,14 @@
 
-.catalog-order-item-specification span{
+.catalog-order-specification-list span{
     font-size: var(--small-font-size);
 }
 
-.catalog-order-item-specification{
-    border-radius: 10px;
+.catalog-order-specification-list{
     width: 300px;
 }
 
-.catalog-order-item-specification input{
-    border: 1px solid var(--primary-dark-color);
-    border-radius: 5px;
-    height: 40px;
+.border{
+    border-color: var(--primary-dark-color) !important;
 }
 
 .specification-item-add-new > i{

@@ -59,10 +59,9 @@
         {
             $result = new BaseResult();
         
-            // Подготавливаем заголовки
             $headers = [
                 'Content-Type' => 'application/json',
-                'Accept' => 'application/json',
+                'Accept' => '*/*', 
                 'User-Agent' => 'WordPress/' . get_bloginfo('version')
             ];
             
@@ -71,9 +70,29 @@
                 $headers['Authorization'] = 'Bearer ' . sanitize_text_field($token);
             }
         
+            if (is_string($bodyData)) {
+                
+                json_decode($bodyData);
+
+                if (json_last_error() === JSON_ERROR_NONE) {
+                    
+                    $request_body = $bodyData;
+
+                } else {
+
+                    $request_body = '"' . $bodyData . '"';
+
+                }
+
+            } else {
+                
+                $request_body = wp_json_encode($bodyData);
+
+            }
+        
             $request_args = [
                 'headers' => $headers,
-                'body' => wp_json_encode($bodyData),
+                'body' => $request_body,
                 'timeout' => 30,
                 'redirection' => 5,
                 'httpversion' => '1.1',
@@ -83,27 +102,38 @@
         
             $response = wp_remote_post($Url, $request_args);
             
-            // Записываем время соединения
             $result->connectionTime = current_time('mysql');
         
             // Обработка ответа
             if (is_wp_error($response)) {
+
                 $result->ErrorMessage = 'Network error: ' . $response->get_error_message();
+
                 $result->ErrorCode = 500;
+
                 $result->data = null;
+
                 $result->ObjectName = 'HTTP_Request';
+
             } else {
+
                 $response_code = wp_remote_retrieve_response_code($response);
+
                 $response_body = wp_remote_retrieve_body($response);
                 
-                // Используем ErrorMessage вместо message
                 $result->ErrorMessage = ($response_code >= 200 && $response_code < 300) ? null : get_status_header_desc($response_code);
+
                 $result->ErrorCode = $response_code;
+                
                 $result->data = json_decode($response_body, true);
+
                 $result->ObjectName = 'API_Response';
                 
-                // Если нужно сохранить success флаг, можно добавить свойство
-                // или использовать isSuccess() метод
+                if (is_null($result->data) && !empty($response_body)) {
+
+                    $result->data = $response_body;
+                    
+                }
             }
         
             return $result;
@@ -171,54 +201,56 @@
 
         public function GetMessageByUrl($Url, $bodyData = [])
         {
-            // Инициализация cURL
-            $curl = curl_init();
-
-            curl_setopt($curl, CURLOPT_RETURNTRANSFER, true);
-            curl_setopt($curl, CURLOPT_URL, $Url);
+            $result = new BaseResult();
             
-            // Установите метод запроса GET
-            curl_setopt($curl, CURLOPT_HTTPGET, true);
-
-            // Установите максимальное время ожидания (например, 10 секунд)
-            curl_setopt($curl, CURLOPT_TIMEOUT, 10);
-
-            // Если есть данные для передачи в запросе, добавьте их к URL
+            // Добавляем параметры к URL если есть
             if (!empty($bodyData)) {
-                $Url .= '?' . http_build_query($bodyData);
-                curl_setopt($curl, CURLOPT_URL, $Url);
+                $Url = add_query_arg($bodyData, $Url);
             }
 
-            $curl_result = curl_exec($curl);
+            // Аргументы для запроса
+            $args = [
+                'timeout'     => 10,
+                'redirection' => 5,
+                'httpversion' => '1.0',
+                'user-agent'  => 'WordPress/' . get_bloginfo('version'),
+                'blocking'    => true,
+                'headers'     => [],
+                'cookies'     => [],
+                'body'        => null,
+                'compress'    => false,
+                'decompress'  => true,
+                'sslverify'   => true,
+            ];
 
-            $result = new BaseResult();
+            // Выполняем GET запрос
+            $response = wp_remote_get($Url, $args);
 
-            if (!$curl_result) {
-                $result->ErrorMessage = curl_error($curl);
-                $result->ErrorCode = curl_errno($curl);
+            // Проверяем на ошибки
+            if (is_wp_error($response)) {
+                $result->ErrorMessage = $response->get_error_message();
+                $result->ErrorCode = $response->get_error_code();
                 $result->ObjectName = "HttpConnector";
-                curl_close($curl);
                 return $result;
             }
-            
-            $http_code = curl_getinfo($curl, CURLINFO_HTTP_CODE);
 
-            if($http_code >= 400)
-            {
-                $result->ErrorMessage = json_decode($curl_result, true);
+            // Получаем HTTP код
+            $http_code = wp_remote_retrieve_response_code($response);
+            
+            if ($http_code >= 400) {
+                $result->ErrorMessage = wp_remote_retrieve_body($response);
                 $result->ErrorCode = $http_code;
                 $result->ObjectName = "HttpConnector";
-                curl_close($curl);
                 return $result;
             }
+
+            // Получаем тело ответа
+            $body = wp_remote_retrieve_body($response);
             
-            curl_close($curl);
+            // Декодируем JSON
+            $response_data = json_decode($body, true);
 
-            // Декодируем JSON ответ
-            $response = json_decode($curl_result, true);
-
-            $result->data = $response;
-
+            $result->data = $response_data;
             return $result;
         }
 

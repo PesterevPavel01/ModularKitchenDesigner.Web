@@ -20,7 +20,6 @@ if($inputParameter){
     
     $customerResult = new BaseResult();
 
-    
     $UserRegistrationProcessor = new UserRegistrationProcessor($clientServiceUrl);
 
     $roles = $current_user->roles;

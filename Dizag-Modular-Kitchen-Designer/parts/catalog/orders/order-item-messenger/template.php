@@ -2,7 +2,7 @@
 enqueue_template_part_styles_scripts( __DIR__, "catalog-order-item-messenger");
 ?>
 <?
-$arParams = isset($args['PARAMETER']) ? $args['PARAMETER'] : null;
+$arParams = isset($args['MODULE']) ? $args['MODULE'] : null;
 
 $current_user = wp_get_current_user();
 $display_name = $current_user->display_name;
@@ -16,14 +16,14 @@ $display_name = $current_user->display_name;
         <div class="d-flex align-items-center collapse-btn  collapsed" 
             type="button" 
             data-bs-toggle="collapse" 
-            data-bs-target="#horizontalCollapse"
+            data-bs-target="#horizontal-collapse"
             data-bs-custom-toggle="tooltip" 
             title="Свернуть">
             <i class="bi bi-chevron-down collapse-icon transition-all"></i>
         </div>
     </div>
 
-    <ul class="collapse transition-all order-item-message-list flex-column gap-1 w-100 white-background p-2" id="horizontalCollapse">
+    <ul class="collapse transition-all order-item-message-list flex-column gap-1 w-100 white-background p-2" id="horizontal-collapse">
         <?for($i = 0; $i < 3; $i++){?>
             <li class="order-item-message d-flex w-100 m-0">
 

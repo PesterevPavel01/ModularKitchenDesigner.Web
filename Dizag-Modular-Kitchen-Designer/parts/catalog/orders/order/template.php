@@ -6,11 +6,15 @@ require_once get_template_directory() . '/core/services/processors/catalog/order
 <?
 global $orderServiceUrl;
 
+//print_r($);
+
 $current_user = wp_get_current_user();
+
+$login = $current_user->user_login;
 
 $roles = $current_user->roles;
 
-$code = $args['PARAMETER']['ORDER_CODE'];
+$code = sanitize_text_field($args['ORDER_CODE']);
 
 $Result = new BaseResult();
 
@@ -24,45 +28,29 @@ if(!$Result->isSuccess())
     <?return;
 }
 
-$Order = $Result->data[0];
+$order = $Result->data[0];
 
+if($code && !in_array('constructor', $roles) && $login != $order['userName'] ){
+    ?><p class="error-message black">У пользователя нет необходимых прав!</p><?
+    return;
+}
 ?>
+
 <section class="section-order d-flex flex-column align-items-start gap-3 w-100 catalog_content_update">
     
     <block class="title-block d-flex flex-column w-100 justify-content-between w-100 flex-lg-row align-items-lg-center">
         
-        <t2 class="title w-100">Заказ: <?=$Order['title']?></t2>
+        <t2 class="title w-100">Заказ: <?=esc_html($order['title'])?></t2>
         
         <?if(in_array('customer', $roles)){?>
             
-            <block class="panel-control d-flex justify-content-start justify-content-xl-end">
-                
-                <?/*<input type="hidden" id="catalog-order-template_part_to_update" value=<?="parts/catalog/account/customer-order-list/template"?>>
-                <input type="hidden" id="catalog-order-html_block_to_update" value=<?="customer-account-oder-list-section"?>>*/?>
-                <input type="hidden" id="catalog-order-code" value=<?=$Order['code']?>>
-
-                <div class="d-flex flex-column justify-content-start align-items-center gap-1 flex-xl-row justify-content-xl-end m-0">
-
-                    <a href="<?=home_url('/order/')?>">
-                        <button class="ajax-update-button btn btn-primary m-0"
-                            data-bs-toggle="tooltip" 
-                            data-bs-placement="top"    
-                            title="Добавить фасады к заказу">
-                            Добавить
-                        </button>
-                    </a>
-
-                    <a href="<?=home_url('/order/')?>">
-                        <button class="ajax-update-button btn btn-primary m-0"
-                            data-bs-toggle="tooltip" 
-                            data-bs-placement="top"    
-                            title="Заказать">
-                            Заказать
-                        </button>
-                    </a>
-
-                </div>
-
+            <block class="panel-control d-flex justify-content-start justify-content-xl-end" id = "order-submit-block">
+            
+            <?get_template_part("parts/catalog/orders/order-submit-form/template",null,
+            [
+                'ORDER_CODE' =>  $code,
+                'MODULES' =>  $order['modules']
+            ]);?>
                 
             </block>
 
@@ -70,20 +58,16 @@ $Order = $Result->data[0];
 
     </block> 
 
-    <?get_template_part("parts/catalog/orders/order-item-list/template",null,
+    <block id = "catalog-order-item-list">
+
+        <?get_template_part("parts/catalog/orders/order-item-list/template",null,
         [
-            'PARAMETER'=> [
-                'MODULES' =>  $Order['modules']
-            ]
+            'ORDER_CODE' =>  $code,
+            'MODULES' =>  $order['modules']
         ]);?>
 
-    <?/*get_template_part("parts/catalog/orders/order-item-list/template",null,
-        [
-            'PARAMETER'=> [
-                'MODULES' =>  $Order['modules']
-            ]
-        ]);*/?>
+    </block> 
 
 </section>
-<?
-?>
+
+<?get_template_part("parts/catalog/orders/order-blueprints-form/template");?>

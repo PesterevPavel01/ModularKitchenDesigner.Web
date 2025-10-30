@@ -1,15 +1,19 @@
 <?php
 require_once get_template_directory() . '/core/Result.php';
 require_once get_template_directory() . '/core/services/processors/catalog/user/PermissionProcessor.php';
+require_once get_template_directory() . '/core/services/processors/catalog/orders/CreateOrderProcessor.php';
 
 global $clientServiceUrl;
+global $orderServiceUrl;
 
-get_header(); ?>
-
+get_header(); 
+the_content ();
+?>
 <header>
     <?get_template_part("parts/navigation/preloader")?>
     <?get_template_part("parts/navigation/navbar")?>
 </header>
+
 <main class = "white-background">
 
     <section class="section-content flex-column gap40 mx-width-1380 m-auto">
@@ -26,7 +30,7 @@ get_header(); ?>
 
                 $PermissionProcessor = new PermissionProcessor($clientServiceUrl);
             
-                $Result = $PermissionProcessor->Process($current_user->user_login);
+                $Result = $PermissionProcessor->Process(sanitize_user($current_user->user_login));
 
                 if(!$Result->isSuccess() || !in_array('customer', $Result->data["roles"]) || $Result->data["externalId"] == "none"){
                 ?>
@@ -57,26 +61,38 @@ get_header(); ?>
         }?>
         
         <?
-        $Code = isset($_GET['Code']) ? sanitize_text_field($_GET['Code']) : '';
+        $Code = isset($_GET['Code']) ? sanitize_text_field(wp_unslash($_GET['Code'])) : '';
 
         if (!empty($Code)) {
+
             get_template_part("parts/catalog/orders/order/template",null,
             [
-                'PARAMETER'=> [
-                    'ORDER_CODE' =>  $Code
-                ]
+                'ORDER_CODE' =>  $Code
             ]);
+            
         }else{
-            print_r('Новый заказ');
-            print_r("<br><br>");
+
+            $CresateOrderProcessor = new CreateOrderProcessor($orderServiceUrl);
+            
+            $Result = $CresateOrderProcessor->Process([
+                'userName' => $current_user->user_login
+            ]);
+
+            if(!$Result->isSuccess() ){
+                ?><p class="error-message black"><?=esc_html($Result->ErrorMessage)?></p><?
+                return;
+            }
+
+            $order_url = add_query_arg('Code', $Result->data["code"], home_url('/order/'));
+
+            $Url = esc_url($order_url);
+
+            wp_redirect($Url);
+
+            exit;
         }
         ?>
-        
-        <p class="black">Страница в разработке</p>
         
     </section>
 </main>
 <?php get_footer();?>
-
-
-<?

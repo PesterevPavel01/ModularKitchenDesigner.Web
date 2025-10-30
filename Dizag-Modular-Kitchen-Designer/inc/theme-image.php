@@ -2,6 +2,7 @@
 
 //Utility function for static images inside theme
 function theme_image($image_name = 'placeholder', $src = true, $dir = '/assets/img/module/') {
+	
 	$image_path = get_template_directory() . $dir . $image_name;
 	$image_url = get_template_directory_uri() . $dir . $image_name;
 	
