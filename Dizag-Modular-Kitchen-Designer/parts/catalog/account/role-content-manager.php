@@ -38,7 +38,7 @@ if($current_user){
                 <input type="hidden" id="BLOCKED_ELEMENT" name = "BLOCKED_ELEMENT" value = "#permission-request-section-content">
                 <input type="hidden" id="TEMPLATE_PART" name = "TEMPLATE_PART" value = "parts/catalog/account/permission-request">
                 <input type="hidden" id="action" name = "action" value="default_content_updater">
-                <input type="hidden" id="TARGET_CONTEINER"  name = "TARGET_CONTEINER" value="#permission-request-section-content">
+                <input type="hidden" id="TARGET_CONTAINER"  name = "TARGET_CONTAINER" value="#permission-request-section-content">
 
                 <div class="permission-request-section-content" id = "permission-request-section-content">
                     <?get_template_part("parts/catalog/account/permission-request",null,

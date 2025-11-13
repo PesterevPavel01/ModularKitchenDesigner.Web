@@ -26,12 +26,12 @@ if(!$Result->isSuccess())
 
 <form class="d-flex flex-column justify-content-start align-items-center gap-1 flex-xl-row justify-content-xl-end m-0" data-ajax-default-content-updater="refresh" id = "order-submit-form">
 
-    <input type="hidden" id="BLOCKED_ELEMENT" name = "BLOCKED_ELEMENT" value = "#order-submit-form">
-    <input type="hidden" id="TEMPLATE_PART" name = "TEMPLATE_PART" value = "parts/catalog/orders/order-submit-form-action/template">
-    <input type="hidden" id="action" name = "action" value="default_content_updater">
-    <input type="hidden" id="TARGET_CONTEINER"  name = "TARGET_CONTEINER" value="#order-submit-block">
-    <input type="hidden" id="modules" name = "MODULES" value = "<?=$args['MODULES']?>">
-    <input type="hidden" id="order-code" name = "ORDER_CODE" value = "<?=sanitize_text_field($orderCode)?>">
+    <input type="hidden" name = "BLOCKED_ELEMENT" value = "#order-submit-form">
+    <input type="hidden" name = "TEMPLATE_PART" value = "parts/catalog/orders/order-submit-form-action/template">
+    <input type="hidden" name = "action" value="default_content_updater">
+    <input type="hidden" name = "TARGET_CONTAINER" value="#order-submit-block">
+    <input type="hidden" name = "MODULES" value = "<?=$args['MODULES']?>">
+    <input type="hidden" name = "ORDER_CODE" value = "<?=sanitize_text_field($orderCode)?>">
 
     <?if(empty($Result->data[0]) && !empty($args['MODULES']) ){?>
 

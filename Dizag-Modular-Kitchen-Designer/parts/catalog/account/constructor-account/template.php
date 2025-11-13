@@ -28,7 +28,7 @@ enqueue_template_part_styles_scripts( __DIR__, "constructor-account");//подк
             <input type="hidden" id="BLOCKED_ELEMENT" name = "BLOCKED_ELEMENT" value = "#approval-customer-list">
             <input type="hidden" id="TEMPLATE_PART" name = "TEMPLATE_PART" value = "parts/catalog/account/approval-customer-list/template">
             <input type="hidden" id="action" name = "action" value="default_content_updater">
-            <input type="hidden" id="TARGET_CONTEINER"  name = "TARGET_CONTEINER" value="#approval-customer-list">
+            <input type="hidden" id="TARGET_CONTAINER"  name = "TARGET_CONTAINER" value="#approval-customer-list">
 
             <div class="approval-customer-list-section d-flex flex-column align-items-center justify-content-center w-100 gap-3" id = "approval-customer-list-section">
                 <div class="customer-list-title-conteiner d-flex w-100 align-items-center justify-content-start gap-1">

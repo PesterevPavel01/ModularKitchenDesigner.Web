@@ -7,7 +7,7 @@ enqueue_template_part_styles_scripts( __DIR__, "approval-form");//подключ
     <input type="hidden" id="BLOCKED_ELEMENT" name = "BLOCKED_ELEMENT" value = "#approve-customer-modal">
     <input type="hidden" id="TEMPLATE_PART" name = "TEMPLATE_PART" value = "parts/catalog/account/approval-action/template">
     <input type="hidden" id="action" name = "action" value="default_content_updater">
-    <input type="hidden" id="TARGET_CONTEINER"  name = "TARGET_CONTEINER" value="#result-ajax-request">
+    <input type="hidden" id="TARGET_CONTAINER"  name = "TARGET_CONTAINER" value="#result-ajax-request">
     <input type="hidden" id="DEPENDENT_FORM"  name = "DEPENDENT_FORM" value="#approval-customer-section">
     <input type="hidden" id="approval-customer-login" name = "CUSTOMER_LOGIN" value="">
     

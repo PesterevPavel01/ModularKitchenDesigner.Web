@@ -6,9 +6,9 @@
                 <div class="custom-logo flex-row-start d-flex  align-items-center justify-content-start height-100">
                     <img class="logo-icon cover height-100" src="<?=theme_image('logo',true,'/assets/img/')?>">
                     </img>
-                    <div class="logo black d-flex flex-column align-items-center">
-                        <p class="logo-main">Дизаж</p>
-                        <p class="logo-footer">ПРОИЗВОДСТВО МЕБЕЛИ</p>
+                    <div class="logo black d-flex flex-column align-items-start justify-content-center">
+                        <p class="logo-main m-0">Дизаж</p>
+                        <p class="logo-footer m-0">ПРОИЗВОДСТВО МЕБЕЛИ</p>
                     </div>
                 </div>
             </div>
@@ -19,7 +19,7 @@
                     $current_user = wp_get_current_user();
                     ?>
                     <li class="flex-column">
-                        <p class="login white mobile-none"><?=$current_user->user_login?></p>
+                        <p class="login white mobile-none m-0"><?=$current_user->user_login?></p>
                         <a class="d-flex align-items-center flex-column white" href="<?= wp_logout_url( get_site_url() . "/authorization/") ?>">
                             <div class="bi bi-box-arrow-right"></div>
                             <?/*?><label class="small-font pointer navbar-label">выход</label><?*/?>

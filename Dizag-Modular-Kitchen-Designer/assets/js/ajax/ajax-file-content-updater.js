@@ -9,24 +9,21 @@ function  AjaxCatalogFileContentUpdaterInit()
 }
 
 function CatalogFileContentUpdaterHandler($form) {
-    const $blockedElement = $form.find('#BLOCKED_ELEMENT').val();
-    const $targetContainer = $form.find('#TARGET_CONTEINER').val();
-    const $dependentForm = $form.find('#DEPENDENT_FORM').val();
-    
-    console.log($form.find('#TEMPLATE_PART').val());
-    console.log($form.find('#TARGET_CONTEINER').val());
+    const $blockedElement = $form.find('input[name="BLOCKED_ELEMENT"]').val();
+    const $targetContainer = $form.find('input[name="TARGET_CONTAINER"]').val();
+    const $dependentForm = $form.find('input[name="DEPENDENT_FORM"]').val();
     
     // Создаем FormData вместо serialize()
     const formData = new FormData($form[0]);
     
     // Добавляем nonce для безопасности (рекомендуется)
-    formData.append('nonce', ajax_nonce); // если у вас есть nonce
+    formData.append('nonce', ar_params.ajax_nonce); // если у вас есть nonce
     
     console.log('FormData created, files count:', $form.find('input[type="file"]')[0].files.length);
     
     $.ajax({
         type: 'POST',
-        url: ajax_url,
+        url: ar_params.ajax_url,
         data: formData,
         processData: false, // Важно: не обрабатывать данные
         contentType: false, // Важно: не устанавливать contentType
@@ -35,7 +32,7 @@ function CatalogFileContentUpdaterHandler($form) {
             $($blockedElement).block({
                 message: null,
                 overlayCSS: {
-                    background: `#fff url(${preloader_url}) center center no-repeat`,
+                    background: `#fff url(${ar_params.preloader_url}) center center no-repeat`,
                     opacity: 0.6
                 }
             });

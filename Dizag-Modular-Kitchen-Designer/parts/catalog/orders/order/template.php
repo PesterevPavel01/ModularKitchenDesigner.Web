@@ -6,8 +6,6 @@ require_once get_template_directory() . '/core/services/processors/catalog/order
 <?
 global $orderServiceUrl;
 
-//print_r($);
-
 $current_user = wp_get_current_user();
 
 $login = $current_user->user_login;
@@ -35,39 +33,58 @@ if($code && !in_array('constructor', $roles) && $login != $order['userName'] ){
     return;
 }
 ?>
-
-<section class="section-order d-flex flex-column align-items-start gap-3 w-100 catalog_content_update">
     
-    <block class="title-block d-flex flex-column w-100 justify-content-between w-100 flex-lg-row align-items-lg-center">
+<block class="title-block d-flex flex-column w-100 justify-content-between w-100 flex-lg-row align-items-lg-center">
+    
+    <t2 class="title w-100">Заказ: <?=esc_html($order['title'])?></t2>
+    
+    <?if(in_array('customer', $roles)){?>
         
-        <t2 class="title w-100">Заказ: <?=esc_html($order['title'])?></t2>
+        <block class="panel-control d-flex justify-content-start justify-content-xl-end" id = "order-submit-block">
         
-        <?if(in_array('customer', $roles)){?>
-            
-            <block class="panel-control d-flex justify-content-start justify-content-xl-end" id = "order-submit-block">
-            
-            <?get_template_part("parts/catalog/orders/order-submit-form/template",null,
-            [
-                'ORDER_CODE' =>  $code,
-                'MODULES' =>  $order['modules']
-            ]);?>
-                
-            </block>
-
-        <?}?>
-
-    </block> 
-
-    <block id = "catalog-order-item-list">
-
-        <?get_template_part("parts/catalog/orders/order-item-list/template",null,
+        <?get_template_part("parts/catalog/orders/order-submit-form/template",null,
         [
             'ORDER_CODE' =>  $code,
             'MODULES' =>  $order['modules']
         ]);?>
+            
+        </block>
 
-    </block> 
+    <?}?>
 
-</section>
+</block> 
 
-<?get_template_part("parts/catalog/orders/order-blueprints-form/template");?>
+<block id = "catalog-order-item-list" class = "w-100">
+
+    <?get_template_part("parts/catalog/orders/order-item-list/template",null,
+    [
+        'ORDER_CODE' =>  $code,
+        'MODULES' =>  $order['modules'],
+        'ACTIVE_MODULE_CODE' => isset($args['ACTIVE_MODULE_CODE']) ? sanitize_text_field($args['ACTIVE_MODULE_CODE']) : null
+    ]);?>
+
+</block> 
+
+<?get_template_part("parts/catalog/orders/order-blueprints-form/template", null, 
+    [
+        'COMPONENT_TYPE' => 'milling'
+    ]
+);?>
+
+<?get_template_part("parts/catalog/orders/configurator-blueprints-reset-form/template", null, 
+    [
+        'COMPONENT_TYPE' => 'milling'
+    ]
+);?>
+
+<?get_template_part("parts/catalog/orders/order-blueprints-form/template", null, 
+    [
+        'COMPONENT_TYPE' => 'hinge'
+    ]
+);?>
+
+<?get_template_part("parts/catalog/orders/configurator-blueprints-reset-form/template", null, 
+    [
+        'COMPONENT_TYPE' => 'hinge'
+    ]
+);?>

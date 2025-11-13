@@ -10,6 +10,7 @@ $role = isset($args['ROLE']) ? sanitize_text_field($args['ROLE']) : '';
 <section class="customer-account-content d-flex flex-column align-items-start gap-3 flex-lg-row w-100" id = "customer-account-content">
 
     <div class="customer-account-order-list w-100" id = "customer-account-order-list">
+
         <?get_template_part("parts/catalog/account/customer-order-list/template", null,                 
             [
                 'PERIOD' => 30,
@@ -19,6 +20,7 @@ $role = isset($args['ROLE']) ? sanitize_text_field($args['ROLE']) : '';
                 'ROLE' => $role
             ]);
         ?>
+        
     </div>
 
     <form class="order-list-parameters-form d-flex flex-column align-items-start justify-content-start gap-3 m-0  order-1 order-lg-2" id = "order-list-parameters-form" data-ajax-default-content-updater="refresh">
@@ -26,7 +28,7 @@ $role = isset($args['ROLE']) ? sanitize_text_field($args['ROLE']) : '';
         <input type="hidden" id="BLOCKED_ELEMENT" name = "BLOCKED_ELEMENT" value = "#customer-account-content">
         <input type="hidden" id="TEMPLATE_PART" name = "TEMPLATE_PART" value= "parts/catalog/account/customer-order-list/template">
         <input type="hidden" id="action" name = "action" value="default_content_updater">
-        <input type="hidden" id="TARGET_CONTEINER"  name = "TARGET_CONTEINER" value="#customer-account-order-list">
+        <input type="hidden" id="TARGET_CONTAINER"  name = "TARGET_CONTAINER" value="#customer-account-order-list">
         <input type="hidden" id="ROLE"  name = "TARGET_CONTEINER" value="<?=$role?>">
 
         <t2 class="title ps-2">Параметры</t2>

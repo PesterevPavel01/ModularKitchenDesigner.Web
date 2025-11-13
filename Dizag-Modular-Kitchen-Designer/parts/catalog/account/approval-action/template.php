@@ -9,10 +9,10 @@ $customer_code = sanitize_text_field($args['CUSTOMER_CODE']);
 $cleaned_external_id = preg_replace('/\s+/', '', $customer_code);
     
     // Валидация
-$is_valid = strlen($cleaned_external_id) >= 11;
+$is_valid = strlen($cleaned_external_id) >= 9;
 
 if (!$is_valid){
-    print_r('Код должен содержать не менее 11 символов');
+    print_r('Код должен содержать не менее 9 символов');
     return;
 }
 

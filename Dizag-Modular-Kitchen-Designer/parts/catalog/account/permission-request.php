@@ -49,9 +49,10 @@ $Result = $PermissionProcessor->Process($current_user->user_login);
 
 if(!$Result->isSuccess())
 {
-    if($Result->ErrorMessage === "User not found!")
-    {?>
-        <p class="error-message black p-3">У пользователя нет необходимых прав, обратитесь к администратору!</p>
+    if($Result->ErrorMessage === "User not found!" || $Result->ErrorMessage === '"User not found!"')
+    {
+        ?>
+        <p class="error-message black p-3 m-0">У пользователя нет необходимых прав, обратитесь к администратору!</p>
         <block class = "permission-request-section p-3" id = "permission-request-section">
             <button type="submit" class = "custom-btn black ajax-update-button" id = "permission-request-btn" type="submit">
                 <input type = "hidden" id="value" name="PARAMETER" value="<?=esc_attr($current_user->user_login)?>">
@@ -59,6 +60,12 @@ if(!$Result->isSuccess())
             </button>
         </block>
     <?
+    }    else
+    {
+        // Вывод другой ошибки для отладки
+        ?>
+        <p class="error-message black p-3 m-0">Произошла ошибка: <?=esc_html($Result->ErrorMessage)?> (Код: <?=esc_html($Result->ErrorCode)?>)</p>
+        <?
     }
 }else{
     ?>

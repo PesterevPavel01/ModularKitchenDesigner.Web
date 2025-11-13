@@ -1,5 +1,7 @@
 $(document).ajaxComplete(reinitComboboxHandlers);
 
+$(document).ready(reinitComboboxHandlers);
+
 function reinitComboboxHandlers() {
 
     $('#order-item-facade-configurator-clear').off('click').on('click', function(event){resetConfigurationForm(this);});
@@ -10,6 +12,8 @@ function reinitComboboxHandlers() {
 
     $('#milling-combobox').on('change.comboboxHandler', handleMillingComboboxChange);
 
+    $('#hinge-combobox').on('change.comboboxHandler', handleHingeComboboxChange);
+
 }
 
 function resetConfigurationForm(button) {
@@ -18,13 +22,18 @@ function resetConfigurationForm(button) {
 
     if(deactivateGroup != ""){
 
-        $(deactivateGroup).removeClass('active');
+        const elements = $('[data-form-group="' + deactivateGroup + '"]');
+        
+        if (elements.length > 0) {
+            elements.removeClass('active');
+        }
 
     }
 
     var form = $('#order-item-facade-configurator-form');
 
-    form[0].reset();
+    //нельзя, т.к. сотрутся 
+    //form[0].reset();
    
     fileList = form.find('#catalog-facade-configurator-file-list');
 
@@ -34,18 +43,20 @@ function resetConfigurationForm(button) {
     
     form.find('input[type="number"]').val('');
 
-    form.find('input[type="hidden"]').val('');
+    form.find('input[type="hidden"]:not([data-no-reset="true"])').val('');
     
     form.find('.combobox-input').val('');
     
     form.find('.configurator-combobox').val('0').trigger('change');
+
+    //отправляю формы, отвечающие за очистку списков файлов в конфигураторе
+
+    $('#configurator-blueprints-milling-reset-form').trigger('submit');
+
+    $('#configurator-blueprints-hinge-reset-form').trigger('submit');
 }
 
 function handleComboboxChange() {
-       
-    var selectedOption = $(this).find('option:selected');
-
-    var displayText = selectedOption.data('text') || selectedOption.text();
 
     var value = $(this).val();
     
@@ -53,20 +64,45 @@ function handleComboboxChange() {
 
     var $input = $container.find('.combobox-input');
     
-    $input.val(displayText);
-    
-    //console.log('Value:', value, 'Display:', displayText);
+    $input.val(value);
 }
 
 function handleMillingComboboxChange() {
-       
+
+    //делает видимой секцию с чертежами
+
     var value = $(this).val();
 
-    const $content = $('#custom-milling-content');
+    console.log(value);
+
+    const $content = $('#custom-milling-blueprints-form');
 
     if(value != "CUSTOM_MILLING")
+
         $content.addClass('d-none');
+
     else
+
+        $content.removeClass('d-none');
+    
+}
+
+function handleHingeComboboxChange() {
+
+    //делает видимой секцию с чертежами
+
+    var value = $(this).val();
+
+    console.log(value);
+
+    const $content = $('#custom-hinge-blueprints-form');
+
+    if(value != "CUSTOM_HINGE")
+
+        $content.addClass('d-none');
+
+    else
+
         $content.removeClass('d-none');
     
 }

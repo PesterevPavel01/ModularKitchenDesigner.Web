@@ -13,11 +13,11 @@ if(!$args["ORDER_CODE"]){
 $orderCode = sanitize_text_field($args['ORDER_CODE']);
 
 $result = $OrderRemovalProcessor->Process($orderCode);
-/*
+
 if(!$result->isSuccess())
 {?>
     <p class="error-message"><?=$result->ErrorMessage?></p>
     <?return;
-}*/
+}
 ?>
 <p class="error-message black w-100 p-1 text-center">Выполнено!</p>

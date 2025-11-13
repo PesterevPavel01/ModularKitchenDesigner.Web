@@ -3,10 +3,10 @@ enqueue_template_part_styles_scripts( __DIR__, "remove-order-form");
 ?>
 <form class="remove-order-modal modal fade" data-ajax-default-content-updater="refresh" id="remove-order-modal" tabindex="-1">
     
-    <input type="hidden" id="BLOCKED_ELEMENT" name = "BLOCKED_ELEMENT" value = "#remove-order-modal">
-    <input type="hidden" id="TEMPLATE_PART" name = "TEMPLATE_PART" value = "parts/catalog/orders/remove-order-form-action/template">
-    <input type="hidden" id="action" name = "action" value="default_content_updater">
-    <input type="hidden" id="TARGET_CONTEINER"  name = "TARGET_CONTEINER" value="#remove-order-result">
+    <input type="hidden" name = "BLOCKED_ELEMENT" value = "#remove-order-modal">
+    <input type="hidden" name = "TEMPLATE_PART" value = "parts/catalog/orders/remove-order-form-action/template">
+    <input type="hidden" name = "action" value="default_content_updater">
+    <input type="hidden" name = "TARGET_CONTAINER" value="#remove-order-result">
     <input type="hidden" id="DEPENDENT_FORM"  name = "DEPENDENT_FORM" value="#order-list-parameters-form">
     <input type="hidden" id="remove-order-code" name = "ORDER_CODE" value="">
     

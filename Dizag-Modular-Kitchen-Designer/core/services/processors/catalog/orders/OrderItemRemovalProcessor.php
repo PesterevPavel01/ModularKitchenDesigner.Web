@@ -11,15 +11,29 @@ Class OrderItemRemovalProcessor
     public function __construct($orderServiceUrl){
         $this->HttpConnector = new HttpConnector();
         $this->Result = new BaseResult();
-        $this->Url = $orderServiceUrl . "v2/orders/items/";
+        $this->Url = $orderServiceUrl . "v3/orders/";
     }
 
-    public function Process(string $orderItemCode)
+    public function Process(string $orderCode, string $moduleCode)
     {     
        
-        $url = $this->Url . $orderItemCode . "/disable";
+        if(!$orderCode || trim($orderCode) === "")
+        {
+            $this->Result->ErrorMessage = "Не указан код заказа!";
 
-        $this->Result=$this->HttpConnector->wp_patch($url, []);
+            return $this->Result;
+        }
+
+        if(!$moduleCode || trim($moduleCode) === "")
+        {
+            $this->Result->ErrorMessage = "Не указан код модуля!";
+
+            return $this->Result;
+        }
+
+        $url = $this->Url . $orderCode . "/remove/$moduleCode";
+
+        $this->Result=$this->HttpConnector->wp_delete($url);
         
         return $this->Result;
     }

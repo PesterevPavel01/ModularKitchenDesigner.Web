@@ -11,14 +11,15 @@ function RemoveOrderItemModalInit(){
         // Получаем кнопку, вызвавшую модальное окно
         var button = event.relatedTarget;
         // Получаем данные из атрибутов data-bs-*
-        var orderItemCode = button.getAttribute('data-bs-item-code');
-        var orderCode = button.getAttribute('data-bs-code');
+        var moduleCode = button.getAttribute('data-bs-module-code');
+        var orderCode = button.getAttribute('data-bs-order-code');
 
-        console.log(orderItemCode);
+        //console.log(moduleCode);
+        //console.log(orderCode);
         // Заполняем поля формы с помощью jQuery
-        removeModal.find('input[name="ORDER_ITEM_CODE"]').val(orderItemCode);
+        removeModal.find('input[name="MODULE_CODE"]').val(moduleCode);
         removeModal.find('input[name="ORDER_CODE"]').val(orderCode);
-        removeModal.find('#remove-order-item-title').text(orderItemCode);
+        removeModal.find('#remove-order-item-title').text(moduleCode);
     });
 }
 
@@ -26,6 +27,11 @@ function RemoveOrderItemModalInit(){
 function clearRemoveOrderItemModal(modal) {
     modal.find('#remove-order-item-result').empty();    
     modal.find('#remove-order-item-code').val('');          
-    modal.find('.alert').remove();                 // Удаляем все алерты (если есть)
-    modal.find('.error-message').remove();         // Удаляем сообщения об ошибках
+    modal.find('.alert').remove();       
+    modal.find('.error-message').remove();      
+    modal.find('.active').removeClass("active"); 
+
+    //console.log('.success: ' + modal.find('.success'))
+
+    modal.find('.success').removeClass("success");     
 }

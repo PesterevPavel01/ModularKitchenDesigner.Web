@@ -280,6 +280,10 @@ MAIN
 .height-300px{
   height: 300px;
 }
+
+.w-100{
+  width: 100%;
+}
 /*---------------------------------------
 ELEMENTOR PAGES             
 -----------------------------------------*/
@@ -381,7 +385,7 @@ transform: scale(1.2); /* Увеличиваем масштаб */
 }
 
 .nav-link {
-  font-family: "Oswald", system-ui;
+  font-family: var(--body-font-family);
   padding: 0 20px;
   color: var(--white-color);
   font-size: 16px;

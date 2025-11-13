@@ -35,7 +35,7 @@
 
         public function CreateCustomMilling($typeCode, $typeTitle){
             
-            $textParameters[] = [
+            $numericParameters[] = [
                 "type" => "Минимальная толщина",
                 "typeCode" => "00000MNHGHT",
                 "value" => 22
@@ -45,7 +45,23 @@
                 "componentTypeCode" => $typeCode,
                 "componentTypeTitle" => $typeTitle,
                 "componentTitle" => "Нестандартная",
-                "numericParameters"=> $textParameters
+                "numericParameters"=> $numericParameters
+            ];
+
+            $url = $this->Url . $orderItemCode . "/create";
+
+            $this->Result=$this->HttpConnector->wp_post($url, $body);
+            
+            return $this->Result;
+
+        }
+
+        public function CreateCustomHinge($typeCode, $typeTitle){
+
+            $body = [
+                "componentTypeCode" => $typeCode,
+                "componentTypeTitle" => $typeTitle,
+                "componentTitle" => "Нестандартная"
             ];
 
             $url = $this->Url . $orderItemCode . "/create";

@@ -11,6 +11,13 @@ $nonce = $args['nonce'] ?? '';
 
 $componentCode = $args['COMPONENT_CODE'] ?? '';
 
+$componentType = isset($args['COMPONENT_TYPE']) ? sanitize_text_field($args['COMPONENT_TYPE']) : "";
+
+if($componentType === ""){
+
+    echo "Не указан тип компонента";
+}
+
 $ComponentProvider = new ComponentProvider($componentServiceUrl);
 
 $ComponentResult = new BaseResult();
@@ -22,9 +29,15 @@ if($componentCode === ''){
 
     $order_page_id = $order_page->ID;
 
-    $millingCode = get_field('milling', $order_page_id);
+    $millingCode = get_field($componentType, $order_page_id);
 
-    $ComponentResult = $ComponentProvider->CreateCustomMilling($millingCode, "Фрезеровка");
+    if($componentType === "milling")
+
+        $ComponentResult = $ComponentProvider->CreateCustomMilling($millingCode, "Фрезеровка");
+
+    elseif($componentType === "hinge")
+
+        $ComponentResult = $ComponentProvider->CreateCustomHinge($millingCode, "Плита");
 
     if(!$ComponentResult->isSuccess())
     {?>
@@ -33,6 +46,7 @@ if($componentCode === ''){
     }
 
     $componentCode = $ComponentResult->data[0]["componentCode"];
+
 }
 
 $current_user = wp_get_current_user();
@@ -47,12 +61,13 @@ if (!wp_verify_nonce($nonce, 'blueprint_upload_nonce')) {
 
 $uploaded_files_info = [];
 
-
 if (!empty($_FILES['BLUEPRINTS']) && !empty($_FILES['BLUEPRINTS']['name'][0])) {
     
     // Получаем базовый путь загрузки WordPress
     $upload_dir = wp_upload_dir();
+
     $component_dir = $upload_dir['basedir'] . '/' . $login . '/' . $componentCode;
+    
     $component_url = $upload_dir['baseurl'] . '/' . $login . '/' . $componentCode;
     
     // Создаем папку если ее нет
@@ -109,6 +124,7 @@ if (!empty($_FILES['BLUEPRINTS']) && !empty($_FILES['BLUEPRINTS']['name'][0])) {
     if(empty($uploaded_files_info))
     {
         echo '<div class="alert alert-warning">Файлы не были получены</div>';
+
         return;
     }
 
@@ -143,9 +159,10 @@ if (!empty($_FILES['BLUEPRINTS']) && !empty($_FILES['BLUEPRINTS']['name'][0])) {
         <?return;
     }
 
-    get_template_part("parts/catalog/orders/facade-configurator-blueprints/template",null,
+    get_template_part("parts/catalog/orders/configurator-blueprints/template",null,
         [
-            'COMPONENT' =>  $ComponentResult->data
+            'COMPONENT' =>  $ComponentResult->data,
+            'COMPONENT_TYPE' => $componentType
         ]);
     
 } else {

@@ -6,7 +6,7 @@ enqueue_template_part_styles_scripts( __DIR__, "remove-customer-form");
     <input type="hidden" id="BLOCKED_ELEMENT" name = "BLOCKED_ELEMENT" value = "#remove-customer-modal">
     <input type="hidden" id="TEMPLATE_PART" name = "TEMPLATE_PART" value = "parts/catalog/account/remove-customer-action/template">
     <input type="hidden" id="action" name = "action" value="default_content_updater">
-    <input type="hidden" id="TARGET_CONTEINER"  name = "TARGET_CONTEINER" value="#remove-customer-result">
+    <input type="hidden" id="TARGET_CONTAINER"  name = "TARGET_CONTAINER" value="#remove-customer-result">
     <input type="hidden" id="DEPENDENT_FORM"  name = "DEPENDENT_FORM" value="#approval-customer-section">
     <input type="hidden" id="remove-customer-login" name = "CUSTOMER_LOGIN" value="">
     

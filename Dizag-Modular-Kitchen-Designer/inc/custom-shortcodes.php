@@ -6,15 +6,24 @@
 function authorization_button_shortcode($atts) {
     
     if (is_user_logged_in()) {
-        return '';
+
+        $atts = shortcode_atts(array(
+            'text' => 'Выход',
+            'url' => wp_logout_url( get_site_url() . "/authorization/"),
+            'class' => 'custom-btn black w-100',
+            'target' => '_self'
+        ), $atts);
+
+    }else{
+
+        $atts = shortcode_atts(array(
+            'text' => 'Авторизация',
+            'url' => '/authorization',
+            'class' => 'custom-btn white w-100',
+            'target' => '_self'
+        ), $atts);
+
     }
-    
-    $atts = shortcode_atts(array(
-        'text' => 'Авторизация',
-        'url' => '/authorization',
-        'class' => 'custom-btn white',
-        'target' => '_self'
-    ), $atts);
     
     return sprintf(
         '<a href="%s" class="%s" target="%s">%s</a>',
@@ -36,7 +45,7 @@ function account_button_shortcode($atts) {
     $atts = shortcode_atts(array(
         'text' => 'ЗАКАЗЫ',
         'url' => '/account',
-        'class' => 'custom-btn white',
+        'class' => 'custom-btn white w-100',
         'target' => '_self'
     ), $atts);
     

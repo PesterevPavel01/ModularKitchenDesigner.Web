@@ -15,7 +15,7 @@ if($arParams){
         <i class="order-list-item bi bi-file-earmark-check d-flex flex-column"></i>
     <?}?>
 
-    <p class="order-title w-50 black d-flex justify-content-start align-items-center"><?=sanitize_text_field($arParams['TITLE'])?></p>
+    <p class="order-title w-50 black d-flex justify-content-start align-items-center m-0"><?=sanitize_text_field($arParams['TITLE'])?></p>
 
     <?php
         $Code = $arParams['ORDER_CODE'];

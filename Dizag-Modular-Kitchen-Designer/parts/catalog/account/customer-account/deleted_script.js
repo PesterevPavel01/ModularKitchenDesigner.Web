@@ -6,6 +6,8 @@ function  CatalogAjaxTriggersInit()
 
     $triggerForms.each(function() {
 
+        console.log(this);
+
         let $updateButtons = $(this).find('#order-list-parameters-button');
 
         $updateButtons.each(function() {
