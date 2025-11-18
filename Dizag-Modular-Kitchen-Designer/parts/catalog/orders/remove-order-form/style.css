@@ -1,0 +1,13 @@
+#remove-order-modal-dialog .success-message{
+    display: none;
+}
+
+#remove-order-modal-dialog.success .message,
+#remove-order-modal-dialog.success #remove-order-item-button
+{
+    display: none !important;
+}
+
+#remove-order-modal-dialog.success .success-message{
+    display: block;
+}

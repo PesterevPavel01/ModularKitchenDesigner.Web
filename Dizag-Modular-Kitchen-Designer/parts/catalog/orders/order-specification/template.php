@@ -4,6 +4,10 @@ enqueue_template_part_styles_scripts( __DIR__, "catalog-order-item-specification
 
 <?
 
+$user = isset($args['USER']) ? sanitize_text_field($args['USER']) : "";
+
+$role = isset($args['ROLE']) ? sanitize_text_field($args['ROLE']) : "";
+
 $arParams = isset($args['MODULES']) ? $args['MODULES'] : null;
 
 $orderCode = sanitize_text_field($args['ORDER_CODE']);
@@ -51,12 +55,15 @@ $hingeCode = get_field('hinge', $order_page_id);
                 <span class="d-table-cell order-specification-cell dark fw-bold p-1 col-1">Высота, мм</span>
                 <span class="d-table-cell order-specification-cell dark fw-bold p-1 col-1">Ширина, мм</span>
                 <span class="d-table-cell order-specification-cell dark fw-bold p-1 col-1">Количество</span>
+                <span class="d-table-cell order-specification-cell dark fw-bold p-1 col-1">Площадь, м2</span>
                 <span class="d-table-cell order-specification-cell dark fw-bold p-1 col-1">Плита</span>
                 <span class="d-table-cell order-specification-cell dark fw-bold p-1 col-3">Фрезеровка</span>
                 <span class="d-table-cell order-specification-cell dark fw-bold p-1 col-1">Кромка фасада</span>
                 <span class="d-table-cell order-specification-cell dark fw-bold p-1">отверстие под петли</span>
 
             </li>
+
+            <?$totalArea = 0;?>
 
             <?foreach($args['MODULES'] as $moduleItem){?>
 
@@ -124,6 +131,19 @@ $hingeCode = get_field('hinge', $order_page_id);
                         data-bs-placement="top"    
                         title="<?=esc_html($moduleItem["quantity"])?>">
                         <input type="text" readonly step="1" min="0" max="2000" value="<?=esc_html($moduleItem["quantity"])?>" class="order-item-specification-quantity w-100 border rounded height-40" name="order-item-specification-quantity"/>
+                    </div>
+
+                    <?$area = !empty($width) && !empty($length)? (double)$width['value']/1000 * (double)$length['value']/1000 *  (double)$moduleItem["quantity"] : null;
+                    
+                    if($area)
+                     $totalArea += $area;
+                    ?> 
+
+                    <div class="d-table-cell catalog-order-specification-cell ps-1 pb-2 align-middle text-center"
+                        data-bs-toggle="tooltip" 
+                        data-bs-placement="top"    
+                        title="<?=$area ? number_format($area, 2, ',', ' ') : 'Нет данных'?>">
+                        <input type="text" readonly value="<?= $area ?  number_format($area, 2, ',', ' ') : ''?>" class="order-item-specification-area w-100 border rounded height-40" name="order-item-specification-width"/>
                     </div>
 
                     <?
@@ -242,7 +262,10 @@ $hingeCode = get_field('hinge', $order_page_id);
                         <input type="hidden" name = "ORDER_CODE" value=<?=esc_html($orderCode)?>>
                         <input type="hidden" name = "QUANTITY" value=<?=esc_html($moduleItem["quantity"])?>>
                         <input type="hidden" name = "ACTIVATE_ELEMENT_GROUP" value="specification-item-change-button">
+                        <input type="hidden" name = "IS_COMPLETED" value=<?=sanitize_text_field($args['IS_COMPLETED'])?>>
                         <input type="hidden" name = "MODULE" value="<?= ($module || !empty($module))? htmlspecialchars(json_encode($module, JSON_UNESCAPED_UNICODE | JSON_HEX_QUOT | JSON_HEX_APOS), ENT_QUOTES, 'UTF-8') : ""?>">
+                        <input type="hidden" data-no-reset="true" name="USER" value="<?=$user?>">
+                        <input type="hidden" data-no-reset="true" name="ROLE" value="<?=$role?>">
 
                         <button type = "submit" id = "<?=esc_html($module["moduleCode"])?>" class = "<?=$module["moduleCode"] === $activeModuleCode ? "active" : "" ?> btn-primary white-background d-flex flex-column align-items-center justify-content-center p-2 pointer hover-white border rounded height-40"
                             data-form-group="specification-item-change-button">
@@ -275,7 +298,24 @@ $hingeCode = get_field('hinge', $order_page_id);
                 </li>
 
             <?}?>
-
+            
+            <?if($totalArea !== 0){?>
+                <div class="ps-2 pb-4 align-start text-start"
+                    data-bs-toggle="tooltip" 
+                    data-bs-placement="top"    
+                    title="Итоговая площадь заказа">
+                    <strong type="text" class="d-table-cell w-100 align-items-start">ВСЕГО</strong>
+                </div>
+                <div class="d-table-cell"></div>
+                <div class="d-table-cell"></div>
+                <div class="d-table-cell"></div>
+                <div class="d-table-cell catalog-order-specification-cell ps-2 pb-4 align-start text-start"
+                    data-bs-toggle="tooltip" 
+                    data-bs-placement="top"    
+                    title="Итоговая площадь заказа">
+                    <strong class="w-100 align-items-start"><?=number_format($totalArea, 2, ',', ' ')?></strong>
+                </div>
+            <?}?>
         </ul>
     <?}?>
 

@@ -21,7 +21,7 @@
     font-size: var(--bootstrap-icon-size-medium);
 }
 
-.customer-order-list-item > p{
+.customer-order-list-item p{
     font-size: var(--middle-font-size);
 }
 
@@ -33,4 +33,8 @@
 
 .panel-control button{
     min-width: 130px;
+}
+
+.order-list-item-user span{
+    font-size: var(--small-font-size);
 }

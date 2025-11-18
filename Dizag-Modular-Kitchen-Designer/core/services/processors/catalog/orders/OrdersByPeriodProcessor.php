@@ -20,9 +20,9 @@
             $Result = new BaseResult();
 
             $url = $this->Url . "/" . $arParams['PERIOD'] 
-            . '?ascending=' . ($arParams['ASCENDING'] ? 'true' : 'false')
-            . '&incompleteOnly=' . ($arParams['INCOMPLETE_ONLY'] ? 'true' : 'false')
-            . '&customOnly=' . ($arParams['CUSTOM_ONLY'] ? 'true' : 'false');
+            . '?ascending=' . (isset($arParams['ASCENDING']) && $arParams['ASCENDING'] ? 'true' : 'false')
+            . '&incompleteOnly=' . (isset($arParams['INCOMPLETE_ONLY']) && $arParams['INCOMPLETE_ONLY'] ? 'true' : 'false')
+            . '&customOnly=' . (isset($arParams['CUSTOM_ONLY']) && $arParams['CUSTOM_ONLY'] ? 'true' : 'false');
 
             $this->Result = $this->HttpConnector->GetMessageByUrl($url);
             

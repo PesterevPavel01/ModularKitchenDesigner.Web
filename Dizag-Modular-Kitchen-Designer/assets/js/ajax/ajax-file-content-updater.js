@@ -38,12 +38,29 @@ function CatalogFileContentUpdaterHandler($form) {
             });
         },
         success: function(data) {
-            if ($dependentForm && $dependentForm !== '') {
-                $($dependentForm).trigger('submit');
-            }
-            $($blockedElement).unblock();
 
-            $($targetContainer).html(data);
+            $arParams = JSON.parse(data);
+
+            if($arParams.ERRORS)
+            {
+                if($($errorContainer).length)
+                    $($errorContainer).html( $arParams.HTML_CONTENT );
+                else 
+                    $($targetContainer).html('<div class="alert alert-warning alert-dismissible fade show m-0 w-100" role="alert"><strong>Не найден контейнер для ошибок!</strong><button type="button" class="btn-close text-center p-0 pe-3 h-100" data-bs-dismiss="alert" aria-label="Close"></button></div>');
+
+            }else{
+
+                $($targetContainer).html( $arParams.HTML_CONTENT );
+
+                if ($dependentForm && $dependentForm !== '') {
+
+                    $($dependentForm).trigger('submit');
+                    
+                }
+
+            }
+
+            $($blockedElement).unblock();
         },
         error: function(xhr, status, error) {
             console.error('AJAX Error:', error);

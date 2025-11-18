@@ -253,6 +253,10 @@ MAIN
   min-width: 120px;
 }
 
+.m-width-200{
+  min-width: 200px;
+}
+
 .mx-width-350{
   max-width: 350px;
 }

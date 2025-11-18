@@ -12,6 +12,14 @@ $login = $current_user->user_login;
 
 $roles = $current_user->roles;
 
+if(in_array('customer', $roles))
+    $role = 'customer';
+elseif(in_array('constructor', $roles))
+    $role = 'constructor';
+else
+    $role = null;
+
+
 $code = sanitize_text_field($args['ORDER_CODE']);
 
 $Result = new BaseResult();
@@ -33,24 +41,27 @@ if($code && !in_array('constructor', $roles) && $login != $order['userName'] ){
     return;
 }
 ?>
-    
+
 <block class="title-block d-flex flex-column w-100 justify-content-between w-100 flex-lg-row align-items-lg-center">
     
+    <a href="<?=home_url('/account/')?>" class="m-0 p-0">
+        <button class="btn btn-primary m-0 m-width-200">МОИ ЗАКАЗЫ</button>
+    </a>
+
     <t2 class="title w-100">Заказ: <?=esc_html($order['title'])?></t2>
-    
-    <?if(in_array('customer', $roles)){?>
-        
-        <block class="panel-control d-flex justify-content-start justify-content-xl-end" id = "order-submit-block">
-        
-        <?get_template_part("parts/catalog/orders/order-submit-form/template",null,
+            
+    <block class="panel-control d-flex justify-content-start justify-content-xl-end gap-2" id = "order-submit-block">
+
+        <?//загружаю через ajax после загрузки страницы?>
+        <?/*get_template_part("parts/catalog/orders/order-submit-form/template",null,
         [
             'ORDER_CODE' =>  $code,
-            'MODULES' =>  $order['modules']
-        ]);?>
-            
-        </block>
-
-    <?}?>
+            'ACTIVE' => ($order['modules'] || !empty($order['modules'])) ? true : false,
+            'USER' => $login,
+            'ROLE' => $role,
+        ]);*/?>
+        
+    </block>
 
 </block> 
 
@@ -60,31 +71,42 @@ if($code && !in_array('constructor', $roles) && $login != $order['userName'] ){
     [
         'ORDER_CODE' =>  $code,
         'MODULES' =>  $order['modules'],
-        'ACTIVE_MODULE_CODE' => isset($args['ACTIVE_MODULE_CODE']) ? sanitize_text_field($args['ACTIVE_MODULE_CODE']) : null
+        'ACTIVE_MODULE_CODE' => isset($args['ACTIVE_MODULE_CODE']) ? sanitize_text_field($args['ACTIVE_MODULE_CODE']) : null,
+        'IS_COMPLETED' => $order['isCompleted'],
+        'USER' => $login,
+        'ROLE' => $role,
     ]);?>
 
 </block> 
 
-<?get_template_part("parts/catalog/orders/order-blueprints-form/template", null, 
-    [
-        'COMPONENT_TYPE' => 'milling'
-    ]
-);?>
+<?
+    if(!$order['isCompleted']){
 
-<?get_template_part("parts/catalog/orders/configurator-blueprints-reset-form/template", null, 
-    [
-        'COMPONENT_TYPE' => 'milling'
-    ]
-);?>
+        get_template_part("parts/catalog/orders/order-blueprints-form/template", null, 
+            [
+                'COMPONENT_TYPE' => 'milling'
+            ]);
 
-<?get_template_part("parts/catalog/orders/order-blueprints-form/template", null, 
-    [
-        'COMPONENT_TYPE' => 'hinge'
-    ]
-);?>
+        get_template_part("parts/catalog/orders/configurator-blueprints-reset-form/template", null, 
+            [
+                'COMPONENT_TYPE' => 'milling'
+            ]);
 
-<?get_template_part("parts/catalog/orders/configurator-blueprints-reset-form/template", null, 
+        get_template_part("parts/catalog/orders/order-blueprints-form/template", null, 
+            [
+                'COMPONENT_TYPE' => 'hinge'
+            ]);
+
+        get_template_part("parts/catalog/orders/configurator-blueprints-reset-form/template", null, 
+            [
+                'COMPONENT_TYPE' => 'hinge'
+            ]);
+    }?>
+    
+    <?get_template_part("parts/catalog/orders/order-submit-reset-form/template", null, 
     [
-        'COMPONENT_TYPE' => 'hinge'
-    ]
-);?>
+        'ORDER_CODE' =>  $code,
+        'USER' => $login,
+        'ROLE' => $role,
+    ]);
+    ?>

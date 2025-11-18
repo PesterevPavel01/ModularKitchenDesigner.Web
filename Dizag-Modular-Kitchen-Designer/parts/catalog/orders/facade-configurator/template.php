@@ -10,6 +10,10 @@ global $componentServiceUrl;
 ?>
 
 <?
+
+    $user = isset($args['USER']) ? sanitize_text_field($args['USER']) : "";
+    $role = isset($args['ROLE']) ? sanitize_text_field($args['ROLE']) : "";
+
     $moduleCode = "";
 
     $components = [];
@@ -69,12 +73,17 @@ $componentProvider = new ComponentProvider($componentServiceUrl);
     <input type="hidden" data-no-reset="true" name="TEMPLATE_PART" value="parts/catalog/orders/facade-configurator-action/template">
     <input type="hidden" data-no-reset="true" name="action" value="default_content_updater">
     <input type="hidden" data-no-reset="true" name="TARGET_CONTAINER" value="#catalog-order-item-list">
+    <input type="hidden" data-no-reset="true" name="ERROR_CONTAINER" value="#catalog-order-item-list-errors">
+    <input type="hidden" data-no-reset="true" name="USER" value="<?=$user?>">
+    <input type="hidden" data-no-reset="true" name="ROLE" value="<?=$role?>">
     <?//<input type="hidden" data-no-reset="true" name="TARGET_CONTAINER" value="#catalog-order-specification-section">*/?>
-    <?/*<input type="hidden" name="DEPENDENT_FORM" value="#">*/?>
+    <input type="hidden" name="DEPENDENT_FORM" value="#order-submit-reset-form">
     <input type="hidden" value="<?=$moduleCode?>" name="MODULE_CODE" id = "order-item-configurator-module-code"/>
     <input type="hidden" value="<?=$args['ORDER_CODE']?>" data-no-reset="true" name="ORDER_CODE"/>
     <input type="hidden" value="<?= $facadeTypeCode ?>" data-no-reset="true" name="MODULE_TYPE_CODE"/>
     <input type="hidden" value="Фасад" data-no-reset="true" name="MODULE_TYPE"/>
+    <input type="hidden" name = "IS_COMPLETED" value=<?=sanitize_text_field($args['IS_COMPLETED'])?>>
+
 
     <p class="specification-title black p-1 m-0">Конфигуратор</p>
 
@@ -82,13 +91,17 @@ $componentProvider = new ComponentProvider($componentServiceUrl);
 
         <li class="button-conteiner d-flex w-100">
 
-            <div class="save-button col-8 pe-2">
+            <?if(!$args['IS_COMPLETED']){?>
 
-                <button type="submit" class="btn btn-primary w-100">Сохранить</button>
+                <div class="save-button col-8 pe-2">
 
-            </div>
+                    <button type="submit" class="btn btn-primary w-100">Сохранить</button>
 
-            <button type="button" class="btn btn-primary col-4" id = "order-item-facade-configurator-clear"
+                </div>
+            
+            <?}?>
+
+            <button type="button" class="btn btn-primary <?=$args['IS_COMPLETED'] ? 'w-100' : 'col-4'?>" id = "order-item-facade-configurator-clear"
                 <?//data-bs-deactivate-element - класс, который есть у всех кнопок "редактировать элемент"?>
                 data-bs-deactivate-element="<?=isset($args['ACTIVATE_ELEMENT_GROUP']) ? esc_attr($args['ACTIVATE_ELEMENT_GROUP']) : ""?>" 
                 >Отмена</button>

@@ -29,7 +29,7 @@ $role = isset($args['ROLE']) ? sanitize_text_field($args['ROLE']) : '';
         <input type="hidden" id="TEMPLATE_PART" name = "TEMPLATE_PART" value= "parts/catalog/account/customer-order-list/template">
         <input type="hidden" id="action" name = "action" value="default_content_updater">
         <input type="hidden" id="TARGET_CONTAINER"  name = "TARGET_CONTAINER" value="#customer-account-order-list">
-        <input type="hidden" id="ROLE"  name = "TARGET_CONTEINER" value="<?=$role?>">
+        <input type="hidden" id="ROLE"  name = "ROLE" value="<?=$role?>">
 
         <t2 class="title ps-2">Параметры</t2>
 
@@ -37,24 +37,24 @@ $role = isset($args['ROLE']) ? sanitize_text_field($args['ROLE']) : '';
 
             <li class="parameter-item d-flex w-100 justify-content-start">
                 <div class="approval-orders-only d-flex align-items-center w-100 gap6">
-                    <span class="checkbox_label">Период, дн.</span>
+                    <small class="checkbox_label">Период, дн.</small>
                     <input type="number" name = "PERIOD" step="1" min="0" max="100" value="30" class="period" id = "catalog-order-list-period"/>
                 </div>
             </li>
 
             <li class="parameter-item-active d-flex align-items-center w-100 gap6justify-content-start gap6">
                 <input class="custom-checkbox border-primary" name = "INCOMPLETE_ONLY" type="checkbox" id="catalog-order-list-incomplete-only">
-                <span class="checkbox_label">только активные заказы</span>
+                <small class="checkbox_label">только активные заказы</small>
             </li>
 
             <li class="parameter-item-approval d-flex align-items-center w-100 gap6justify-content-start gap6">
                 <input class="custom-checkbox border-primary" name = "CUSTOM_ONLY" type="checkbox" id="catalog-order-list-custom-only">
-                <span class="checkbox_label">только на согласовании</span>
+                <small class="checkbox_label">только на согласовании</small>
             </li>
 
             <li class="parameter-item-sort d-flex align-items-center w-100 gap6justify-content-start gap6">
                 <input class="custom-checkbox border-primary" name = "ASCENDING" type="checkbox" id="catalog-order-list-ascending">
-                <span class="checkbox_label">сначала старые заказы</span>
+                <small class="checkbox_label">сначала старые заказы</small>
             </li>
 
             <button type="submit" class="btn btn-primary w-100 mt-2">

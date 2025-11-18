@@ -74,6 +74,7 @@ add_action( 'after_setup_theme', function(){
 });
 
 require_once get_template_directory() . '/inc/theme-image.php';
+require_once get_template_directory() . '/inc/user-data.php';
 
 add_action( 'after_setup_theme', 'theme_register_nav_menu' );
 

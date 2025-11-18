@@ -74,16 +74,24 @@ else
 
         <?foreach($Result->data as $item){
 
-            get_template_part("parts/catalog/account/customer-order-list-item/template", null,                 
-            [
+            $params = [];
+
+            $params = [
                 'PARAMETER' =>  [
                     'TITLE' => $item['title'],
+                    'USER_NAME' => $item['userName'], 
                     'ORDER_CODE' => $item['code'],
                     'IS_CUSTOM' => $item['isCustom'],
                     'IS_COMPLETED' => $item['isCompleted'],
-                    'ROLE' => $role
+                    'ROLE' => $role,
                 ]
-            ]);
+            ];
+
+            //передаем массив с данными фильтра дальше!
+            foreach($arParams as $key => $value )
+                $params[$key] = $value;
+
+            get_template_part("parts/catalog/account/customer-order-list-item/template", null, $params);
 
         }?>
 

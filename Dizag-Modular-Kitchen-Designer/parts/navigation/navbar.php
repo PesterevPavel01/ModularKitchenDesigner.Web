@@ -17,9 +17,13 @@
             <ul class="navbar-nav">
                 <?if (is_user_logged_in()){
                     $current_user = wp_get_current_user();
+
+                    $login = sanitize_text_field($current_user->user_login);
+
+                    $user = get_user_fullname_by_username($login);
                     ?>
                     <li class="flex-column">
-                        <p class="login white mobile-none m-0"><?=$current_user->user_login?></p>
+                        <p class="login white mobile-none m-0"><?= empty($user) ? $login : $user['full_name'] ?></p>
                         <a class="d-flex align-items-center flex-column white" href="<?= wp_logout_url( get_site_url() . "/authorization/") ?>">
                             <div class="bi bi-box-arrow-right"></div>
                             <?/*?><label class="small-font pointer navbar-label">выход</label><?*/?>

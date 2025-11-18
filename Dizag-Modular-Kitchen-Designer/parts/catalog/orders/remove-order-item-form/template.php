@@ -30,7 +30,7 @@ enqueue_template_part_styles_scripts( __DIR__, "remove-order-item-form");
             </div>
             <div class="modal-footer">
                 <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Закрыть</button>
-                <button type="submit" class="btn btn-primary" id = "remove-order-item-button">Удалить</button>
+                <button type="submit" class="btn btn-primary" id = "remove-order-item-button">Удалить</button>  <?//id нужен для стилей?>
             </div>
         </div>
     </div>
