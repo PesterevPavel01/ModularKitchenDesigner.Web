@@ -10,3 +10,7 @@
 .order-item-top span{
     font-size: var(--mini-font-size);
 }
+
+#catalog-ordder-item-messenger.success{
+    display: block !important;
+}

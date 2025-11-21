@@ -1,13 +1,11 @@
 .customer-order-list-item{
-    height: 80px;
     width: 100%;
 }
 
-.customer-order-list-item > i{
+.customer-order-list-item  i{
     color: var(--primary-dark-color);
-    max-width: 80px;
-    height: 40px;
-    font-size: var(--bootstrap-icon-size);
+    height: 30px;
+    font-size: var(--bootstrap-icon-size-medium);
 }
 
 .panel-control {

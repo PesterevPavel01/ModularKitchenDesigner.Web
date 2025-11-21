@@ -83,16 +83,36 @@ if($activeModuleCode){
         </div>
 
     </div>
+    
+    <div class ="w-100" id ="catalog-order-messenger-errors"></div>
 
-    <block class="order-messanger-block w-100">
+    <div class="ordder-item-messenger d-none" id = "catalog-order-item-messenger">
 
-        <?get_template_part("parts/catalog/orders/order-item-messenger/template", null,
-        [
-            'MODULE' => $module,
-            'USER' => $user,
-            'ROLE' => $role,
-        ]);?>
+        <div class="messenger-section-title d-flex w-100 align-items-center gap-1" id = "">
+
+            <p class="massenger-title black p-1 m-0">Комментарии</p>
+
+            <div id = "catalog-order-item-message-counter"></div>
+
+            <div class="d-flex align-items-center collapse-btn  collapsed" 
+                type="button" 
+                data-bs-toggle="collapse" 
+                data-bs-target="#catalog-messenger-collapse"
+                data-bs-custom-toggle="tooltip" 
+                title="Свернуть">
+
+                <i class="bi bi-chevron-down collapse-icon transition-all"></i>
+
+            </div>
+
+        </div>
         
-    </block>
+        <div class="order-item-massenger-section flex-column align-items-start justify-content-start gap-2 m-0 w-100 collapse" id="catalog-messenger-collapse">
+
+            <div class="order-messanger-block w-100" id = "catalog-order-item-messanger"></div>
+
+        </div>
+
+    </div>
 
 </section>

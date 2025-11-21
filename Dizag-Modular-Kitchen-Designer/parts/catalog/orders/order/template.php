@@ -13,10 +13,15 @@ $login = $current_user->user_login;
 $roles = $current_user->roles;
 
 if(in_array('customer', $roles))
+
     $role = 'customer';
+
 elseif(in_array('constructor', $roles))
+
     $role = 'constructor';
+
 else
+
     $role = null;
 
 
@@ -77,36 +82,36 @@ if($code && !in_array('constructor', $roles) && $login != $order['userName'] ){
         'ROLE' => $role,
     ]);?>
 
-</block> 
+</block>
 
 <?
-    if(!$order['isCompleted']){
+if(!$order['isCompleted']){
 
-        get_template_part("parts/catalog/orders/order-blueprints-form/template", null, 
-            [
-                'COMPONENT_TYPE' => 'milling'
-            ]);
+    get_template_part("parts/catalog/forms/order-blueprints-form/template", null, 
+        [
+            'COMPONENT_TYPE' => 'milling'
+        ]);
 
-        get_template_part("parts/catalog/orders/configurator-blueprints-reset-form/template", null, 
-            [
-                'COMPONENT_TYPE' => 'milling'
-            ]);
+    get_template_part("parts/catalog/forms/configurator-blueprints-reset-form/template", null, 
+        [
+            'COMPONENT_TYPE' => 'milling'
+        ]);
 
-        get_template_part("parts/catalog/orders/order-blueprints-form/template", null, 
-            [
-                'COMPONENT_TYPE' => 'hinge'
-            ]);
+    get_template_part("parts/catalog/forms/order-blueprints-form/template", null, 
+        [
+            'COMPONENT_TYPE' => 'hinge'
+        ]);
 
-        get_template_part("parts/catalog/orders/configurator-blueprints-reset-form/template", null, 
-            [
-                'COMPONENT_TYPE' => 'hinge'
-            ]);
-    }?>
-    
-    <?get_template_part("parts/catalog/orders/order-submit-reset-form/template", null, 
-    [
-        'ORDER_CODE' =>  $code,
-        'USER' => $login,
-        'ROLE' => $role,
-    ]);
-    ?>
+    get_template_part("parts/catalog/forms/configurator-blueprints-reset-form/template", null, 
+        [
+            'COMPONENT_TYPE' => 'hinge'
+        ]);
+}?>
+
+<?get_template_part("parts/catalog/forms/order-submit-reset-form/template", null, 
+[
+    'ORDER_CODE' =>  $code,
+    'USER' => $login,
+    'ROLE' => $role,
+]);
+?>

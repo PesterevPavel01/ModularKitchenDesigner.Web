@@ -9,32 +9,3 @@
 .order-item-facade-configurator-form label{
     font-size: var(--small-font-size);
 }
-
-/*BOOTSTRAP*/
-
-.transition-all {
-    transition: all 0.35s cubic-bezier(0.4, 0, 0.2, 1) !important;
-}
-
-.collapse:not(.show) {
-    display: none;
-}
-
-.collapsing {
-    height: 0;
-    overflow: hidden;
-}
-
-/* Плавное вращение иконки - исправленный селектор */
-.collapse-btn:not(.collapsed) .collapse-icon {
-    transform: rotate(180deg);
-}
-
-.collapse-btn.collapsed .collapse-icon {
-    transform: rotate(0deg);
-}
-
-/* Стили для кнопки */
-.collapse-btn {
-    cursor: pointer;
-}

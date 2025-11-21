@@ -115,6 +115,27 @@ a:hover {
   color: var(--white-color);
 }
 /*---------------------------------------
+BOOTSTRAP         
+-----------------------------------------*/
+/*---------------------------------------
+COLLAPSE     
+-----------------------------------------*/
+
+/* Плавное вращение иконки - исправленный селектор */
+.collapse-btn:not(.collapsed) .collapse-icon {
+  transform: rotate(180deg);
+}
+
+.collapse-btn.collapsed .collapse-icon {
+  transform: rotate(0deg);
+}
+
+/* Стили для кнопки */
+.collapse-btn {
+  cursor: pointer;
+}
+
+/*---------------------------------------
 MAIN              
 -----------------------------------------*/
 .section-content{
@@ -288,6 +309,18 @@ MAIN
 .w-100{
   width: 100%;
 }
+
+.w-20{
+  width: 20px;
+}
+.h-20{
+  height: 20px;
+}
+
+.br-10{
+  border-radius: 10px;
+}
+
 /*---------------------------------------
 ELEMENTOR PAGES             
 -----------------------------------------*/

@@ -39,7 +39,7 @@ $hingeCode = get_field('hinge', $order_page_id);
 
 <p class="specification-title black p-1 m-0">Спецификация</p>
 
-<div class="catalog-order-specification-list-conteiner h-100 white-background p-3 m-0 rounded w-100">
+<div class="catalog-order-specification-list-conteiner h-100 white-background p-3 m-0 rounded w-100 shadow-sm">
     
     <?if(!$args['MODULES']){?>
 
@@ -251,50 +251,67 @@ $hingeCode = get_field('hinge', $order_page_id);
                             </i>
                         </div>
                     </div>
+                    
+                    <?if(!$args['IS_COMPLETED']){?>
 
-                    <form class="d-table-cell catalog-order-specification-cell ps-1 m-0 align-middle text-center pb-2 pointer" data-ajax-default-content-updater>
+                        <div class="d-table-cell ps-1 m-0 align-middle text-center pb-2 pointer">
 
-                        <input type="hidden" name = "BLOCKED_ELEMENT" value = "#catalog-oder-content-conteiner">
-                        <input type="hidden" name = "TEMPLATE_PART" value = "parts/catalog/orders/facade-configurator/template">
-                        <input type="hidden" name = "action" value="default_content_updater">
-                        <input type="hidden" name = "TARGET_CONTAINER" value="#order-item-redactor-content">
-                        <input type="hidden" name = "MODULE_CODE" value=<?=esc_html($module["moduleCode"])?>>
-                        <input type="hidden" name = "ORDER_CODE" value=<?=esc_html($orderCode)?>>
-                        <input type="hidden" name = "QUANTITY" value=<?=esc_html($moduleItem["quantity"])?>>
-                        <input type="hidden" name = "ACTIVATE_ELEMENT_GROUP" value="specification-item-change-button">
-                        <input type="hidden" name = "IS_COMPLETED" value=<?=sanitize_text_field($args['IS_COMPLETED'])?>>
-                        <input type="hidden" name = "MODULE" value="<?= ($module || !empty($module))? htmlspecialchars(json_encode($module, JSON_UNESCAPED_UNICODE | JSON_HEX_QUOT | JSON_HEX_APOS), ENT_QUOTES, 'UTF-8') : ""?>">
-                        <input type="hidden" data-no-reset="true" name="USER" value="<?=$user?>">
-                        <input type="hidden" data-no-reset="true" name="ROLE" value="<?=$role?>">
+                            <?$newModule = $module;
+                            $newModule["moduleCode"] = null;
 
-                        <button type = "submit" id = "<?=esc_html($module["moduleCode"])?>" class = "<?=$module["moduleCode"] === $activeModuleCode ? "active" : "" ?> btn-primary white-background d-flex flex-column align-items-center justify-content-center p-2 pointer hover-white border rounded height-40"
-                            data-form-group="specification-item-change-button">
-                            <i class = "bi bi-pencil-fill primary-dark pointer hover-white"                
-                                data-bs-toggle="tooltip" 
-                                data-bs-placement="top"    
-                                title="Редактировать элемент">
-                            </i>
-                        </button>
-
-                    </form>
-
-                    <div class="d-table-cell catalog-order-specification-cell ps-1 m-0 align-middle text-center pointer pb-2">
-
-                        <button type = "button" class = "specification-item-remove-button btn-primary white-background w-100 d-flex flex-column align-items-center justify-content-center p-2 pointer hover-white border rounded height-40"
-                            data-bs-toggle="modal"
-                            data-bs-target="#remove-order-item-modal"
-                            data-bs-module-code="<?=esc_html($module["moduleCode"])?>"
-                            data-bs-order-code="<?=esc_html($orderCode)?>">
+                            get_template_part("parts/catalog/forms/order-item-add-by-copying-form/template", null, 
+                            [
+                                'ORDER_CODE' => sanitize_text_field($orderCode),
+                                'QUANTITY' => sanitize_text_field($moduleItem["quantity"]),
+                                "IS_COMPLETED" => sanitize_text_field($args['IS_COMPLETED']),
+                                "MODULE" => ($newModule || !empty($newModule))? htmlspecialchars(json_encode($newModule, JSON_UNESCAPED_UNICODE | JSON_HEX_QUOT | JSON_HEX_APOS), ENT_QUOTES, 'UTF-8') : "",
+                                'USER' => $user,
+                                'ROLE' => $role,
                             
-                            <i class = "bi bi-x-lg primary-dark cursor hover-white"                    
-                                data-bs-toggle="tooltip" 
-                                data-bs-placement="top"    
-                                title="Удалить элемент">
-                            </i>
-                        </button>
+                            ]);?>
+
+                        </div>
+
+                    <?}?>
+
+                    <div class="d-table-cell ps-1 m-0 align-middle text-center pb-2 pointer">
+
+                        <?get_template_part("parts/catalog/forms/order-item-send-to-configurator-form/template", null, 
+                        [
+                            'MODULE_CODE' => esc_html($module["moduleCode"]),
+                            'ORDER_CODE' => sanitize_text_field($orderCode),
+                            'QUANTITY' => sanitize_text_field($moduleItem["quantity"]),
+                            "IS_COMPLETED" => sanitize_text_field($args['IS_COMPLETED']),
+                            "MODULE" => ($module || !empty($module))? htmlspecialchars(json_encode($module, JSON_UNESCAPED_UNICODE | JSON_HEX_QUOT | JSON_HEX_APOS), ENT_QUOTES, 'UTF-8') : "",
+                            'USER' => $user,
+                            'ROLE' => $role,
+                            'ACTIVE' => $module["moduleCode"] === $activeModuleCode ? "active" : "" 
+                        
+                        ]);?>
 
                     </div>
-                    <??>
+
+                    <?if(!$args['IS_COMPLETED']){?>
+
+                        <div class="d-table-cell catalog-order-specification-cell ps-1 m-0 align-middle text-center pointer pb-2">
+
+                            <button type = "button" class = "specification-item-remove-button btn-primary white-background w-100 d-flex flex-column align-items-center justify-content-center p-2 pointer hover-white border rounded height-40"
+                                data-bs-toggle="modal"
+                                data-bs-target="#remove-order-item-modal"
+                                data-bs-module-code="<?=esc_html($module["moduleCode"])?>"
+                                data-bs-order-code="<?=esc_html($orderCode)?>">
+                                
+                                <i class = "bi bi-x-lg primary-dark cursor hover-white"                    
+                                    data-bs-toggle="tooltip" 
+                                    data-bs-placement="top"    
+                                    title="Удалить элемент">
+                                </i>
+                            </button>
+
+                        </div>
+
+                    <?}?>
+                    
                 </li>
 
             <?}?>

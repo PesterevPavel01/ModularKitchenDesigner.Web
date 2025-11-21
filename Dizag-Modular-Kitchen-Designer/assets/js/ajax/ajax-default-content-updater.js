@@ -19,6 +19,8 @@ function Handler($form)
     const $targetContainer = $form.find('input[name="TARGET_CONTAINER"]').val(); //$form.find('#TARGET_CONTEINER').val();
 
     const $dependentForm =  $form.find('input[name="DEPENDENT_FORM"]').val(); //$form.find('#DEPENDENT_FORM').val();
+
+    const $dependentFormSecond =  $form.find('input[name="DEPENDENT_FORM_SECOND"]').val(); //$form.find('#DEPENDENT_FORM').val();
     
     const $errorContainer =  $form.find('input[name="ERROR_CONTAINER"]').val();
     
@@ -55,8 +57,6 @@ function Handler($form)
 
         const delayMs = parseInt($delay, 10);
 
-        console.log("Установлена задержка: " + delayMs);
-
         setTimeout(executeAjax, delayMs);
 
     } else {
@@ -69,8 +69,6 @@ function Handler($form)
 
     console.log('Serialized data:', serializedData); */
     function executeAjax() {
-
-        console.log("Выполняю");
 
         $.ajax(
             {
@@ -103,6 +101,9 @@ function Handler($form)
 
                         if ($dependentForm && $dependentForm !== '')
                             $($dependentForm).trigger('submit');
+
+                        if ($dependentFormSecond && $dependentFormSecond !== '')
+                            $($dependentFormSecond).trigger('submit');
 
                     }
 

@@ -1,8 +1,4 @@
-.order-item-message-list{
-    border-radius: 10px;
-}
-
-.order-item-message-list span{
+/*.order-item-message-list span{
     color: var(--primary-dark-color);
     font-size: var(--small-font-size);
 }
@@ -11,8 +7,16 @@
     border-color: var(--primary-dark-color) !important;
 }
 
-/*BOOTSTRAP*/
+.order-item-message-counter{
 
+    width: 24px;
+    height: 24px;
+    border-radius: 7px;
+    border: 0.5px solid var(--primary-dark-color);
+}*/
+
+/*BOOTSTRAP*/
+/*
 .transition-all {
     transition: all 0.35s cubic-bezier(0.4, 0, 0.2, 1) !important;
 }
@@ -27,6 +31,7 @@
 }
 
 /* Плавное вращение иконки - исправленный селектор */
+/*
 .collapse-btn:not(.collapsed) .collapse-icon {
     transform: rotate(180deg);
 }
@@ -36,6 +41,7 @@
 }
 
 /* Стили для кнопки */
+/*
 .collapse-btn {
     cursor: pointer;
-}
+}*/

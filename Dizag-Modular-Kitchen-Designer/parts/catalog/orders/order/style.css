@@ -2,7 +2,6 @@
     font-family: var(--catalog-font-family);
 }
 
-.section-order span,
 .section-order button
 {
     font-size: var(--mini-font-size);

@@ -10,8 +10,8 @@
 }
 
 .order-list-parameters-form ul{
-    border-radius: 15px;
-    min-width: 350px;
+    border-radius: 8px;
+    /*min-width: 350px;*/
 }
 
 .new-comments-block>li,

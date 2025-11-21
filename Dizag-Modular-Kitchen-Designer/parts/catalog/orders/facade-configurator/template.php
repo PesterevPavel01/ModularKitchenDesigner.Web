@@ -20,8 +20,6 @@ global $componentServiceUrl;
 
     $module = [];
 
-    $ModuleResult = new BaseResult();
-
     if(isset($args['MODULE']) && $args['MODULE']){
 
         if(!is_array($args['MODULE'])){
@@ -69,25 +67,29 @@ $componentProvider = new ComponentProvider($componentServiceUrl);
 <form class="order-item-facade-configurator-form d-flex flex-column align-items-start justify-content-start gap-2 m-0 w-100" id = "order-item-facade-configurator-form"
     data-ajax-default-content-updater="refresh">
 
+    <?/*После отправки формы необходимо отправить 
+        1. order-submit-reset-form -> messenger-reset-form
+    */?>
+
     <input type="hidden" data-no-reset="true" name="BLOCKED_ELEMENT" value="#catalog-oder-content-conteiner">
-    <input type="hidden" data-no-reset="true" name="TEMPLATE_PART" value="parts/catalog/orders/facade-configurator-action/template">
+    <input type="hidden" data-no-reset="true" name="TEMPLATE_PART" value="parts/catalog/orders/facade-configurator/action/template">
     <input type="hidden" data-no-reset="true" name="action" value="default_content_updater">
     <input type="hidden" data-no-reset="true" name="TARGET_CONTAINER" value="#catalog-order-item-list">
     <input type="hidden" data-no-reset="true" name="ERROR_CONTAINER" value="#catalog-order-item-list-errors">
     <input type="hidden" data-no-reset="true" name="USER" value="<?=$user?>">
     <input type="hidden" data-no-reset="true" name="ROLE" value="<?=$role?>">
     <?//<input type="hidden" data-no-reset="true" name="TARGET_CONTAINER" value="#catalog-order-specification-section">*/?>
-    <input type="hidden" name="DEPENDENT_FORM" value="#order-submit-reset-form">
+    <input type="hidden" data-no-reset="true" name="DEPENDENT_FORM" value="#catalog-order-item-messanger-reset-form">
+    <input type="hidden" data-no-reset="true" name="DEPENDENT_FORM_SECOND" value="#order-submit-reset-form">
     <input type="hidden" value="<?=$moduleCode?>" name="MODULE_CODE" id = "order-item-configurator-module-code"/>
     <input type="hidden" value="<?=$args['ORDER_CODE']?>" data-no-reset="true" name="ORDER_CODE"/>
     <input type="hidden" value="<?= $facadeTypeCode ?>" data-no-reset="true" name="MODULE_TYPE_CODE"/>
     <input type="hidden" value="Фасад" data-no-reset="true" name="MODULE_TYPE"/>
     <input type="hidden" name = "IS_COMPLETED" value=<?=sanitize_text_field($args['IS_COMPLETED'])?>>
 
-
     <p class="specification-title black p-1 m-0">Конфигуратор</p>
 
-    <ul class="facade-configurator-component-list d-flex flex-column gap-1 w-100 white-background rounded p-4 m-0">
+    <ul class="facade-configurator-component-list d-flex flex-column gap-1 w-100 white-background rounded p-4 m-0 shadow-sm">
 
         <li class="button-conteiner d-flex w-100">
 
@@ -131,9 +133,15 @@ $componentProvider = new ComponentProvider($componentServiceUrl);
                 $Result =  $componentProvider->GetComponentsByType($hingeCode);
 
                 if(!$Result->isSuccess())
-                {?>
-                    <p><?=$Result->ErrorMessage?></p>
-                    <?return;
+                {    
+                    
+                    get_template_part("parts/catalog/errors/default-error-message/template", null, 
+                    [
+                        'TITLE' => $Result->ErrorMessage,
+                        'MESSAGE' => $Result->data
+                    ]);
+                    
+                    return;
                 }
     
                 $hinges = $Result->data;
@@ -185,7 +193,7 @@ $componentProvider = new ComponentProvider($componentServiceUrl);
 
             </div>
 
-            <ul class="collapse transition-all order-item-message-list flex-column gap-1 w-100 white-background p-0" id="hinge-collapse-content">
+            <ul class="collapse transition-all order-item-message-list w-100 white-background p-0" id="hinge-collapse-content">
 
                 <?$isCustom = isset($currentHingeComponent['isCustom']) ? $currentHingeComponent['isCustom'] : false;?>
                 
@@ -218,9 +226,14 @@ $componentProvider = new ComponentProvider($componentServiceUrl);
             $Result = $componentProvider->GetComponentsByType($membraneCode);
 
             if(!$Result->isSuccess())
-            {?>
-                <p><?=$Result->ErrorMessage?></p>
-                <?return;
+            {                    
+                get_template_part("parts/catalog/errors/default-error-message/template", null, 
+                [
+                    'TITLE' => $Result->ErrorMessage,
+                    'MESSAGE' => $Result->data
+                ]);
+                
+                return;
             }
 
             $membranes = $Result->data;
@@ -314,9 +327,14 @@ $componentProvider = new ComponentProvider($componentServiceUrl);
                 $Result =  $componentProvider->GetComponentsByType($boardCode);
 
                 if(!$Result->isSuccess())
-                {?>
-                    <p><?=$Result->ErrorMessage?></p>
-                    <?return;
+                {
+                    get_template_part("parts/catalog/errors/default-error-message/template", null, 
+                    [
+                        'TITLE' => $Result->ErrorMessage,
+                        'MESSAGE' => $Result->data
+                    ]);
+                    
+                    return;
                 }
     
                 $boards = $Result->data;
@@ -366,9 +384,14 @@ $componentProvider = new ComponentProvider($componentServiceUrl);
                 $Result =  $componentProvider->GetComponentsByType($cornerCode);
 
                 if(!$Result->isSuccess())
-                {?>
-                    <p><?=$Result->ErrorMessage?></p>
-                    <?return;
+                {
+                    get_template_part("parts/catalog/errors/default-error-message/template", null, 
+                    [
+                        'TITLE' => $Result->ErrorMessage,
+                        'MESSAGE' => $Result->data
+                    ]);
+
+                    return;
                 }
     
                 $corners = $Result->data;
@@ -410,7 +433,7 @@ $componentProvider = new ComponentProvider($componentServiceUrl);
                 <i class="bi bi-chevron-down collapse-icon transition-all"></i>
             </div>
             
-            <ul class="collapse transition-all order-item-message-list flex-column gap-1 w-100 white-background p-0 m-0" id="corner-collapse-content">
+            <ul class="collapse transition-all order-item-message-list w-100 white-background p-0 m-0" id="corner-collapse-content">
 
                 <div class="order-item-new-message-panel d-flex w-100 m-0">
                     
@@ -435,9 +458,14 @@ $componentProvider = new ComponentProvider($componentServiceUrl);
                         $Result =  $componentProvider->GetComponentsByType($cornerTopCode);
 
                         if(!$Result->isSuccess())
-                        {?>
-                            <p><?=$Result->ErrorMessage?></p>
-                            <?return;
+                        {
+                            get_template_part("parts/catalog/errors/default-error-message/template", null, 
+                            [
+                                'TITLE' => $Result->ErrorMessage,
+                                'MESSAGE' => $Result->data
+                            ]);
+
+                            return;
                         }
             
                         $corners = $Result->data;
@@ -489,9 +517,14 @@ $componentProvider = new ComponentProvider($componentServiceUrl);
                         $Result =  $componentProvider->GetComponentsByType($cornerBottomCode);
 
                         if(!$Result->isSuccess())
-                        {?>
-                            <p><?=$Result->ErrorMessage?></p>
-                            <?return;
+                        {
+                            get_template_part("parts/catalog/errors/default-error-message/template", null, 
+                            [
+                                'TITLE' => $Result->ErrorMessage,
+                                'MESSAGE' => $Result->data
+                            ]);
+                            
+                            return;
                         }
             
                         $corners = $Result->data;
@@ -541,9 +574,14 @@ $componentProvider = new ComponentProvider($componentServiceUrl);
                             $Result =  $componentProvider->GetComponentsByType($cornerLeftCode);
 
                             if(!$Result->isSuccess())
-                            {?>
-                                <p><?=$Result->ErrorMessage?></p>
-                                <?return;
+                            {
+                                get_template_part("parts/catalog/errors/default-error-message/template", null, 
+                                [
+                                    'TITLE' => $Result->ErrorMessage,
+                                    'MESSAGE' => $Result->data
+                                ]);
+                                
+                                return;
                             }
                 
                             $corners = $Result->data;
@@ -593,11 +631,16 @@ $componentProvider = new ComponentProvider($componentServiceUrl);
                             $Result =  $componentProvider->GetComponentsByType($cornerRightCode);
 
                             if(!$Result->isSuccess())
-                            {?>
-                                <p><?=$Result->ErrorMessage?></p>
-                                <?return;
+                            {
+                                get_template_part("parts/catalog/errors/default-error-message/template", null, 
+                                [
+                                    'TITLE' => $Result->ErrorMessage,
+                                    'MESSAGE' => $Result->data
+                                ]);
+                                
+                                return;
                             }
-                
+
                             $corners = $Result->data;
                             ?>
                         
@@ -654,9 +697,14 @@ $componentProvider = new ComponentProvider($componentServiceUrl);
                 $Result =  $componentProvider->GetComponentsByType($millingCode);
 
                 if(!$Result->isSuccess())
-                {?>
-                    <p><?=$Result->ErrorMessage?></p>
-                    <?return;
+                {
+                    get_template_part("parts/catalog/errors/default-error-message/template", null, 
+                    [
+                        'TITLE' => $Result->ErrorMessage,
+                        'MESSAGE' => $Result->data
+                    ]);
+                    
+                    return;
                 }
     
                 $millings = $Result->data;
@@ -725,3 +773,12 @@ $componentProvider = new ComponentProvider($componentServiceUrl);
     </ul>
 
 </form>
+
+<?get_template_part("parts/catalog/forms/messenger-reset-form/template",null,
+    [
+        'USER' => $user,
+        'ROLE' => $role,
+        'MODULE_CODE' => $moduleCode,
+        'ORDER_CODE' => sanitize_text_field($args['ORDER_CODE']),
+        "IS_COMPLETED" => sanitize_text_field($args['IS_COMPLETED'])
+    ]);?>

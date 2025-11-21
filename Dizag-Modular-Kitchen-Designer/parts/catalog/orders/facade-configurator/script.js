@@ -54,6 +54,12 @@ function resetConfigurationForm(button) {
     $('#configurator-blueprints-milling-reset-form').trigger('submit');
 
     $('#configurator-blueprints-hinge-reset-form').trigger('submit');
+
+    var messengerResetForm = $('#catalog-order-item-messanger-reset-form');
+
+    messengerResetForm.find('input[type="hidden"]:not([data-no-reset="true"])').val('');
+
+    $('#catalog-order-item-messanger-reset-form').trigger('submit');
 }
 
 function handleComboboxChange() {
@@ -73,8 +79,6 @@ function handleMillingComboboxChange() {
 
     var value = $(this).val();
 
-    console.log(value);
-
     const $content = $('#custom-milling-blueprints-form');
 
     if(value != "CUSTOM_MILLING")
@@ -92,8 +96,6 @@ function handleHingeComboboxChange() {
     //делает видимой секцию с чертежами
 
     var value = $(this).val();
-
-    console.log(value);
 
     const $content = $('#custom-hinge-blueprints-form');
 

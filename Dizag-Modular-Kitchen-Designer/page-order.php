@@ -103,7 +103,7 @@ the_content();
 
             </section>
 
-            <?get_template_part("parts/catalog/orders/remove-order-item-form/template");?>
+            <?get_template_part("parts/catalog/forms/order-item-remove-form/template");?>
             
         <?}?>
         

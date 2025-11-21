@@ -49,7 +49,7 @@ else
 }
 
 ?>
-<section class="customer-account-oder-list-content d-flex flex-column align-items-start w-100 justify-content-start gap-3 w-100 order-2 order-lg-1">
+<section class="customer-account-oder-list-content d-flex flex-column align-items-start w-100 justify-content-start gap-2 w-100 order-2 order-lg-1">
     
     <block class="title-block  d-flex align-items-center w-100 justify-content-between">
         

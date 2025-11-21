@@ -6,7 +6,10 @@ $componentType = isset($args['COMPONENT_TYPE']) ? sanitize_text_field($args['COM
 
 if($componentType === ""){
 
-    echo "Не указан тип компонента";
+    get_template_part("parts/catalog/errors/default-error-message/template", null, 
+    [
+        'TITLE' => 'Не указан тип компонента!',
+    ]);
 }
 
 $componentCode = !empty($currentComponent) ? sanitize_text_field($currentComponent['componentCode']) : "";

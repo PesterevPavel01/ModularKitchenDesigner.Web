@@ -183,7 +183,7 @@
                 
             }else{
 
-                $this->Result->ErrorMessage = "Не указана фрезеровка!";
+                $this->Result->ErrorMessage = "Некорректно указана фрезеровка!";
 
                 return $this->Result;
                 
