@@ -23,9 +23,9 @@ if($orderCode === ""){
 $messages = isset($args['MASSAGES']) ? $args['MASSAGES'] : [];
 ?>
 
-<ul class="transition-all order-item-message-list w-100 white-background rounded p-2 m-0 shadow-sm">
+<ul class="transition-all order-item-message-list w-100 white-background rounded p-0 p-lg-2 m-0 shadow-sm">
 
-    <div class="order-item-message-list-content p-o m-0 d-flex flex-column w-100 gap-1">
+    <div class="order-item-message-list-content p-2 p-lg-0 m-0 d-flex flex-column w-100 gap-1">
     
         <?foreach($messages as $message){
 

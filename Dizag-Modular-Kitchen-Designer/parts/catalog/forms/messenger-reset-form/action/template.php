@@ -15,7 +15,7 @@ if($moduleCode === ""){
         'MESSEGE_COUNTER_VALUE' => ""
     ]);
 
-    $errors ++;
+    return;
 
 }else{
 

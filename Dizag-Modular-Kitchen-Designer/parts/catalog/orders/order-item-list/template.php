@@ -2,12 +2,6 @@
 enqueue_template_part_styles_scripts( __DIR__, "catalog-order-item-list");
 ?>
 <?
-/*if(isset($args['ACTION_ERRORS']) && isset($args['ACTION_ERRORS'])){
-
-    print_r($args['SELECTED_VALUES']);
-
-}*/
-
 $modules = isset($args['MODULES']) ? $args['MODULES'] : null;
 
 $user = isset($args['USER']) ? sanitize_text_field($args['USER']) : "";
@@ -34,18 +28,18 @@ if($activeModuleCode){
     $module = empty($module) ? null : $module['module'];
 
 }
-
 ?>
 
 <div class="catalog-order-item-list-errors w-100" id = "catalog-order-item-list-errors"></div>
 
-<section class="catalog-oder-section d-flex flex-column justify-content-centr gap-2 w-100 p-3 rounded">
+<section class="catalog-oder-section d-flex flex-column justify-content-centr gap-2 w-100 p-1 p-lg-3 rounded">
 
     <div class="catalog-oder-content-conteiner d-flex flex-column gap20 w-100" id = "catalog-oder-content-conteiner">
 
-        <div class="catalog-oder-content d-flex">
+        <div class="catalog-oder-content d-flex flex-column flex-lg-row">
 
-            <div class="catalog-order-specification-section d-flex flex-column align-items-start justify-content-start gap-2 p-2 m-0 col-9"
+            <div class="catalog-order-specification-section d-flex flex-column align-items-start justify-content-start gap-2 p-o p-lg-2 m-0 col-12 col-lg-9 order-2 order-lg-1"
+
                 id = "catalog-order-specification-section">
                 <?
                     get_template_part("parts/catalog/orders/order-specification/template", null,
@@ -61,11 +55,13 @@ if($activeModuleCode){
                 ?>
             </div>
 
-            <div class="catalog-order-item-redactor d-flex col-3 p-2">
+            <div class="catalog-order-item-redactor d-none d-lg-flex gap-2 gap-lg-0 col-12 col-lg-3 p-2 order-1 order-lg-2">
 
-                    <div class="order-item-redactor-content w-100" id = "order-item-redactor-content">
+                <div class="order-item-redactor-content w-100" id = "order-item-redactor-content">
 
-                        <?get_template_part("parts/catalog/orders/facade-configurator/template", null,
+                    <?/*При загрузке страницы конфигуратор загрузится через AJAX вызовом события submit формы в файле ../Order/script.js*/ ?>
+                    <?if($activeModuleCode) 
+                        get_template_part("parts/catalog/orders/facade-configurator/template", null,
                         [
                             'MODULE' => $module,
                             'ORDER_CODE' => sanitize_text_field($args['ORDER_CODE']),
@@ -76,7 +72,7 @@ if($activeModuleCode){
                             'ROLE' => $role,
                         ]);?>
 
-                    </div>
+                </div>
                 
             </div>
 
@@ -84,11 +80,11 @@ if($activeModuleCode){
 
     </div>
     
-    <div class ="w-100" id ="catalog-order-messenger-errors"></div>
+    <div class ="w-100 d-none d-lg-flex" id ="catalog-order-messenger-errors"></div>
 
-    <div class="ordder-item-messenger d-none" id = "catalog-order-item-messenger">
+    <div class="order-item-messenger d-none d-lg-block">
 
-        <div class="messenger-section-title d-flex w-100 align-items-center gap-1" id = "">
+        <div class="messenger-section-title d-flex w-100 align-items-center gap-1">
 
             <p class="massenger-title black p-1 m-0">Комментарии</p>
 
@@ -107,9 +103,9 @@ if($activeModuleCode){
 
         </div>
         
-        <div class="order-item-massenger-section flex-column align-items-start justify-content-start gap-2 m-0 w-100 collapse" id="catalog-messenger-collapse">
+        <div class="order-item-massenger-section align-items-start justify-content-start gap-2 m-0 w-100 collapse" id="catalog-messenger-collapse">
 
-            <div class="order-messanger-block w-100" id = "catalog-order-item-messanger"></div>
+            <div class="order-messanger-block w-100" id = "catalog-order-item-messenger"></div>
 
         </div>
 

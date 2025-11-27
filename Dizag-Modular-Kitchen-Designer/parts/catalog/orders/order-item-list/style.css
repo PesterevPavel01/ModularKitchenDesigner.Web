@@ -11,6 +11,8 @@
     font-size: var(--mini-font-size);
 }
 
-#catalog-ordder-item-messenger.success{
-    display: block !important;
+@media (min-width: 992px) {
+    #catalog-order-item-messenger.success{
+        display: block !important;
+    }
 }

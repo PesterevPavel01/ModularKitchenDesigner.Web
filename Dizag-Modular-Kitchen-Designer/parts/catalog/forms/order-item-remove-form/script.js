@@ -15,12 +15,16 @@ function RemoveOrderItemModalInit(){
         // Получаем данные из атрибутов data-bs-*
         var moduleCode = button.getAttribute('data-bs-module-code');
         var orderCode = button.getAttribute('data-bs-order-code');
+        var user = button.getAttribute('data-bs-order-user');
+        var role = button.getAttribute('data-bs-order-role');
 
         //console.log(moduleCode);
         //console.log(orderCode);
         // Заполняем поля формы с помощью jQuery
         removeModal.find('input[name="MODULE_CODE"]').val(moduleCode);
         removeModal.find('input[name="ORDER_CODE"]').val(orderCode);
+        removeModal.find('input[name="USER"]').val(user);
+        removeModal.find('input[name="ROLE"]').val(role);
         removeModal.find('#remove-order-item-title').text(moduleCode);
     });
 }

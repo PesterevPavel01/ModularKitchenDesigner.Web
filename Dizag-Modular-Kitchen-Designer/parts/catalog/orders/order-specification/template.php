@@ -37,9 +37,11 @@ $cornerRightCode = get_field('corner-right', $order_page_id);
 $hingeCode = get_field('hinge', $order_page_id);
 ?>
 
-<p class="specification-title black p-1 m-0">Спецификация</p>
+<p class="d-none d-lg-block specification-title black p-3 p-lg-1 m-0">Спецификация</p>
 
-<div class="catalog-order-specification-list-conteiner h-100 white-background p-3 m-0 rounded w-100 shadow-sm">
+<p class="d-flex d-lg-none specification-title-mobile black p-2 pt-3 p-lg-1 m-0">Спецификация</p>
+
+<div class="catalog-order-specification-list-conteiner h-100 background-lg-white p-lg-3 m-0 rounded w-100 shadow-sm">
     
     <?if(!$args['MODULES']){?>
 
@@ -47,9 +49,9 @@ $hingeCode = get_field('hinge', $order_page_id);
 
     <?}else{?>
 
-        <ul class="catalog-order-specification-list d-table gap-2 w-100 p-0 m-0">
+        <ul class="catalog-order-specification-list d-flex flex-column d-lg-table gap-2 w-100 p-0 m-0">
             
-            <li class="catalog-order-specification-header w-100 d-table-row">
+            <li class="catalog-order-specification-header w-100 d-none d-lg-table-row">
 
                 <span class="d-table-cell order-specification-cell dark fw-bold p-1 col-4">Пленка</span>
                 <span class="d-table-cell order-specification-cell dark fw-bold p-1 col-1">Высота, мм</span>
@@ -71,7 +73,9 @@ $hingeCode = get_field('hinge', $order_page_id);
 
                 <?$components = $module['components'];?>
 
-                <li class="catalog-order-specification-item w-100 d-table-row">
+                <li class="catalog-order-specification-item w-100 d-flex flex-column d-lg-table-row white-background shadow-lg shadow-lg-none p-3 p-lg-0">
+
+                    <span class="d-table-cell d-lg-none order-specification-cell dark fw-bold p-1 w-100 pb-lg-2">Пленка</span>
 
                     <?
                     $membrane = array_filter($components, function($item) use ($membraneCode)
@@ -83,12 +87,14 @@ $hingeCode = get_field('hinge', $order_page_id);
                     $membrane = reset($membrane);
                     ?>
                         
-                    <div class="d-table-cell catalog-order-specification-cell ps-1 pb-2 align-middle text-center"
+                    <div class="d-table-cell catalog-order-specification-cell pb-lg-2 ps-1 align-middle text-center"
                         data-bs-toggle="tooltip" 
                         data-bs-placement="top"    
                         title="<?= !empty($membrane)? esc_html($membrane['componentTitle']) : 'Нет данных'?>">
                         <input type="text" readonly value="<?=esc_html($membrane['componentTitle'])?>" class="membrane w-100 border rounded height-40" name="membrane"/>
                     </div>
+
+                    <span class="d-table-cell d-lg-none order-specification-cell dark fw-bold p-1 w-100">Высота, мм</span>
 
                     <?
                     $length = array_filter($module['moduleNumericParameters'], function($item)
@@ -100,12 +106,14 @@ $hingeCode = get_field('hinge', $order_page_id);
                     $length = reset($length);
                     ?>
 
-                    <div class="d-table-cell catalog-order-specification-cell ps-1 pb-2 align-middle text-center"
+                    <div class="d-table-cell catalog-order-specification-cell pb-lg-2 ps-1 align-middle text-center"
                         data-bs-toggle="tooltip" 
                         data-bs-placement="top"    
                         title="<?= !empty($length)? esc_html($length['value']): 'Нет данных'?>">
                         <input type="text" readonly step="1" min="0" max="2000" value="<?= !empty($length)? esc_html($length['value']): ''?>" class="length w-100 border rounded height-40" name="length"/>
                     </div>
+
+                    <span class="d-table-cell d-lg-none order-specification-cell dark fw-bold p-1 w-100">Ширина, мм</span>
 
                     <?if(!empty($module))
                     {
@@ -119,14 +127,16 @@ $hingeCode = get_field('hinge', $order_page_id);
 
                     }?>
 
-                    <div class="d-table-cell catalog-order-specification-cell ps-1 pb-2 align-middle text-center"
+                    <div class="d-table-cell catalog-order-specification-cell pb-lg-2 ps-1 align-middle text-center"
                         data-bs-toggle="tooltip" 
                         data-bs-placement="top"    
                         title="<?=!empty($width)? $width['value']: 'Нет данных'?>">
                         <input type="text" readonly step="1" min="0" max="2000" value="<?= !empty($width)? $width['value']: ''?>" class="order-item-specification-width w-100 border rounded height-40" name="order-item-specification-width"/>
                     </div>
 
-                    <div class="d-table-cell catalog-order-specification-cell ps-1 pb-2 align-middle text-center"
+                    <span class="d-table-cell d-lg-none order-specification-cell dark fw-bold p-1 w-100">Количество</span>
+
+                    <div class="d-table-cell catalog-order-specification-cell ps-1 align-middle text-center pb-2"
                         data-bs-toggle="tooltip" 
                         data-bs-placement="top"    
                         title="<?=esc_html($moduleItem["quantity"])?>">
@@ -139,7 +149,7 @@ $hingeCode = get_field('hinge', $order_page_id);
                      $totalArea += $area;
                     ?> 
 
-                    <div class="d-table-cell catalog-order-specification-cell ps-1 pb-2 align-middle text-center"
+                    <div class="d-none d-lg-table-cell catalog-order-specification-cell pb-lg-2 ps-1 align-middle text-center"
                         data-bs-toggle="tooltip" 
                         data-bs-placement="top"    
                         title="<?=$area ? number_format($area, 2, ',', ' ') : 'Нет данных'?>">
@@ -157,7 +167,7 @@ $hingeCode = get_field('hinge', $order_page_id);
                     $board = reset($board);       
                     ?>
                     
-                    <div class="d-table-cell catalog-order-specification-cell ps-1 pb-2 align-middle text-center"
+                    <div class="d-none d-lg-table-cell catalog-order-specification-cell pb-lg-2 ps-1 align-middle text-center"
                         data-bs-toggle="tooltip" 
                         data-bs-placement="top"    
                         title="<?= empty($board) ? 'Нет данных' : esc_html($board['componentTitle'])?>">
@@ -175,7 +185,7 @@ $hingeCode = get_field('hinge', $order_page_id);
                     $milling = reset($milling);
                     ?>
 
-                    <div class="d-table-cell catalog-order-specification-cell ps-1 pb-2 align-middle text-center"
+                    <div class="d-none d-lg-table-cell catalog-order-specification-cell pb-lg-2 ps-1 align-middle text-center"
                         data-bs-toggle="tooltip" 
                         data-bs-placement="top"    
                         title="<?= empty($milling) ? 'Нет данных' : esc_html($milling['componentTitle'])?>">
@@ -227,7 +237,7 @@ $hingeCode = get_field('hinge', $order_page_id);
                     }
                     ?>    
 
-                    <div class="d-table-cell catalog-order-specification-cell ps-1 pb-2 align-middle text-center"
+                    <div class="d-none d-lg-table-cell catalog-order-specification-cell pb-lg-2 ps-1 align-middle text-center"
                         data-bs-toggle="tooltip" 
                         data-bs-placement="top"    
                         title="<?= $cornerTitle ?>">
@@ -245,94 +255,109 @@ $hingeCode = get_field('hinge', $order_page_id);
 
                     $hinge = reset($hinge);?>
 
-                    <div class="d-table-cell hinge catalog-order-specification-cell ps-1 pb-2 m-0 align-middle text-center">
+                    <div class="d-none d-lg-table-cell hinge catalog-order-specification-cell pb-lg-2 ps-1 m-0 align-middle text-center">
                         <div class="specification-item-control-conteiner border rounded height-40 w-100 d-flex flex-column align-items-center justify-content-center p-2">
                             <i class = "<?=!empty($hinge) ? 'bi-check-lg fs-3 primary' : "bi-x-lg"?> bi">
                             </i>
                         </div>
                     </div>
                     
-                    <?if(!$args['IS_COMPLETED']){?>
+                    <div class="order-specification-item-controls d-flex flex-row w-100">
+                    
+                        <?if(!$args['IS_COMPLETED']){?>
 
-                        <div class="d-table-cell ps-1 m-0 align-middle text-center pb-2 pointer">
+                            <div class="d-table-cell pb-lg-2 ps-1 m-0 align-middle text-center pointer col-4">
 
-                            <?$newModule = $module;
-                            $newModule["moduleCode"] = null;
+                                <?$newModule = $module;
+                                $newModule["moduleCode"] = null;
 
-                            get_template_part("parts/catalog/forms/order-item-add-by-copying-form/template", null, 
+                                get_template_part("parts/catalog/forms/order-item-add-by-copying-form/template", null, 
+                                [
+                                    'ORDER_CODE' => sanitize_text_field($orderCode),
+                                    'QUANTITY' => sanitize_text_field($moduleItem["quantity"]),
+                                    "IS_COMPLETED" => sanitize_text_field($args['IS_COMPLETED']),
+                                    "MODULE" => ($newModule || !empty($newModule))? htmlspecialchars(json_encode($newModule, JSON_UNESCAPED_UNICODE | JSON_HEX_QUOT | JSON_HEX_APOS), ENT_QUOTES, 'UTF-8') : "",
+                                    'USER' => $user,
+                                    'ROLE' => $role,
+                                ]);?>
+
+                            </div>
+
+                        <?}?>
+
+                        <div class="d-table-cell pb-lg-2 ps-1 m-0 align-middle text-center pointer col-4">
+
+                            <?get_template_part("parts/catalog/forms/order-item-send-to-configurator-form/template", null, 
                             [
+                                'MODULE_CODE' => esc_html($module["moduleCode"]),
                                 'ORDER_CODE' => sanitize_text_field($orderCode),
                                 'QUANTITY' => sanitize_text_field($moduleItem["quantity"]),
                                 "IS_COMPLETED" => sanitize_text_field($args['IS_COMPLETED']),
-                                "MODULE" => ($newModule || !empty($newModule))? htmlspecialchars(json_encode($newModule, JSON_UNESCAPED_UNICODE | JSON_HEX_QUOT | JSON_HEX_APOS), ENT_QUOTES, 'UTF-8') : "",
+                                "MODULE" => ($module || !empty($module))? htmlspecialchars(json_encode($module, JSON_UNESCAPED_UNICODE | JSON_HEX_QUOT | JSON_HEX_APOS), ENT_QUOTES, 'UTF-8') : "",
                                 'USER' => $user,
                                 'ROLE' => $role,
-                            
+                                'ACTIVE' => $module["moduleCode"] === $activeModuleCode ? "active" : "" 
                             ]);?>
 
                         </div>
 
-                    <?}?>
+                        <?if(!$args['IS_COMPLETED']){?>
 
-                    <div class="d-table-cell ps-1 m-0 align-middle text-center pb-2 pointer">
+                            <div class="d-table-cell catalog-order-specification-cell pb-lg-2 ps-1 m-0 align-middle text-center pointer col-4">
 
-                        <?get_template_part("parts/catalog/forms/order-item-send-to-configurator-form/template", null, 
-                        [
-                            'MODULE_CODE' => esc_html($module["moduleCode"]),
-                            'ORDER_CODE' => sanitize_text_field($orderCode),
-                            'QUANTITY' => sanitize_text_field($moduleItem["quantity"]),
-                            "IS_COMPLETED" => sanitize_text_field($args['IS_COMPLETED']),
-                            "MODULE" => ($module || !empty($module))? htmlspecialchars(json_encode($module, JSON_UNESCAPED_UNICODE | JSON_HEX_QUOT | JSON_HEX_APOS), ENT_QUOTES, 'UTF-8') : "",
-                            'USER' => $user,
-                            'ROLE' => $role,
-                            'ACTIVE' => $module["moduleCode"] === $activeModuleCode ? "active" : "" 
-                        
-                        ]);?>
+                                <button type = "button" class = "specification-item-remove-button btn-primary white-background w-100 d-flex flex-column align-items-center justify-content-center p-2 pointer hover-white border rounded height-40 w-100"
+                                    data-bs-toggle="modal"
+                                    data-bs-target="#remove-order-item-modal"
+                                    data-bs-module-code="<?=esc_html($module["moduleCode"])?>"
+                                    data-bs-order-code="<?=esc_html($orderCode)?>"
+                                    data-bs-order-user="<?=esc_html($user)?>"
+                                    data-bs-order-role="<?=esc_html($role)?>">
+                                    
+                                    <i class = "bi bi-x-lg primary-dark cursor hover-white"                    
+                                        data-bs-toggle="tooltip" 
+                                        data-bs-placement="top"    
+                                        title="Удалить элемент">
+                                    </i>
+                                    
+                                </button>
+
+                            </div>
+
+                        <?}?>
 
                     </div>
-
-                    <?if(!$args['IS_COMPLETED']){?>
-
-                        <div class="d-table-cell catalog-order-specification-cell ps-1 m-0 align-middle text-center pointer pb-2">
-
-                            <button type = "button" class = "specification-item-remove-button btn-primary white-background w-100 d-flex flex-column align-items-center justify-content-center p-2 pointer hover-white border rounded height-40"
-                                data-bs-toggle="modal"
-                                data-bs-target="#remove-order-item-modal"
-                                data-bs-module-code="<?=esc_html($module["moduleCode"])?>"
-                                data-bs-order-code="<?=esc_html($orderCode)?>">
-                                
-                                <i class = "bi bi-x-lg primary-dark cursor hover-white"                    
-                                    data-bs-toggle="tooltip" 
-                                    data-bs-placement="top"    
-                                    title="Удалить элемент">
-                                </i>
-                            </button>
-
-                        </div>
-
-                    <?}?>
                     
                 </li>
 
             <?}?>
             
             <?if($totalArea !== 0){?>
-                <div class="ps-2 pb-4 align-start text-start"
-                    data-bs-toggle="tooltip" 
-                    data-bs-placement="top"    
-                    title="Итоговая площадь заказа">
-                    <strong type="text" class="d-table-cell w-100 align-items-start">ВСЕГО</strong>
-                </div>
-                <div class="d-table-cell"></div>
-                <div class="d-table-cell"></div>
-                <div class="d-table-cell"></div>
-                <div class="d-table-cell catalog-order-specification-cell ps-2 pb-4 align-start text-start"
-                    data-bs-toggle="tooltip" 
-                    data-bs-placement="top"    
-                    title="Итоговая площадь заказа">
-                    <strong class="w-100 align-items-start"><?=number_format($totalArea, 2, ',', ' ')?></strong>
-                </div>
+
+                <li class="white-background d-flex d-lg-table-row gap-2 gap-lg-0 p-2 p-lg-0">
+
+                    <div class="d-flex flex-column ps-lg-2 pb-lg-4 justify-content-center"
+                        data-bs-toggle="tooltip" 
+                        data-bs-placement="top"    
+                        title="Итоговая площадь заказа">
+                        <strong type="text" class="d-none d-lg-table-cell text-center text-lg-start w-100 align-items-center align-items-lg-start">ВСЕГО</strong>
+                        <strong type="text" class="d-lg-table-cell d-lg-none text-center text-lg-start w-100 align-items-center p-2 p-lg-0 align-items-lg-start">ИТОГОВАЯ ПЛОЩАДЬ:</strong>
+                    </div>
+
+                    <div class="d-none d-lg-table-cell"></div>
+                    <div class="d-none d-lg-table-cell"></div>
+                    <div class="d-none d-lg-table-cell"></div>
+
+                    <div class="d-lg-table-cell d-flex flex-column ps-lg-2 pb-lg-4 justify-content-center"
+                        data-bs-toggle="tooltip" 
+                        data-bs-placement="top"    
+                        title="Итоговая площадь заказа">
+                        <strong class="text-center text-lg-start w-100 align-items-center align-items-lg-start"><?=number_format($totalArea, 2, ',', ' ')?></strong>
+                    </div>
+
+                </li>
+
             <?}?>
+
         </ul>
     <?}?>
 

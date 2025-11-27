@@ -1,4 +1,4 @@
-<nav class="navbar-section headroom">
+<nav class="navbar-section headroom p-2">
 
     <div class="navbar-container flex-container d-flex align-items-center height-100">
         <a class="navbar-brand height-100" href="/">
@@ -26,7 +26,6 @@
                         <p class="login white mobile-none m-0"><?= empty($user) ? $login : $user['full_name'] ?></p>
                         <a class="d-flex align-items-center flex-column white" href="<?= wp_logout_url( get_site_url() . "/authorization/") ?>">
                             <div class="bi bi-box-arrow-right"></div>
-                            <?/*?><label class="small-font pointer navbar-label">выход</label><?*/?>
                         </a>
                     </li>
                 <?}else{?>

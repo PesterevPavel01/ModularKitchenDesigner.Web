@@ -1,67 +1,64 @@
 <?
-enqueue_template_part_styles_scripts( __DIR__, "catalog-order-item-facade-configurator");
+/*Стили и скрипты вынесены в Order*/
 
-require_once get_template_directory() . '/core/services/processors/catalog/modules/ModuleProvider.php';
 require_once get_template_directory() . '/core/services/processors/catalog/components/ComponentProvider.php';
 require_once get_template_directory() . '/core/Result.php';
 
 global $moduleServiceUrl;
 global $componentServiceUrl;
 ?>
-
 <?
+$user = isset($args['USER']) ? sanitize_text_field($args['USER']) : "";
+$role = isset($args['ROLE']) ? sanitize_text_field($args['ROLE']) : "";
 
-    $user = isset($args['USER']) ? sanitize_text_field($args['USER']) : "";
-    $role = isset($args['ROLE']) ? sanitize_text_field($args['ROLE']) : "";
+$moduleCode = "";
 
-    $moduleCode = "";
+$components = [];
 
-    $components = [];
+$module = [];
 
-    $module = [];
+if(isset($args['MODULE']) && $args['MODULE']){
 
-    if(isset($args['MODULE']) && $args['MODULE']){
+    if(!is_array($args['MODULE'])){
 
-        if(!is_array($args['MODULE'])){
+        $module = json_decode($moduleJson = stripslashes($args['MODULE']), true);
 
-            $module = json_decode($moduleJson = stripslashes($args['MODULE']), true);
+        if (json_last_error() !== JSON_ERROR_NONE) {
 
-            if (json_last_error() !== JSON_ERROR_NONE) {
+            $module = [];
 
-                $module = [];
-
-                echo 'Ошибка декодирования JSON: ' . json_last_error_msg();
-                
-                return;
-            }
-
-        }else{
-
-            $module = $args['MODULE'];
-        
+            echo 'Ошибка декодирования JSON: ' . json_last_error_msg();
+            
+            return;
         }
 
-        $moduleCode = $module['moduleCode'];
-        
-        $components = $module['components'];
+    }else{
+
+        $module = $args['MODULE'];
+    
     }
 
-    $order_page = get_page_by_path('order');
+    $moduleCode = $module['moduleCode'];
+    
+    $components = $module['components'];
+}
 
-    $order_page_id = $order_page->ID;
+$order_page = get_page_by_path('order');
 
-    $facadeTypeCode = get_field('facade', $order_page_id);
+$order_page_id = $order_page->ID;
 
-    if(!$facadeTypeCode || trim($facadeTypeCode) === "")
-    {?>
-        <p>Не указан код типа модуля "Фасад"!</p>
-        <?return;
-    }
+$facadeTypeCode = get_field('facade', $order_page_id);
+
+if(!$facadeTypeCode || trim($facadeTypeCode) === "")
+{?>
+    <p>Не указан код типа модуля "Фасад"!</p>
+    <?return;
+}
 ?>
 <?
 $Result = new BaseResult();
 
-$componentProvider = new ComponentProvider($componentServiceUrl);
+$componentProvider = new ComponentProvider($componentServiceUrl, $user);
 ?>
 
 <form class="order-item-facade-configurator-form d-flex flex-column align-items-start justify-content-start gap-2 m-0 w-100" id = "order-item-facade-configurator-form"
@@ -79,7 +76,7 @@ $componentProvider = new ComponentProvider($componentServiceUrl);
     <input type="hidden" data-no-reset="true" name="USER" value="<?=$user?>">
     <input type="hidden" data-no-reset="true" name="ROLE" value="<?=$role?>">
     <?//<input type="hidden" data-no-reset="true" name="TARGET_CONTAINER" value="#catalog-order-specification-section">*/?>
-    <input type="hidden" data-no-reset="true" name="DEPENDENT_FORM" value="#catalog-order-item-messanger-reset-form">
+    <input type="hidden" data-no-reset="true" name="DEPENDENT_FORM" value="#catalog-order-item-messenger-reset-form">
     <input type="hidden" data-no-reset="true" name="DEPENDENT_FORM_SECOND" value="#order-submit-reset-form">
     <input type="hidden" value="<?=$moduleCode?>" name="MODULE_CODE" id = "order-item-configurator-module-code"/>
     <input type="hidden" value="<?=$args['ORDER_CODE']?>" data-no-reset="true" name="ORDER_CODE"/>
@@ -87,9 +84,14 @@ $componentProvider = new ComponentProvider($componentServiceUrl);
     <input type="hidden" value="Фасад" data-no-reset="true" name="MODULE_TYPE"/>
     <input type="hidden" name = "IS_COMPLETED" value=<?=sanitize_text_field($args['IS_COMPLETED'])?>>
 
-    <p class="specification-title black p-1 m-0">Конфигуратор</p>
+    <p class="specification-title black d-none d-lg-flex p-1 m-0">Конфигуратор</p>
 
-    <ul class="facade-configurator-component-list d-flex flex-column gap-1 w-100 white-background rounded p-4 m-0 shadow-sm">
+    <ul class="facade-configurator-component-list d-flex flex-column gap-1 w-100 white-background rounded p-2 p-lg-4 m-0 shadow-sm">
+
+        <div class="modal-header d-lg-none">
+            <p class="specification-title black p-1 m-0">Конфигуратор</p>
+            <button type="button" class="btn-close" data-bs-dismiss="modal"></button>
+        </div>
 
         <li class="button-conteiner d-flex w-100">
 
@@ -773,6 +775,35 @@ $componentProvider = new ComponentProvider($componentServiceUrl);
     </ul>
 
 </form>
+
+<div class="order-item-messenger d-lg-none">
+
+    <div class="messenger-section-title d-flex w-100 align-items-center gap-1">
+
+        <p class="massenger-title black m-0 p-4 pe-0">Комментарии</p>
+
+        <div id = "catalog-order-item-message-counter-mobile"></div>
+
+        <div class="d-flex align-items-center collapse-btn  collapsed" 
+            type="button" 
+            data-bs-toggle="collapse" 
+            data-bs-target="#catalog-messenger-collapse-mobile"
+            data-bs-custom-toggle="tooltip" 
+            title="Свернуть">
+
+            <i class="bi bi-chevron-down collapse-icon transition-all"></i>
+
+        </div>
+
+    </div>
+
+    <div class="order-item-massenger-section d-lg-none gap-2 m-0 w-100 collapse " id="catalog-messenger-collapse-mobile">
+
+        <div class="order-messanger-block w-100" id = "catalog-order-item-messenger-mobile"></div>
+
+    </div>
+
+</div>
 
 <?get_template_part("parts/catalog/forms/messenger-reset-form/template",null,
     [

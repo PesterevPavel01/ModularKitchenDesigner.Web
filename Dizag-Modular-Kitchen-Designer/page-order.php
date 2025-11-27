@@ -11,8 +11,21 @@ $current_user = wp_get_current_user();
 if($current_user && is_user_logged_in()){
 
     $roles = $current_user->roles;
+    $login = $current_user->user_login;
 
-    if(in_array('constructor',$roles) || in_array('customer', $roles)){
+    if(in_array('customer', $roles))
+
+        $role = 'customer';
+
+    elseif(in_array('constructor', $roles))
+
+        $role = 'constructor';
+
+    else
+
+        $role = null;
+
+    if($role){
     
         $Code = isset($_GET['Code']) ? sanitize_text_field(wp_unslash($_GET['Code'])) : '';
 
@@ -21,11 +34,17 @@ if($current_user && is_user_logged_in()){
             $CreateOrderProcessor = new CreateOrderProcessor($orderServiceUrl);
             
             $Result = $CreateOrderProcessor->Process([
-                'userName' => $current_user->user_login
+                'userName' => $login
             ]);
 
             if(!$Result->isSuccess()){
-                ?><p class="error-message black"><?=esc_html($Result->ErrorMessage)?></p><?
+                
+                get_template_part("parts/catalog/errors/default-error-message/template", null, 
+                [
+                    'TITLE' => $Result->ErrorMessage,
+                    'MESSAGE' => $Result->data
+                ]);
+                
                 return;
             }
 
@@ -58,47 +77,51 @@ the_content();
             [
                 'ERROR_MESSAGE' => "Для получения доступа необходимо",
             ]);
+
             return;
         }
 
-        if($current_user && is_user_logged_in()){
+        if(!$role){
 
-            if(!in_array('constructor',$roles) && !in_array('customer', $roles)){
+            $Result = new BaseResult();
 
-                $Result = new BaseResult();
-
-                $PermissionProcessor = new PermissionProcessor($clientServiceUrl);
+            $PermissionProcessor = new PermissionProcessor($clientServiceUrl);
+        
+            $Result = $PermissionProcessor->Process(sanitize_user($current_user->user_login));
             
-                $Result = $PermissionProcessor->Process(sanitize_user($current_user->user_login));
-                
-                if(!$Result->isSuccess() || !in_array('customer', $Result->data["roles"]) || $Result->data["externalId"] == "none"){
-                ?>
-                    <section class="permission-request-section ajax-update-trigger flex-column gap40">
-                        <?get_template_part("parts/catalog/account/permission-request",null,
-                            [
-                                'ACTION' => 'content_update',
-                                'PARAMETER' =>  null,
-                                'TEMPLATE_PART_TO_UPDATE' => "parts/catalog/account/permission-request",
-                                'HTML_BLOCK_TO_UPDATE_CLASS' => 'permission-request-section',
-                            ]);?>
-                    </section>
-                <?
-                }else
-                {
-                    ?><p class="error-message black">У пользователя нет необходимых прав, обратитесь к администратору!</p><?
-                }
-                return;
-            }
+            if(!$Result->isSuccess() || !in_array('customer', $Result->data["roles"]) || $Result->data["externalId"] == "none"){
+            ?>
+                <section class="permission-request-section ajax-update-trigger flex-column gap40">
 
+                    <?get_template_part("parts/catalog/account/permission-request",null,
+                        [
+                            'ACTION' => 'content_update',
+                            'PARAMETER' =>  null,
+                            'TEMPLATE_PART_TO_UPDATE' => "parts/catalog/account/permission-request",
+                            'HTML_BLOCK_TO_UPDATE_CLASS' => 'permission-request-section',
+                        ]);?>
+
+                </section>
+            <?
+            }else
+            {
+                get_template_part("parts/catalog/errors/default-error-message/template", null, 
+                [
+                    'TITLE' => "У пользователя нет необходимых прав, обратитесь к администратору!",
+                ]);
+            }
+            return;
         }
         
         if (!empty($Code)) {?>
-
+        
             <section id = "catalog-section-order" class="section-order d-flex flex-column align-items-start gap-3 w-100 catalog_content_update">
             
                 <?get_template_part("parts/catalog/orders/order/template",null,
                 [
-                    'ORDER_CODE' =>  $Code
+                    'ORDER_CODE' =>  $Code,
+                    'USER' => $login,
+                    'ROLE' => $role,
                 ]);?>
 
             </section>

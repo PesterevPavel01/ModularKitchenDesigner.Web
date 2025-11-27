@@ -86,7 +86,9 @@ p {
   font-weight: var(--font-weight-light);
 }
 
-
+.border{
+  border-color: var(--primary-dark-color) !important;
+}
 
 @media(max-width:460px){
   p {
@@ -141,10 +143,6 @@ MAIN
 .section-content{
   height: 100%;
   padding: 90px 0;
-}
-
-.white-background{
-  background-color:  var(--white-color);
 }
 
 .section-content > section{
@@ -320,6 +318,29 @@ MAIN
 .br-10{
   border-radius: 10px;
 }
+
+@media (min-width: 992px) {
+    .shadow-lg-none {
+    box-shadow: none !important;
+  }
+}
+
+@media (min-width: 992px) {
+  .shadow-lg-sm {
+    box-shadow: 0 .125rem .25rem rgba(0,0,0,.075)!important
+}
+}
+
+.white-background{
+  background-color:  var(--white-color);
+}
+
+@media (min-width: 992px) {
+  .background-lg-white {
+    background-color:  var(--white-color);
+  }
+}
+
 
 /*---------------------------------------
 ELEMENTOR PAGES             

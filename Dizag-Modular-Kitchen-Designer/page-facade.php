@@ -14,9 +14,7 @@
     
     <section class="section-content flex-column gap40 mx-width-1360">
     
-    <? if(is_user_logged_in()){?>
-
-    <?}else
+    <? if(!is_user_logged_in())
     {
         get_template_part("parts/navigation/authorization",null,
         [

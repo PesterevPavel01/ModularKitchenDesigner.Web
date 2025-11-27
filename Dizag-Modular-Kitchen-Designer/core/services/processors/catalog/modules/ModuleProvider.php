@@ -7,11 +7,13 @@
         public $Url;
         public $HttpConnector;
         public $Result;
+        private $User;
 
-        public function __construct($moduleServiceUrl){
+        public function __construct($moduleServiceUrl, $user){
             $this->HttpConnector = new HttpConnector();
             $this->Result = new BaseResult();
             $this->Url = $moduleServiceUrl . "v2/modules";
+            $this->User = $user;
         }
 
         public function GetModuleByCode($code)
@@ -29,7 +31,8 @@
 
             $body = [
                 "moduleCode" => $moduleCode,
-                "componentCode" => $componentCode
+                "componentCode" => $componentCode,
+                "currentUser" => $this->User
             ];
 
             $this->Result = $this->HttpConnector->wp_post($url);
@@ -226,7 +229,8 @@
             $body = [
                 "components" => $components,
                 "numericParameters" => $numericParameters,
-                "textParameters" => []
+                "textParameters" => [],
+                "currentUser" => $this->User
             ];
 
             $this->Result->data = $body;

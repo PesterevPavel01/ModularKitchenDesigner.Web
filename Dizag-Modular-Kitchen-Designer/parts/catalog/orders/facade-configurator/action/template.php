@@ -4,9 +4,11 @@ require_once get_template_directory() . '/core/services/processors/catalog/order
 require_once get_template_directory() . '/core/services/processors/catalog/modules/ModuleProvider.php';
 require_once get_template_directory() . '/core/services/processors/catalog/orders/OrderItemQuantityClient.php';
 require_once get_template_directory() . '/core/services/processors/catalog/orders/OrderItemCreator.php';
+require_once get_template_directory() . '/core/services/processors/catalog/orders/OrderApprovalWorkflowLoaderProcessor.php';
 
 global $orderServiceUrl;
 global $moduleServiceUrl;
+global $approvalServiceUrl;
 
 $errors = 0;
 
@@ -21,7 +23,64 @@ $role = isset($args['ROLE']) ? sanitize_text_field($args['ROLE']) : "";
 $orderCode = sanitize_text_field($args['ORDER_CODE']);
 
 $moduleCode = sanitize_text_field($args['MODULE_CODE']);
+
+$OrderApprovalWorkflowLoaderProcessor = new OrderApprovalWorkflowLoaderProcessor($approvalServiceUrl);
+
+$Result = $OrderApprovalWorkflowLoaderProcessor->Process(sanitize_text_field($orderCode));
+
+if(!$Result->isSuccess())
+{
+
+    get_template_part("parts/catalog/errors/default-error-message/template", null, 
+        [
+            'TITLE' => $Result->ErrorMessage,
+            'MESSAGE' => $Result->data
+        ]);
+
+    $errors++;
+
+    return;
+}
+
+$workflows = $Result->data;
+
+if(!empty($workflows) && !$moduleCode ){
+
+    get_template_part("parts/catalog/errors/default-error-message/template", null, 
+    [
+        'TITLE' => "У заказа запущен процесс согласования",
+        'MESSAGE' => "Не удалось добавить новый модуль!"
+    ]);
+
+    $errors++;
+}
+
+if($moduleCode && !empty($workflows))
+{
+    $moduleWorkflow = [];
+
+    $moduleWorkflow = array_filter($workflows, function($item) use ($moduleCode)
+        {
+            return $item['orderItem']['module']['moduleCode'] === $moduleCode;
+        }
+    );
+
+    $moduleWorkflow = reset($moduleWorkflow);  
+
+    if(!empty($moduleWorkflow) && $moduleWorkflow['isCompleted']){
+
+        get_template_part("parts/catalog/errors/default-error-message/template", null, 
+        [
+            'TITLE' => "У модуля завершен процесс согласования",
+            'MESSAGE' => "Невозможно изменить модуль!"
+        ]);
+
+        $errors++;
+    }
+
+}
 ?>
+
 <?
 if(!isset($args['MEMBRANE']) || trim($args['MEMBRANE']) === '' || $args['MEMBRANE'] === "0"){
     
@@ -63,6 +122,16 @@ if(!isset($args['QUANTITY']) || trim($args['QUANTITY']) === ''){
     $errors++;
 }
 
+if(isset($args['QUANTITY']) && trim($args['QUANTITY']) === '0'){
+
+    get_template_part("parts/catalog/errors/default-error-message/template", null, 
+    [
+        'TITLE' => 'Внимание! Количество не может быть меньше 1!',
+    ]);
+
+    $errors++;
+}
+
 if(!isset($args['CORNER']) || trim($args['CORNER']) === '' || $args['CORNER'] === "0"){
     
     get_template_part("parts/catalog/errors/default-error-message/template", null, 
@@ -85,7 +154,7 @@ if(!isset($args['MILLING']) || trim($args['MILLING']) === '' || $args['MILLING']
 
 if($errors === 0)
 {
-    $ModuleProvider = new ModuleProvider($moduleServiceUrl);
+    $ModuleProvider = new ModuleProvider($moduleServiceUrl, $user);
 
     $arParams = $args;
 
@@ -98,6 +167,8 @@ if($errors === 0)
     if(!$moduleCode)
     {
         $Result = $ModuleProvider->Create($arParams);
+
+        //print_r($Result);
 
         if(!$Result->isSuccess())
         {
@@ -117,7 +188,7 @@ if($errors === 0)
 
             $moduleCode = sanitize_text_field($Result->data['moduleCode']);
 
-            $OrderItemCreator = new OrderItemCreator($orderServiceUrl);
+            $OrderItemCreator = new OrderItemCreator($orderServiceUrl, $user);
 
             $Result = $OrderItemCreator->Execute($orderCode, $moduleCode, absint(sanitize_text_field($arParams['QUANTITY'])));
 
@@ -147,7 +218,7 @@ if($errors === 0)
 
     }else{
 
-        $OrderItemQuantityClient = new OrderItemQuantityClient($orderServiceUrl);
+        $OrderItemQuantityClient = new OrderItemQuantityClient($orderServiceUrl, $user);
     
         $Result = $OrderItemQuantityClient->Execute($orderCode, $moduleCode, absint(sanitize_text_field($arParams['QUANTITY'])));
 
@@ -161,23 +232,23 @@ if($errors === 0)
 
             $errors++;
         }
-    }
 
-    //Повторно проверяем наличие ошибок, они могли появиться
-    if($errors === 0)
-    {
-        if($Result->isSuccess())
-            $Result = $ModuleProvider->Update($arParams);
-
-        if(!$Result->isSuccess())
+        //Повторно проверяем наличие ошибок, они могли появиться
+        if($errors === 0)
         {
-            get_template_part("parts/catalog/errors/default-error-message/template", null, 
-            [
-                'TITLE' => $Result->ErrorMessage,
-                'MESSAGE' => $Result->data
-            ]);
+            if($Result->isSuccess())
+                $Result = $ModuleProvider->Update($arParams);
 
-            $errors++;
+            if(!$Result->isSuccess())
+            {
+                get_template_part("parts/catalog/errors/default-error-message/template", null, 
+                [
+                    'TITLE' => $Result->ErrorMessage,
+                    'MESSAGE' => $Result->data
+                ]);
+
+                $errors++;
+            }
         }
     }
 }
@@ -190,7 +261,7 @@ if ($errors !== 0 && isset($GLOBALS['set_template_data']) && is_callable($GLOBAL
 else{
 
     $OrderByCodeProcessor = new OrderByCodeProcessor($orderServiceUrl);
-            
+
     $Result = $OrderByCodeProcessor->Process($orderCode);
 
     if(!$Result->isSuccess())

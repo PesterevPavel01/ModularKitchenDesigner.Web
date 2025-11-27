@@ -70,7 +70,7 @@ else
 
     </block> 
 
-    <block class="list-items d-flex flex-column align-items-start w-100 justify-content-start gap-1">
+    <block class="list-items d-flex flex-column align-items-start w-100 justify-content-start gap-2 gap-lg-1">
 
         <?foreach($Result->data as $item){
 

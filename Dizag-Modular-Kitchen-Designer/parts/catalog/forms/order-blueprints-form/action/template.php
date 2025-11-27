@@ -9,6 +9,10 @@ global $componentServiceUrl;
 
 $nonce = $args['nonce'] ?? '';
 
+$login = isset($args['USER']) ? sanitize_text_field($args['USER']) : "";
+
+$role = isset($args['ROLE']) ? sanitize_text_field($args['ROLE']) : "";
+
 $componentCode = $args['COMPONENT_CODE'] ?? '';
 
 $componentType = isset($args['COMPONENT_TYPE']) ? sanitize_text_field($args['COMPONENT_TYPE']) : "";
@@ -19,7 +23,7 @@ if($componentType === "")
         'TITLE' => "Не указан тип компонента!"
     ]);
 
-$ComponentProvider = new ComponentProvider($componentServiceUrl);
+$ComponentProvider = new ComponentProvider($componentServiceUrl, $login);
 
 $ComponentResult = new BaseResult();
 
@@ -41,21 +45,23 @@ if($componentCode === ''){
         $ComponentResult = $ComponentProvider->CreateCustomHinge($millingCode, "Плита");
 
     if(!$ComponentResult->isSuccess())
-    {?>
-        <p><?=$ComponentResult->ErrorMessage?></p>
-        <?return;
+    {
+        get_template_part("parts/catalog/errors/default-error-message/template", null, 
+        [
+            'TITLE' => $ComponentResult->ErrorMessage,
+            'MESSAGE' => $ComponentResult->data
+        ]);
+
+        return;
     }
 
     $componentCode = $ComponentResult->data[0]["componentCode"];
 
 }
 
-$current_user = wp_get_current_user();
-
-$login = $current_user->user_login;
-
 // Проверяем nonce
 if (!wp_verify_nonce($nonce, 'blueprint_upload_nonce')) {
+    
     get_template_part("parts/catalog/errors/default-error-message/template", null, 
     [
         'TITLE' => "Ошибка безопасности!"
@@ -153,7 +159,8 @@ if (!empty($_FILES['BLUEPRINTS']) && !empty($_FILES['BLUEPRINTS']['name'][0])) {
     
     $body = [
         "componentCode" => $componentCode,
-        "textParameters" => $textParameters
+        "textParameters" => $textParameters,
+        "currentUser" => $login
     ];
 
     $ComponentResult = $ComponentProvider->ReplaceTextParameters($body);

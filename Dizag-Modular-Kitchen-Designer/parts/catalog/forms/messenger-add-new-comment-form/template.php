@@ -18,8 +18,8 @@ $user = isset($args['USER']) ? sanitize_text_field($args['USER']) : "";
 
     <input type="hidden" data-no-reset="true" name="TEMPLATE_PART" value="parts/catalog/forms/messenger-add-new-comment-form/action/template">
     <input type="hidden" data-no-reset="true" name="action" value="default_content_updater">
-    <input type="hidden" data-no-reset="true" name="TARGET_CONTAINER" value="#catalog-order-item-messanger">
-    <input type="hidden" data-no-reset="true" name= "DEPENDENT_FORM" value="#catalog-order-item-messanger-reset-form">
+    <input type="hidden" data-no-reset="true" name="TARGET_CONTAINER" value="#catalog-order-item-mesenger">
+    <input type="hidden" data-no-reset="true" name= "DEPENDENT_FORM" value="#catalog-order-item-messenger-reset-form">
     <input type="hidden" data-no-reset="true" name="ERROR_CONTAINER" value="#catalog-order-messenger-errors">
     <input type="hidden" name = "MODULE_CODE" value=<?=esc_html($args['MODULE_CODE'])?>>
     <input type="hidden" name = "ORDER_CODE" value=<?=esc_html($args['ORDER_CODE'])?>>

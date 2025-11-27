@@ -7,11 +7,13 @@ Class OrderItemCreator
     public $Url;
     public $HttpConnector;
     public $Result;
+    private $User;
 
-    public function __construct($orderServiceUrl){
+    public function __construct($orderServiceUrl, $user){
         $this->HttpConnector = new HttpConnector();
         $this->Result = new BaseResult();
         $this->Url = $orderServiceUrl . "v3/orders/order-item";
+        $this->User = $user;
     }
 
     public function Execute(string $orderCode, string $moduleCode, int $quantity)
@@ -42,7 +44,8 @@ Class OrderItemCreator
         $body[] = [
             "orderCode" => $orderCode,
             "moduleCode" => $moduleCode,
-            "quantity" => $quantity
+            "quantity" => $quantity,
+            "currentUser" => $this->User
         ];
 
         $this->Result = $this->HttpConnector->wp_post($url,  $body);

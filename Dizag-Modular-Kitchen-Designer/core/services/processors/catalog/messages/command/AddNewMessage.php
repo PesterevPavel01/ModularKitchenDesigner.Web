@@ -50,7 +50,7 @@ Class AddNewMessage
             "orderCode" => trim($orderCode),
             "moduleCode" => trim($moduleCode),
             "text" => trim($message),
-            "senderName" => trim($sender),
+            "senderName" => trim($sender)
         ];
 
         $this->Result = $this->HttpConnector->wp_patch($url, $body);

@@ -7,11 +7,13 @@
         public $Url;
         public $HttpConnector;
         public $Result;
+        private $User;
 
-        public function __construct($componentServiceUrl){
+        public function __construct($componentServiceUrl, $user){
             $this->HttpConnector = new HttpConnector();
             $this->Result = new BaseResult();
             $this->Url = $componentServiceUrl . "v3/components";
+            $this->User = $user;
         }
 
         public function GetComponentsByType($type)
@@ -45,7 +47,8 @@
                 "componentTypeCode" => $typeCode,
                 "componentTypeTitle" => $typeTitle,
                 "componentTitle" => "Нестандартная",
-                "numericParameters"=> $numericParameters
+                "numericParameters"=> $numericParameters,
+                "currentUser" =>  $this->User
             ];
 
             $url = $this->Url . $orderItemCode . "/create";
@@ -61,7 +64,8 @@
             $body = [
                 "componentTypeCode" => $typeCode,
                 "componentTypeTitle" => $typeTitle,
-                "componentTitle" => "Нестандартная"
+                "componentTitle" => "Нестандартная",
+                "currentUser" =>  $this->User
             ];
 
             $url = $this->Url . $orderItemCode . "/create";

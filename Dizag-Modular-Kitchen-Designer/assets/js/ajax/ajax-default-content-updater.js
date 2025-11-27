@@ -16,7 +16,9 @@ function Handler($form)
     
     const $blockedElement = $form.find('input[name="BLOCKED_ELEMENT"]').val();
 
-    const $targetContainer = $form.find('input[name="TARGET_CONTAINER"]').val(); //$form.find('#TARGET_CONTEINER').val();
+    const $targetContainerMobile = $form.find('input[name="TARGET_CONTAINER_MOBILE"]').val(); //$form.find('#TARGET_CONTEINER').val();
+
+    var $targetContainer = ( $targetContainerMobile && $targetContainerMobile!='' &&  window.innerWidth < 992) ? $targetContainerMobile : $form.find('input[name="TARGET_CONTAINER"]').val(); //$form.find('#TARGET_CONTEINER').val();
 
     const $dependentForm =  $form.find('input[name="DEPENDENT_FORM"]').val(); //$form.find('#DEPENDENT_FORM').val();
 
@@ -120,6 +122,8 @@ function Handler($form)
                     }
 
                     $($blockedElement).unblock();
+
+                    console.log("success");
                 }
             }
         );  

@@ -8,18 +8,24 @@ if($componentType === "")
     [
         'TITLE' => "Не указан тип компонента!"
     ]);
+
+    $login = isset($args['USER']) ? sanitize_text_field($args['USER']) : "";
+
+    $role = isset($args['ROLE']) ? sanitize_text_field($args['ROLE']) : "";
 ?>
 
 <form class="order-blueprints-form modal fade" data-ajax-file-content-updater="refresh" id="order-<?=$componentType?>-blueprints-modal" tabindex="-1" enctype="multipart/form-data">
     
-    <input type="hidden" name="BLOCKED_ELEMENT" value="#order-<?=$componentType?>-blueprints-modal-send-button">
-    <input type="hidden" name="TEMPLATE_PART" value="parts/catalog/forms/order-blueprints-form/action/template">
-    <input type="hidden" name="action" value="default_content_updater">
-    <input type="hidden" name="TARGET_CONTAINER" value="#<?=$componentType?>-collapse-content">
+    <input type="hidden" data-no-reset="true" name="BLOCKED_ELEMENT" value="#order-<?=$componentType?>-blueprints-modal-send-button">
+    <input type="hidden" data-no-reset="true" name="TEMPLATE_PART" value="parts/catalog/forms/order-blueprints-form/action/template">
+    <input type="hidden" data-no-reset="true" name="action" value="default_content_updater">
+    <input type="hidden" data-no-reset="true" name="TARGET_CONTAINER" value="#<?=$componentType?>-collapse-content">
     <input type="hidden" name="COMPONENT_CODE" value="">
     <input type="hidden" name="COMPONENT_TYPE" value=<?=$componentType?>>
     <?/*<input type="hidden" id="DEPENDENT_FORM" name="DEPENDENT_FORM" value="#">*/?>
-    <input type="hidden" name="MAX_FILE_SIZE" value="104857600"> <!-- 10MB -->
+    <input type="hidden" data-no-reset="true" name="MAX_FILE_SIZE" value="104857600"> <!-- 10MB -->
+    <input type="hidden" data-no-reset="true" name="USER" value="<?= $login?>">
+    <input type="hidden" data-no-reset="true" name="ROLE" value="<?= $role?>">
     
     <div class="modal-dialog">
         <div class="modal-content">

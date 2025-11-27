@@ -7,9 +7,9 @@ if (function_exists('enqueue_template_part_styles_scripts')) {
 <?
 $role = isset($args['ROLE']) ? sanitize_text_field($args['ROLE']) : '';
 ?>
-<section class="customer-account-content d-flex flex-column align-items-start flex-lg-row w-100" id = "customer-account-content">
+<section class="customer-account-content d-flex flex-column align-items-start flex-lg-row w-100 gap-2 gap-lg-0" id = "customer-account-content">
 
-    <div class="customer-account-order-list col-12 col-lg-9" id = "customer-account-order-list">
+    <div class="customer-account-order-list col-12 col-lg-9 order-2 order-lg-1" id = "customer-account-order-list">
 
         <?get_template_part("parts/catalog/account/customer-order-list/template", null,                 
             [
@@ -23,9 +23,9 @@ $role = isset($args['ROLE']) ? sanitize_text_field($args['ROLE']) : '';
         
     </div>
 
-    <form class="order-list-parameters-form order-1 order-lg-2 col-12 col-lg-3" id = "order-list-parameters-form" data-ajax-default-content-updater="refresh">
+    <form class="order-list-parameters-form order-1 order-lg-2 col-12 col-lg-3 order-1 order-lg-2" id = "order-list-parameters-form" data-ajax-default-content-updater="refresh">
         
-        <div class="order-list-parameters-form-content d-flex flex-column align-items-start justify-content-start gap-2 m-0 ms-3">
+        <div class="order-list-parameters-form-content d-flex flex-column align-items-start justify-content-start gap-2 m-0 ms-lg-3">
 
             <input type="hidden" id="BLOCKED_ELEMENT" name = "BLOCKED_ELEMENT" value = "#customer-account-content">
             <input type="hidden" id="TEMPLATE_PART" name = "TEMPLATE_PART" value= "parts/catalog/account/customer-order-list/template">
@@ -35,7 +35,7 @@ $role = isset($args['ROLE']) ? sanitize_text_field($args['ROLE']) : '';
 
             <t2 class="title ps-2">Параметры</t2>
 
-            <ul class="parameters-section d-flex flex-column align-items-start justify-content-start gap-1 white-background m-0 p-4 w-100 shadow-sm">
+            <ul class="parameters-section d-flex flex-column align-items-start justify-content-start gap-1 white-background m-0 p-4 w-100 shadow-lg shadow-lg-sm">
 
                 <li class="parameter-item d-flex w-100 justify-content-start">
                     <div class="approval-orders-only d-flex align-items-center w-100 gap6">
@@ -59,7 +59,7 @@ $role = isset($args['ROLE']) ? sanitize_text_field($args['ROLE']) : '';
                     <small class="checkbox_label">сначала старые заказы</small>
                 </li>
 
-                <button type="submit" class="btn btn-primary w-100 mt-2">
+                <button type="submit" class="btn btn-primary border w-100 mt-2">
                     <span class="btn_label">Применить</span>
                     <span class="bi bi-arrow-repeat"></span>
                 </button>
@@ -72,7 +72,7 @@ $role = isset($args['ROLE']) ? sanitize_text_field($args['ROLE']) : '';
 
     <?
     if( $role == 'customer')
-        get_template_part("parts/catalog/orders/remove-order-form/template");
+        get_template_part("parts/catalog/forms/remove-order-form/template");
     ?>
 
 </section>

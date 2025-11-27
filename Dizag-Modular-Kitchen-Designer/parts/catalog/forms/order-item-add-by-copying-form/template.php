@@ -7,13 +7,13 @@
 <input type="hidden" name= "DEPENDENT_FORM" value="#order-item-facade-configurator-form">
 <input type="hidden" name = "ORDER_CODE" value=<?= $args['ORDER_CODE']?>>
 <input type="hidden" name = "QUANTITY" value=<?= $args['QUANTITY']?>>
-<?//<input type="hidden" name = "ACTIVATE_ELEMENT_GROUP" value="specification-item-change-button">?>
+<input type="hidden" name = "ACTIVATE_ELEMENT_GROUP" value="specification-item-change-button">
 <input type="hidden" name = "IS_COMPLETED" value=<?= $args['IS_COMPLETED']?>>
 <input type="hidden" name = "MODULE" value="<?= $args['MODULE']?>">
 <input type="hidden" data-no-reset="true" name="USER" value="<?= $args['USER']?>">
 <input type="hidden" data-no-reset="true" name="ROLE" value="<?= $args['ROLE']?>">
 
-<button type = "submit" class = "btn-primary white-background d-flex flex-column align-items-center justify-content-center p-2 pointer hover-white border rounded height-40"
+<button type = "submit" class = "btn-primary white-background d-flex flex-column align-items-center justify-content-center p-2 pointer hover-white border rounded height-40 w-100"
     data-form-group="specification-item-change-button">
     <i class = "bi bi-copy primary-dark pointer hover-white"                
         data-bs-toggle="tooltip" 

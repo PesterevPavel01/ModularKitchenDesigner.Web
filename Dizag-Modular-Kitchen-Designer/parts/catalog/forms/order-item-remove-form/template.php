@@ -2,15 +2,21 @@
 enqueue_template_part_styles_scripts( __DIR__, "remove-order-item-form");
 ?>
 
+    <?$user = isset($args['USER']) ? sanitize_text_field($args['USER']) : "";
+    $role = isset($args['ROLE']) ? sanitize_text_field($args['ROLE']) : "";?>
+
 <form class="remove-order-item-modal modal fade" data-ajax-default-content-updater="refresh" id="remove-order-item-modal" tabindex="-1">
 
-    <input type="hidden" name = "BLOCKED_ELEMENT" value = "#catalog-order-item-list">
-    <input type="hidden" name = "TEMPLATE_PART" value = "parts/catalog/forms/order-item-remove-form/action/template">
-    <input type="hidden" name = "action" value="default_content_updater">
-    <input type="hidden" name = "TARGET_CONTAINER" value="#catalog-section-order">
-    <input type="hidden" name = "SUCCESS_CONTAINER" value="#remove-order-item-modal-dialog">
-    <input type="hidden" id="DEPENDENT_FORM"  name = "DEPENDENT_FORM" value="#order-submit-reset-form">
-    <input type="hidden" name = "ACTIVATE_ELEMENT_GROUP" value="remove-order-item-button">
+    <input type="hidden" data-no-reset="true" name = "BLOCKED_ELEMENT" value = "#catalog-order-item-list">
+    <input type="hidden" data-no-reset="true" name = "TEMPLATE_PART" value = "parts/catalog/forms/order-item-remove-form/action/template">
+    <input type="hidden" data-no-reset="true" name = "action" value="default_content_updater">
+    <input type="hidden" data-no-reset="true" name = "TARGET_CONTAINER" value="#catalog-order-item-list">
+    <input type="hidden" data-no-reset="true" name = "SUCCESS_CONTAINER" value="#remove-order-item-modal-dialog">
+    <input type="hidden" data-no-reset="true" name = "DEPENDENT_FORM" value="#order-submit-reset-form">
+    <input type="hidden" data-no-reset="true" name = "DEPENDENT_FORM_SECOND" value="#order-item-send-to-configurator-form-">
+    <input type="hidden" data-no-reset="true" name = "ACTIVATE_ELEMENT_GROUP" value="remove-order-item-button">
+    <input type="hidden" data-no-reset="true" name="USER" value="<?=$user?>">
+    <input type="hidden" data-no-reset="true" name="ROLE" value="<?=$role?>">
     <input type="hidden" id="remove-order-item-code" name = "MODULE_CODE" value="">
     <input type="hidden" id="order-code" name = "ORDER_CODE" value = "">
     

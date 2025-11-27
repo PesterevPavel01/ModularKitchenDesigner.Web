@@ -41,7 +41,7 @@ $workflows = $Result->data;
 <?
 if(empty($workflows) && $args['ACTIVE'] && $args['ROLE'] === 'customer') {?>
     
-    <form class="d-flex flex-column justify-content-start align-items-center gap-1 flex-xl-row justify-content-xl-end m-0" data-ajax-default-content-updater="refresh" id = "order-submit-form">
+    <form class="d-flex flex-column justify-content-start align-items-center gap-1 flex-xl-row justify-content-xl-end m-0 w-100" data-ajax-default-content-updater="refresh" id = "order-submit-form">
 
         <input type="hidden" data-no-reset="true" name = "BLOCKED_ELEMENT" value = "#order-submit-form">
         <input type="hidden" data-no-reset="true" name = "TEMPLATE_PART" value = "parts/catalog/forms/order-submit-form/action/template">
@@ -49,12 +49,13 @@ if(empty($workflows) && $args['ACTIVE'] && $args['ROLE'] === 'customer') {?>
         <input type="hidden" data-no-reset="true" name = "TARGET_CONTAINER" value="#order-submit-block">
         <input type="hidden" data-no-reset="true" name="ERROR_CONTAINER" value="#catalog-order-item-list-errors">
         <input type="hidden" data-no-reset="true" name="DEPENDENT_FORM" value="#order-submit-reset-form">
+        <input type="hidden" data-no-reset="true" name = "DEPENDENT_FORM_SECOND" value="#order-item-send-to-configurator-form-">
         <input type="hidden" name = "ORDER_CODE" value = "<?=$orderCode?>">
         <input type="hidden" data-no-reset="true" name="USER" value="<?=$user?>">
         <input type="hidden" data-no-reset="true" name="ROLE" value="<?=$role?>">
         <?// $args['ACTIVE'] = true - значит заказ запущен в работу?>
 
-        <button type="submit" class="ajax-update-button btn btn-primary m-0"
+        <button type="submit" class="ajax-update-button btn btn-primary m-0 w-100 border"
             data-bs-toggle="tooltip" 
             data-bs-placement="top"    
             title="Заказать">
@@ -75,7 +76,7 @@ if(empty($workflows) && $args['ACTIVE'] && $args['ROLE'] === 'customer') {?>
 
         if(empty($activeWorkflows)){?>
 
-            <small class="error-message black text-center border p-2 m-width-200">Заказ оформлен!</small>
+            <small class="error-message black text-center border p-2 m-width-200 w-100">Заказ оформлен!</small>
 
         <?}else{?>
 
