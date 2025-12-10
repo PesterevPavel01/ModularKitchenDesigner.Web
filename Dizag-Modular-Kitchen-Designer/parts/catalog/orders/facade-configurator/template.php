@@ -8,14 +8,19 @@ global $moduleServiceUrl;
 global $componentServiceUrl;
 ?>
 <?
+
 $user = isset($args['USER']) ? sanitize_text_field($args['USER']) : "";
+
 $role = isset($args['ROLE']) ? sanitize_text_field($args['ROLE']) : "";
 
-$moduleCode = "";
+$orderCode = isset($args['ORDER_CODE']) ? sanitize_text_field($args['ORDER_CODE']) : "";
+
+$moduleCode = isset($args['MODULE_CODE']) ? sanitize_text_field($args['MODULE_CODE']) : "";
 
 $components = [];
 
 $module = [];
+
 
 if(isset($args['MODULE']) && $args['MODULE']){
 
@@ -50,12 +55,15 @@ $order_page_id = $order_page->ID;
 $facadeTypeCode = get_field('facade', $order_page_id);
 
 if(!$facadeTypeCode || trim($facadeTypeCode) === "")
-{?>
-    <p>Не указан код типа модуля "Фасад"!</p>
-    <?return;
+{
+    get_template_part("parts/catalog/errors/default-error-message/template", null, 
+    [
+        'MESSAGE' => 'Не указан код типа модуля "Фасад"!'
+    ]);
+    
+    return;
 }
-?>
-<?
+
 $Result = new BaseResult();
 
 $componentProvider = new ComponentProvider($componentServiceUrl, $user);
@@ -71,12 +79,14 @@ $componentProvider = new ComponentProvider($componentServiceUrl, $user);
     <input type="hidden" data-no-reset="true" name="BLOCKED_ELEMENT" value="#catalog-oder-content-conteiner">
     <input type="hidden" data-no-reset="true" name="TEMPLATE_PART" value="parts/catalog/orders/facade-configurator/action/template">
     <input type="hidden" data-no-reset="true" name="action" value="default_content_updater">
-    <input type="hidden" data-no-reset="true" name="TARGET_CONTAINER" value="#catalog-order-item-list">
+    <input type="hidden" data-no-reset="true" name = "TARGET_CONTAINER" value="#order-item-redactor-content">
+    <input type="hidden" data-no-reset="true" name = "TARGET_CONTAINER_MOBILE" value="#order-item-redactor-content-mobile">
     <input type="hidden" data-no-reset="true" name="ERROR_CONTAINER" value="#catalog-order-item-list-errors">
+    <input type="hidden" data-no-reset="true" name="ERROR_CONTAINER_MOBILE" value="#catalog-facade-configurator-errors">
     <input type="hidden" data-no-reset="true" name="USER" value="<?=$user?>">
     <input type="hidden" data-no-reset="true" name="ROLE" value="<?=$role?>">
     <?//<input type="hidden" data-no-reset="true" name="TARGET_CONTAINER" value="#catalog-order-specification-section">*/?>
-    <input type="hidden" data-no-reset="true" name="DEPENDENT_FORM" value="#catalog-order-item-messenger-reset-form">
+    <input type="hidden" data-no-reset="true" name="DEPENDENT_FORM" value="#catalog-order-item-specification-reset-form">
     <input type="hidden" data-no-reset="true" name="DEPENDENT_FORM_SECOND" value="#order-submit-reset-form">
     <input type="hidden" value="<?=$moduleCode?>" name="MODULE_CODE" id = "order-item-configurator-module-code"/>
     <input type="hidden" value="<?=$args['ORDER_CODE']?>" data-no-reset="true" name="ORDER_CODE"/>
@@ -88,9 +98,9 @@ $componentProvider = new ComponentProvider($componentServiceUrl, $user);
 
     <ul class="facade-configurator-component-list d-flex flex-column gap-1 w-100 white-background rounded p-2 p-lg-4 m-0 shadow-sm">
 
-        <div class="modal-header d-lg-none">
-            <p class="specification-title black p-1 m-0">Конфигуратор</p>
-            <button type="button" class="btn-close" data-bs-dismiss="modal"></button>
+        <div class="modal-header d-lg-none p-2">
+            <strong class="black p-1 m-0">Конфигуратор</strong>
+            <button type="button" class="btn-close" data-bs-dismiss="offcanvas"></button>
         </div>
 
         <li class="button-conteiner d-flex w-100">
@@ -107,10 +117,12 @@ $componentProvider = new ComponentProvider($componentServiceUrl, $user);
 
             <button type="button" class="btn btn-primary <?=$args['IS_COMPLETED'] ? 'w-100' : 'col-4'?>" id = "order-item-facade-configurator-clear"
                 <?//data-bs-deactivate-element - класс, который есть у всех кнопок "редактировать элемент"?>
-                data-bs-deactivate-element="<?=isset($args['ACTIVATE_ELEMENT_GROUP']) ? esc_attr($args['ACTIVATE_ELEMENT_GROUP']) : ""?>" 
+                data-bs-deactivate-element="specification-item-change-button" 
                 >Отмена</button>
 
         </li>
+
+        <div class = "w-100" id='catalog-facade-configurator-errors'></div>
 
         <?/*HINGE*/?>
 
@@ -280,7 +292,7 @@ $componentProvider = new ComponentProvider($componentServiceUrl, $user);
             }?>
 
             <label for="order-item-configurator-length" class = "dark fw-bold p-1">высота</label>
-            <input type="number" step="0.5" min="0" max="2000" value="<?= !empty($length)? esc_html($length['value']): ''?>" class="length w-100" name="LENGTH" id = "order-item-configurator-length"/>
+            <input type="number" step="0.5" min="0" max="2750" value="<?= !empty($length)? esc_html($length['value']): ''?>" class="length w-100" name="LENGTH" id = "order-item-configurator-length"/>
 
         </li>
 
@@ -776,40 +788,19 @@ $componentProvider = new ComponentProvider($componentServiceUrl, $user);
 
 </form>
 
-<div class="order-item-messenger d-lg-none">
-
-    <div class="messenger-section-title d-flex w-100 align-items-center gap-1">
-
-        <p class="massenger-title black m-0 p-4 pe-0">Комментарии</p>
-
-        <div id = "catalog-order-item-message-counter-mobile"></div>
-
-        <div class="d-flex align-items-center collapse-btn  collapsed" 
-            type="button" 
-            data-bs-toggle="collapse" 
-            data-bs-target="#catalog-messenger-collapse-mobile"
-            data-bs-custom-toggle="tooltip" 
-            title="Свернуть">
-
-            <i class="bi bi-chevron-down collapse-icon transition-all"></i>
-
-        </div>
-
-    </div>
-
-    <div class="order-item-massenger-section d-lg-none gap-2 m-0 w-100 collapse " id="catalog-messenger-collapse-mobile">
-
-        <div class="order-messanger-block w-100" id = "catalog-order-item-messenger-mobile"></div>
-
-    </div>
-
-</div>
-
 <?get_template_part("parts/catalog/forms/messenger-reset-form/template",null,
     [
         'USER' => $user,
         'ROLE' => $role,
         'MODULE_CODE' => $moduleCode,
-        'ORDER_CODE' => sanitize_text_field($args['ORDER_CODE']),
+        'ORDER_CODE' => $orderCode,
         "IS_COMPLETED" => sanitize_text_field($args['IS_COMPLETED'])
+    ]);?>
+
+<?get_template_part("parts/catalog/forms/reset-specification-form/template",null,
+    [
+        'USER' => $user,
+        'ROLE' => $role,
+        'ACTIVE_MODULE_CODE' => $moduleCode,
+        'ORDER_CODE' => $orderCode
     ]);?>

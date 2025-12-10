@@ -319,8 +319,13 @@ MAIN
   border-radius: 10px;
 }
 
+.title-mobile
+{
+  font-family: var(--body-font-family) !important;
+}
+
 @media (min-width: 992px) {
-    .shadow-lg-none {
+  .shadow-lg-none {
     box-shadow: none !important;
   }
 }

@@ -14,6 +14,7 @@ function RemoveOrderItemModalInit(){
         // Получаем данные из атрибутов data-bs-*
         var orderCode = button.getAttribute('data-bs-code');
         var orderTitle = button.getAttribute('data-bs-title');
+        var user = button.getAttribute('data-bs-order-user');
 
         var parameters = button.getAttribute('data-bs-parameters');
         
@@ -26,6 +27,8 @@ function RemoveOrderItemModalInit(){
         // Заполняем поля формы с помощью jQuery
         removeModal.find('#remove-order-code').val(orderCode);
         removeModal.find('#remove-order-title').text(orderTitle);
+
+        removeModal.find('input[name="USER"]').val(user);
 
         removeModal.find('input[name="PERIOD"]').val(arParams.PERIOD);
         removeModal.find('input[name="ASCENDING"]').val(arParams.ASCENDING);

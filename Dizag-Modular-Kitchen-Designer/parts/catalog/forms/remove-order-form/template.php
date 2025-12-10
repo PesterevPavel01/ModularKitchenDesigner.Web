@@ -3,11 +3,12 @@ enqueue_template_part_styles_scripts( __DIR__, "remove-order-form");
 ?>
 <form class="remove-order-modal modal fade" data-ajax-default-content-updater="refresh" id="remove-order-modal" tabindex="-1">
     
-    <input type="hidden" name = "BLOCKED_ELEMENT" value = "#remove-order-modal">
-    <input type="hidden" name = "TEMPLATE_PART" value = "parts/catalog/forms/remove-order-form/action/template">
-    <input type="hidden" name = "action" value="default_content_updater">
-    <input type="hidden" name = "TARGET_CONTAINER" value="#customer-account-order-list">
-    <input type="hidden" name = "SUCCESS_CONTAINER" value="#remove-order-modal-dialog">
+    <input type="hidden" data-no-reset="true" name = "BLOCKED_ELEMENT" value = "#remove-order-modal">
+    <input type="hidden" data-no-reset="true" name = "TEMPLATE_PART" value = "parts/catalog/forms/remove-order-form/action/template">
+    <input type="hidden" data-no-reset="true" name = "action" value="default_content_updater">
+    <input type="hidden" data-no-reset="true" name = "TARGET_CONTAINER" value="#customer-account-order-list">
+    <input type="hidden" data-no-reset="true" name = "SUCCESS_CONTAINER" value="#remove-order-modal-dialog">
+    <input type="hidden" data-no-reset="true" name = "USER" value="">
     <input type="hidden" id="remove-order-code" name = "ORDER_CODE" value="">
     <?//Актуальные параметры фильтра для шаблона?>
     <input type="hidden" name = "ASCENDING" value="">

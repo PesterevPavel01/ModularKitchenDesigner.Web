@@ -48,8 +48,7 @@ if(empty($workflows) && $args['ACTIVE'] && $args['ROLE'] === 'customer') {?>
         <input type="hidden" data-no-reset="true" name = "action" value="default_content_updater">
         <input type="hidden" data-no-reset="true" name = "TARGET_CONTAINER" value="#order-submit-block">
         <input type="hidden" data-no-reset="true" name="ERROR_CONTAINER" value="#catalog-order-item-list-errors">
-        <input type="hidden" data-no-reset="true" name="DEPENDENT_FORM" value="#order-submit-reset-form">
-        <input type="hidden" data-no-reset="true" name = "DEPENDENT_FORM_SECOND" value="#order-item-send-to-configurator-form-">
+        <input type="hidden" data-no-reset="true" name="DEPENDENT_FORM" value="#order-item-send-to-configurator-form-">
         <input type="hidden" name = "ORDER_CODE" value = "<?=$orderCode?>">
         <input type="hidden" data-no-reset="true" name="USER" value="<?=$user?>">
         <input type="hidden" data-no-reset="true" name="ROLE" value="<?=$role?>">

@@ -287,14 +287,20 @@ else{
         return;
     }
 
-    get_template_part("parts/catalog/orders/order-item-list/template",null,
+    $activeOrderItem = array_filter($order['modules'], function($item) use ($moduleCode)
+        {
+            return $item['module']['moduleCode'] === $moduleCode;
+        });
+
+    $activeOrderItem = reset($activeOrderItem);
+  
+    get_template_part("parts/catalog/orders/facade-configurator/template",null,
     [
         'ORDER_CODE' =>  $orderCode,
-        'MODULES' =>  $order['modules'],
-        'ACTIVE_MODULE_CODE' => $moduleCode,
+        'MODULE' =>  $activeOrderItem['module'],
+        'QUANTITY' => $activeOrderItem['quantity'],
+        'MODULE_CODE' => $moduleCode,
         'IS_COMPLETED' => $order['isCompleted'],
-        'SELECTED_VALUES' => $errors === 0 ? null : $arParams,
-        'ACTION_ERRORS' => $errors === 0 ? false : true,
         'USER' => $user,
         'ROLE' => $role,
     ]);

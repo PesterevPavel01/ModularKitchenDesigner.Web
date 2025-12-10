@@ -66,7 +66,7 @@ if($moduleCode === ""){
 
         $role = isset($args['ROLE']) ? sanitize_text_field($args['ROLE']) : "";
 
-        get_template_part("parts/catalog/orders/order-item-messenger/template", null,
+        get_template_part("parts/catalog/orders/order-item-messenger-content/template", null,
         [
             'MASSAGES' => $messages,
             'MODULE_CODE' => $moduleCode,

@@ -10,10 +10,15 @@
         private $User;
 
         public function __construct($componentServiceUrl, $user){
+
             $this->HttpConnector = new HttpConnector();
+
             $this->Result = new BaseResult();
+
             $this->Url = $componentServiceUrl . "v3/components";
+
             $this->User = $user;
+
         }
 
         public function GetComponentsByType($type)
@@ -29,6 +34,8 @@
             
             $url = $this->Url . $orderItemCode . "/text-parameter-replace";
 
+            $body["currentUser"] = $this->User;
+
             $this->Result=$this->HttpConnector->wp_patch($url, $body);
             
             return $this->Result;
@@ -37,10 +44,11 @@
 
         public function CreateCustomMilling($typeCode, $typeTitle){
             
+            
             $numericParameters[] = [
                 "type" => "Минимальная толщина",
                 "typeCode" => "00000MNHGHT",
-                "value" => 22
+                "value" => 10
             ];
 
             $body = [

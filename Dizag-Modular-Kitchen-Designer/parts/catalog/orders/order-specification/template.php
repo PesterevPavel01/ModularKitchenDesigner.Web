@@ -1,18 +1,87 @@
 <?
 enqueue_template_part_styles_scripts( __DIR__, "catalog-order-item-specification");
+require_once get_template_directory() . '/core/Result.php';
+require_once get_template_directory() . '/core/services/processors/catalog/orders/OrderByCodeProcessor.php';
+
+global $orderServiceUrl;
 ?>
 
 <?
-
 $user = isset($args['USER']) ? sanitize_text_field($args['USER']) : "";
 
 $role = isset($args['ROLE']) ? sanitize_text_field($args['ROLE']) : "";
 
-$arParams = isset($args['MODULES']) ? $args['MODULES'] : null;
-
 $orderCode = sanitize_text_field($args['ORDER_CODE']);
 
-$activeModuleCode = isset($args['ACTIVE_MODULE_CODE']) ? sanitize_text_field($args["ACTIVE_MODULE_CODE"]) : "";
+$activeModuleCode = isset($args['ACTIVE_MODULE_CODE']) ? sanitize_text_field($args['ACTIVE_MODULE_CODE']) : null;
+
+if(isset($args['MODULES']) && $args['MODULES']){
+
+    if(!is_array($args['MODULES'])){
+
+        $modules = json_decode($moduleJson = stripslashes($args['MODULES']), true);
+
+        if (json_last_error() !== JSON_ERROR_NONE) {
+
+            $modules = [];
+
+            echo 'Ошибка декодирования JSON: ' . json_last_error_msg();
+            
+            return;
+        }
+
+    }else{
+
+        $modules = $args['MODULES'];
+    }
+
+    $isCompleted = sanitize_text_field($args['IS_COMPLETED']);
+
+}else{
+
+    $Result = new BaseResult();
+
+    $OrderByCodeProcessor = new OrderByCodeProcessor($orderServiceUrl);
+
+    $Result = $OrderByCodeProcessor->Process($orderCode);
+
+    if(!$Result->isSuccess())
+    {
+        get_template_part("parts/catalog/errors/default-error-message/template", null, 
+        [
+            'TITLE' => $Result->ErrorMessage,
+            'MESSAGE' => $Result->data
+        ]);
+
+        return;
+    }
+
+    $order = $Result->data[0];
+
+    $modules = $order['modules'];
+
+    $isCompleted = sanitize_text_field($order['isCompleted']);
+
+}
+
+$module = [];
+
+$quantity = null;
+
+if($activeModuleCode){
+
+    $module = array_filter($modules, function($item) use ($activeModuleCode)
+    {
+        return $item['module']['moduleCode'] === $activeModuleCode;
+    });
+
+    $module = reset($module);
+
+    $quantity = $module['quantity'];
+
+    $module = empty($module) ? null : $module['module'];
+
+}
 
 $order_page = get_page_by_path('order');
 
@@ -39,11 +108,9 @@ $hingeCode = get_field('hinge', $order_page_id);
 
 <p class="d-none d-lg-block specification-title black p-3 p-lg-1 m-0">Спецификация</p>
 
-<p class="d-flex d-lg-none specification-title-mobile black p-2 pt-3 p-lg-1 m-0">Спецификация</p>
-
-<div class="catalog-order-specification-list-conteiner h-100 background-lg-white p-lg-3 m-0 rounded w-100 shadow-sm">
+<div class="catalog-order-specification-list-conteiner h-100 background-lg-white pt-3 p-lg-3 m-0 rounded w-100 shadow-sm">
     
-    <?if(!$args['MODULES']){?>
+    <?if(!$modules){?>
 
         <p class="error-message black">Необходимо добавить фасады, используя конфигуратор!</p>
 
@@ -67,7 +134,7 @@ $hingeCode = get_field('hinge', $order_page_id);
 
             <?$totalArea = 0;?>
 
-            <?foreach($args['MODULES'] as $moduleItem){?>
+            <?foreach($modules as $moduleItem){?>
 
                 <?$module = $moduleItem['module'];?>
 
@@ -264,7 +331,7 @@ $hingeCode = get_field('hinge', $order_page_id);
                     
                     <div class="order-specification-item-controls d-flex flex-row w-100">
                     
-                        <?if(!$args['IS_COMPLETED']){?>
+                        <?if(!$isCompleted){?>
 
                             <div class="d-table-cell pb-lg-2 ps-1 m-0 align-middle text-center pointer col-4">
 
@@ -275,7 +342,7 @@ $hingeCode = get_field('hinge', $order_page_id);
                                 [
                                     'ORDER_CODE' => sanitize_text_field($orderCode),
                                     'QUANTITY' => sanitize_text_field($moduleItem["quantity"]),
-                                    "IS_COMPLETED" => sanitize_text_field($args['IS_COMPLETED']),
+                                    "IS_COMPLETED" => $isCompleted,
                                     "MODULE" => ($newModule || !empty($newModule))? htmlspecialchars(json_encode($newModule, JSON_UNESCAPED_UNICODE | JSON_HEX_QUOT | JSON_HEX_APOS), ENT_QUOTES, 'UTF-8') : "",
                                     'USER' => $user,
                                     'ROLE' => $role,
@@ -292,7 +359,7 @@ $hingeCode = get_field('hinge', $order_page_id);
                                 'MODULE_CODE' => esc_html($module["moduleCode"]),
                                 'ORDER_CODE' => sanitize_text_field($orderCode),
                                 'QUANTITY' => sanitize_text_field($moduleItem["quantity"]),
-                                "IS_COMPLETED" => sanitize_text_field($args['IS_COMPLETED']),
+                                "IS_COMPLETED" => $isCompleted,
                                 "MODULE" => ($module || !empty($module))? htmlspecialchars(json_encode($module, JSON_UNESCAPED_UNICODE | JSON_HEX_QUOT | JSON_HEX_APOS), ENT_QUOTES, 'UTF-8') : "",
                                 'USER' => $user,
                                 'ROLE' => $role,
@@ -301,7 +368,7 @@ $hingeCode = get_field('hinge', $order_page_id);
 
                         </div>
 
-                        <?if(!$args['IS_COMPLETED']){?>
+                        <?if(!$isCompleted){?>
 
                             <div class="d-table-cell catalog-order-specification-cell pb-lg-2 ps-1 m-0 align-middle text-center pointer col-4">
 

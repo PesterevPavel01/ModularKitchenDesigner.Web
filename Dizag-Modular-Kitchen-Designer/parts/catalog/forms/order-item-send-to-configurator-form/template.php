@@ -9,16 +9,16 @@
 
 <form class="d-lg-table-cell  w-100 m-0 p-0" id="order-item-send-to-configurator-form-<?= $moduleCode?>" data-ajax-default-content-updater>
 
-    <input type="hidden" name = "BLOCKED_ELEMENT" value = "#catalog-oder-content-conteiner">
-    <input type="hidden" name = "TEMPLATE_PART" value = "parts/catalog/orders/facade-configurator/template">
-    <input type="hidden" name = "action" value="default_content_updater">
-    <input type="hidden" name = "TARGET_CONTAINER" value="#order-item-redactor-content">
-    <input type="hidden" name = "TARGET_CONTAINER_MOBILE" value="#order-item-redactor-content-mobile">
-    <input type="hidden" name= "DEPENDENT_FORM" value="#catalog-order-item-messenger-reset-form">
+    <input type="hidden" data-no-reset="true" name = "BLOCKED_ELEMENT" value = "#catalog-oder-section">
+    <input type="hidden" data-no-reset="true" name = "TEMPLATE_PART" value = "parts/catalog/orders/facade-configurator/template">
+    <input type="hidden" data-no-reset="true" name = "action" value="default_content_updater">
+    <input type="hidden" data-no-reset="true" name = "TARGET_CONTAINER" value="#order-item-redactor-content">
+    <input type="hidden" data-no-reset="true" name = "TARGET_CONTAINER_MOBILE" value="#order-item-redactor-content-mobile">
+    <input type="hidden" data-no-reset="true" name= "DEPENDENT_FORM" value="#catalog-order-item-messenger-reset-form">
     <input type="hidden" name = "MODULE_CODE" value=<?= $moduleCode?>>
-    <input type="hidden" name = "ORDER_CODE" value=<?= $args['ORDER_CODE']?>>
+    <input type="hidden" data-no-reset="true" name = "ORDER_CODE" value=<?= $args['ORDER_CODE']?>>
     <input type="hidden" name = "QUANTITY" value=<?= $quantity?>>
-    <input type="hidden" name = "ACTIVATE_ELEMENT_GROUP" value="specification-item-change-button">
+    <input type="hidden" data-no-reset="true" name = "ACTIVATE_ELEMENT_GROUP" value="specification-item-change-button">
     <input type="hidden" name = "IS_COMPLETED" value=<?= $args['IS_COMPLETED']?>>
     <input type="hidden" name = "MODULE" value="<?= $module?>">
     <input type="hidden" data-no-reset="true" name="USER" value="<?= $args['USER']?>">
@@ -38,7 +38,7 @@
     <?if($moduleCode !== ""){?>
 
         <button type = "button" class = "btn-primary white-background d-flex d-lg-none flex-column align-items-center justify-content-center p-2 pointer hover-white border rounded height-40 w-100" modal-button-trigger
-            data-bs-toggle="modal"
+            data-bs-toggle="offcanvas" 
             data-bs-target="#catalog-order-item-redactor-modal"
             data-bs-current-form="#order-item-send-to-configurator-form-<?= $moduleCode?>">
 
@@ -61,7 +61,7 @@
     <?}else{?>
 
         <button type = "button" class = "btn-primary white-background d-flex d-lg-none flex-column align-items-center justify-content-center p-2 pointer hover-white border rounded height-40 w-100" modal-button-trigger
-            data-bs-toggle="modal"
+            data-bs-toggle="offcanvas" 
             data-bs-target="#catalog-order-item-redactor-modal"
             data-bs-current-form="#order-item-send-to-configurator-form-<?= $moduleCode?>">
             НОВЫЙ МОДУЛЬ

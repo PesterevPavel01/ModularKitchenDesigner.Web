@@ -125,8 +125,6 @@ the_content();
                 ]);?>
 
             </section>
-
-            <?get_template_part("parts/catalog/forms/order-item-remove-form/template");?>
             
         <?}?>
         

@@ -5,13 +5,22 @@ require_once get_template_directory() . '/core/HttpConnector.php';
 Class OrderItemRemovalProcessor
 {
     public $Url;
+    
     public $HttpConnector;
+
     public $Result;
 
-    public function __construct($orderServiceUrl){
+    private $User;
+
+    public function __construct($orderServiceUrl, $user){
+
         $this->HttpConnector = new HttpConnector();
+
         $this->Result = new BaseResult();
+
         $this->Url = $orderServiceUrl . "v3/orders/";
+
+        $this->User = $user;
     }
 
     public function Process(string $orderCode, string $moduleCode)
@@ -33,7 +42,11 @@ Class OrderItemRemovalProcessor
 
         $url = $this->Url . $orderCode . "/remove/$moduleCode";
 
-        $this->Result=$this->HttpConnector->wp_delete($url);
+        $body = [
+            "currentUser" =>  $this->User
+        ];
+
+        $this->Result=$this->HttpConnector->wp_delete($url, null, $body);
         
         return $this->Result;
     }

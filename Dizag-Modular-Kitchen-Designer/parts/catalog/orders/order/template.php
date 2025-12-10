@@ -19,9 +19,14 @@ $OrderByCodeProcessor = new OrderByCodeProcessor($orderServiceUrl);
 $Result = $OrderByCodeProcessor->Process($code);
 
 if(!$Result->isSuccess())
-{?>
-    <p><?=$Result->ErrorMessage?></p>
-    <?return;
+{        
+    get_template_part("parts/catalog/errors/default-error-message/template", null, 
+        [
+            'TITLE' => $Result->ErrorMessage,
+            'MESSAGE' => $Result->data
+        ]);
+    
+    return;
 }
 
 $order = $Result->data[0];
@@ -34,12 +39,16 @@ $order = $Result->data[0];
     </a>
 
     <t1 class="title w-100 text-center text-lg-start order-1 order-lg-2">Заказ: <?=esc_html($order['title'])?></t1>
+
+    <?// СТАТУС ЗАКАЗА?>
             
     <block class="panel-control d-flex justify-content-start justify-content-xl-end gap-2 order-3 col-12 col-lg-2" id = "order-submit-block">
 
         <?//загружаю через ajax после загрузки страницы, вызовом события submit формы #order-submit-reset-form в файле script.js?>
         
     </block>
+
+    <?//КОНФИГУРАТОР //КНОПКА "НОВЫЙ МОЛУЛЬ" В МОБИЛЬНОЙ ВЕРСИИ?>
 
     <div class="catalog-add-new-module-button order-3 d-flex <?=$order['isCompleted'] ? 'd-none' : 'd-lg-none'?>">
 
@@ -57,38 +66,26 @@ $order = $Result->data[0];
 
 <block id = "catalog-order-item-list" class = "w-100">
 
-    <?get_template_part("parts/catalog/orders/order-item-list/template",null,
-    [
-        'ORDER_CODE' =>  $code,
-        'MODULES' =>  $order['modules'],
-        'ACTIVE_MODULE_CODE' => isset($args['ACTIVE_MODULE_CODE']) ? sanitize_text_field($args['ACTIVE_MODULE_CODE']) : null,
-        'IS_COMPLETED' => $order['isCompleted'],
-        'USER' => $login,
-        'ROLE' => $role,
-    ]);?>
+    <div class="catalog-order-item-list-errors w-100" id = "catalog-order-item-list-errors"></div>
+
+        <section class="catalog-oder-section d-flex flex-column justify-content-centr gap-2 w-100 p-1 p-lg-3 rounded white-background" id = catalog-oder-section>
+            
+            <?get_template_part("parts/catalog/orders/order-item-list/template",null,
+            [
+                'ORDER_CODE' =>  $code,
+                'MODULES' =>  $order['modules'],
+                'IS_COMPLETED' => $order['isCompleted'],
+                'USER' => $login,
+                'ROLE' => $role,
+            ]);?>
+
+            <?get_template_part("parts/catalog/orders/order-item-messenger/template",null,[]);?>
+
+        </section>
 
 </block>
 
-<?//Модальное окно конфигуратора для мобильной версии?>
-<div class="catalog-order-item-redactor modal d-lg-none" tabindex="-1" id = "catalog-order-item-redactor-modal" aria-labelledby="catalog-order-item-redactor-modal-label" aria-hidden="true">
-
-    <div class="modal-dialog">
-
-        <div class="modal-content">
-
-            <div class="order-item-redactor-content-modile w-100" id = "order-item-redactor-content-mobile">
-               <?/*При загрузке страницы использую форму для вызова AJAX-загрузки конфигуратора с учетом размера экрана*/?> 
-            </div>
-
-        </div>
-
-    </div>
-
-</div>
-
-<?
-
-if(!$order['isCompleted']){
+<?if(!$order['isCompleted']){
 
     get_template_part("parts/catalog/forms/order-blueprints-form/template", null, 
         [

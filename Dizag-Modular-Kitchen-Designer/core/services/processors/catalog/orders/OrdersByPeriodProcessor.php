@@ -19,10 +19,13 @@
         {
             $Result = new BaseResult();
 
-            $url = $this->Url . "/" . $arParams['PERIOD'] 
+            $url = $this->Url . "/" . (isset($arParams['PERIOD']) && $arParams['PERIOD'] ? $arParams['PERIOD'] : 30)
             . '?ascending=' . (isset($arParams['ASCENDING']) && $arParams['ASCENDING'] ? 'true' : 'false')
             . '&incompleteOnly=' . (isset($arParams['INCOMPLETE_ONLY']) && $arParams['INCOMPLETE_ONLY'] ? 'true' : 'false')
-            . '&customOnly=' . (isset($arParams['CUSTOM_ONLY']) && $arParams['CUSTOM_ONLY'] ? 'true' : 'false');
+            . '&customOnly=' . (isset($arParams['CUSTOM_ONLY']) && $arParams['CUSTOM_ONLY'] ? 'true' : 'false')
+            . '&paged=' . ($arParams['PAGED'] ? 'true' : 'false')
+            . '&pageSize=' . sanitize_text_field($arParams['PAGE_SIZE'])
+            . '&pageIndex=' . ($arParams['PAGE_INDEX'] ? sanitize_text_field($arParams['PAGE_INDEX']) : '0');
 
             $this->Result = $this->HttpConnector->GetMessageByUrl($url);
             

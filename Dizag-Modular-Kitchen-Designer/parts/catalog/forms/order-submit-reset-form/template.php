@@ -25,7 +25,7 @@ if($orderCode === ""){
 
     <input type="hidden" data-no-reset="true" name="action" value="default_content_updater">
 
-    <input type="hidden" data-no-reset="true" name="DELAY" value="2000">
+    <input type="hidden" data-no-reset="true" name="DELAY" value="1000">
 
     <input type="hidden" data-no-reset="true" name="TARGET_CONTAINER" value="#order-submit-block">
     

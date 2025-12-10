@@ -65,6 +65,7 @@ if($arParams){
                     data-bs-target="#remove-order-modal"
                     data-bs-code="<?=htmlspecialchars($Code)?>"
                     data-bs-title="<?=sanitize_text_field($arParams['TITLE'])?>"
+                    data-bs-order-user="<?=$login?>"
                     data-bs-parameters = <?= ($filter || !empty($filter))? htmlspecialchars(json_encode($filter, JSON_UNESCAPED_UNICODE | JSON_HEX_QUOT | JSON_HEX_APOS), ENT_QUOTES, 'UTF-8') : ""?>>
                     Удалить
                 </button>

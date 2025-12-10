@@ -3,13 +3,6 @@
     font-size: var(--small-font-size);
 }
 
-.specification-title-mobile
-{
-    font-size: var(--p-font-size);
-    color: var(--p-font-size);
-    font-family: var(--body-font-family) !important;
-}
-
 .catalog-order-specification-list{
     width: 300px;
 }

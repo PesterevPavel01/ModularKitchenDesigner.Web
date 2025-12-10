@@ -3,7 +3,9 @@ require_once get_template_directory() . '/core/services/processors/catalog/order
 
 global $orderServiceUrl;
 
-$OrderRemovalProcessor = new OrderRemovalProcessor($orderServiceUrl);
+$user = isset($args['USER']) ? sanitize_text_field($args['USER']) : "";
+
+$OrderRemovalProcessor = new OrderRemovalProcessor($orderServiceUrl, $user);
 
 if(!$args["ORDER_CODE"]){
     print_r('параметер "ORDER_CODE" не найден!');

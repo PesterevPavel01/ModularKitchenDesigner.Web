@@ -32,6 +32,8 @@ function resetConfigurationForm(button) {
     if(deactivateGroup != ""){
 
         const elements = $('[data-form-group="' + deactivateGroup + '"]');
+
+        console.log(elements);
         
         if (elements.length > 0) {
             elements.removeClass('active');

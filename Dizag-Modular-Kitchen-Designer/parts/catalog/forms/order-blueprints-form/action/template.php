@@ -36,13 +36,15 @@ if($componentCode === ''){
 
     $millingCode = get_field($componentType, $order_page_id);
 
-    if($componentType === "milling")
+    if($componentType === "milling"){
 
         $ComponentResult = $ComponentProvider->CreateCustomMilling($millingCode, "Фрезеровка");
-
-    elseif($componentType === "hinge")
+        
+    }elseif($componentType === "hinge"){
 
         $ComponentResult = $ComponentProvider->CreateCustomHinge($millingCode, "Плита");
+
+    }
 
     if(!$ComponentResult->isSuccess())
     {

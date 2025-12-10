@@ -20,10 +20,10 @@ function my_custom_global_variable() {
 
 	global $exchangeServiceUrl;
 	$exchangeServiceUrl = 'http://localhost:8091/api/';
-	global $componentServiceUrl;
-	$componentServiceUrl = 'http://localhost:8091/api/';
 	global $clientServiceUrl;
 	$clientServiceUrl = 'http://localhost:8091/api/';
+	global $componentServiceUrl;
+	$componentServiceUrl = 'http://localhost:8095/api/';
 	global $moduleServiceUrl;
 	$moduleServiceUrl = 'http://localhost:8092/api/';
 	global $orderServiceUrl;

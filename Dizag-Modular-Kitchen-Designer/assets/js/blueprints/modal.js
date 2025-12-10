@@ -85,11 +85,11 @@ function InitBlueprintsModal(modalId){
     });
     
     // Очистка при закрытии модального окна
-    modal.on('hidden.bs.modal', function() {
+    modal.off('hidden.bs.modal').on('hidden.bs.modal', function(event) {
 
         resetBlueprintModal(modal);
 
-    })
+    });
 
     modal.find('input[name="NEW_BLUEPRINTS[]"]').on('change', function(e) {
 

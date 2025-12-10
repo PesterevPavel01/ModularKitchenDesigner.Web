@@ -6,7 +6,7 @@ $message = isset($args['MESSAGE']) ? sanitize_text_field($args['MESSAGE']) : "";
 
 <div class="alert alert-warning alert-dismissible fade show m-0 w-100" role="alert">
     
-    <?if($title !== ""){?>
+    <?if($title !== "" && trim($title) !== "Bad Request"){?>
         <strong><?=$title?>. </strong>
     <?}?>
 

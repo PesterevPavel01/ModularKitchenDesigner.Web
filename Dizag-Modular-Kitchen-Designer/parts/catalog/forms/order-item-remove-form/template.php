@@ -10,7 +10,7 @@ enqueue_template_part_styles_scripts( __DIR__, "remove-order-item-form");
     <input type="hidden" data-no-reset="true" name = "BLOCKED_ELEMENT" value = "#catalog-order-item-list">
     <input type="hidden" data-no-reset="true" name = "TEMPLATE_PART" value = "parts/catalog/forms/order-item-remove-form/action/template">
     <input type="hidden" data-no-reset="true" name = "action" value="default_content_updater">
-    <input type="hidden" data-no-reset="true" name = "TARGET_CONTAINER" value="#catalog-order-item-list">
+    <input type="hidden" data-no-reset="true" name="TARGET_CONTAINER" value="#catalog-order-specification-section">
     <input type="hidden" data-no-reset="true" name = "SUCCESS_CONTAINER" value="#remove-order-item-modal-dialog">
     <input type="hidden" data-no-reset="true" name = "DEPENDENT_FORM" value="#order-submit-reset-form">
     <input type="hidden" data-no-reset="true" name = "DEPENDENT_FORM_SECOND" value="#order-item-send-to-configurator-form-">

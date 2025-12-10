@@ -19,13 +19,16 @@
         {
             $Result = new BaseResult();
 
-            $url = $this->Url . "/" . urlencode($userName) . "/" . $arParams['PERIOD'] 
+            $url = $this->Url . "/" . urlencode($userName) . "/" . (isset($arParams['PERIOD']) && $arParams['PERIOD'] ? $arParams['PERIOD'] : 30)
             . '?ascending=' . ($arParams['ASCENDING'] ? 'true' : 'false')
             . '&incompleteOnly=' . ($arParams['INCOMPLETE_ONLY'] ? 'true' : 'false')
-            . '&customOnly=' . ($arParams['CUSTOM_ONLY'] ? 'true' : 'false');
+            . '&customOnly=' . ($arParams['CUSTOM_ONLY'] ? 'true' : 'false')
+            . '&paged=' . ($arParams['PAGED'] ? 'true' : 'false')
+            . '&pageSize=' . sanitize_text_field($arParams['PAGE_SIZE'])
+            . '&pageIndex=' . ($arParams['PAGE_INDEX'] ? sanitize_text_field($arParams['PAGE_INDEX']) : '0');
 
             $this->Result = $this->HttpConnector->GetMessageByUrl($url);
-            
+
             return $this->Result;
         }
     }

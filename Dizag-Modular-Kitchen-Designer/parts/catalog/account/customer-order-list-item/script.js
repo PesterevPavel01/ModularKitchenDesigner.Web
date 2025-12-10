@@ -6,9 +6,11 @@ function  TemplateInit()
     let $updateButtons = $(this).find('.costomer-order-list-item');
 
     $updateButtons.each(function() {
-        console.log($updateButtons);
+
         $(this).off('click').on('click', function(e) {
+
             Select($(this), $updateButtons);
+
         });
     });
 }

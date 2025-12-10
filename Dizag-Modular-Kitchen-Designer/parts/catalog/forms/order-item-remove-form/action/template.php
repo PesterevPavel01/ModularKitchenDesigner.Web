@@ -5,7 +5,11 @@ require_once get_template_directory() . '/core/services/processors/catalog/order
 
 global $orderServiceUrl;
 
-$OrderItemRemovalProcessor = new OrderItemRemovalProcessor($orderServiceUrl);
+$user = isset($args['USER']) ? sanitize_text_field($args['USER']) : "";
+
+$role = isset($args['ROLE']) ? sanitize_text_field($args['ROLE']) : "";
+
+$OrderItemRemovalProcessor = new OrderItemRemovalProcessor($orderServiceUrl, $user);
 
 $moduleCode = sanitize_text_field($args['MODULE_CODE']);
 
@@ -24,27 +28,9 @@ if(!$result->isSuccess())
     ]);
 }
 
-$OrderByCodeProcessor = new OrderByCodeProcessor($orderServiceUrl);
-
-$Result = $OrderByCodeProcessor->Process($orderCode);
-
-if(!$Result->isSuccess())
-{
-    get_template_part("parts/catalog/errors/default-error-message/template", null, 
-        [
-            'TITLE' => $Result->ErrorMessage,
-            'MESSAGE' => $Result->data
-        ]);
-    return;
-}
-
-$order = $Result->data[0];
-
-get_template_part("parts/catalog/orders/order-item-list/template",null,
-[
-    'ORDER_CODE' =>  $orderCode,
-    'MODULES' =>  $order['modules'],
-    'IS_COMPLETED' => $order['isCompleted'],
-    'USER' => $args['USER'],
-    'ROLE' => $args['ROLE'],
-]);
+get_template_part("parts/catalog/orders/order-specification/template",null,
+    [
+        'USER' => $user,
+        'ROLE' => $role,
+        'ORDER_CODE' => $orderCode
+    ]);

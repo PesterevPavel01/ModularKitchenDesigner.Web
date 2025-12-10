@@ -16,7 +16,7 @@
             
             // Добавляем Bearer token если передан и валиден
             if (!is_null($token) && is_string($token) && !empty(trim($token))) {
-                $headers['Authorization'] = 'Bearer ' . sanitize_text_field($token);
+                $headers['Authorization'] = 'Bearer ' . trim($token);
             }
         
             $request_args = [
@@ -82,7 +82,7 @@
             
             // Добавляем Bearer token если передан и валиден
             if (!is_null($token) && is_string($token) && !empty(trim($token))) {
-                $headers['Authorization'] = 'Bearer ' . sanitize_text_field($token);
+                $headers['Authorization'] = 'Bearer ' . trim($token);
             }
         
             if (is_string($bodyData)) {
@@ -153,7 +153,7 @@
             return $result;
         }
 
-        public function wp_delete($Url, $token = null)
+        public function wp_delete($Url, $token = null, $bodyData = [])
         {
             $result = new BaseResult();
             
@@ -165,11 +165,32 @@
             
             // Добавляем Bearer token если передан и валиден
             if (!is_null($token) && is_string($token) && !empty(trim($token))) {
-                $headers['Authorization'] = 'Bearer ' . sanitize_text_field($token);
+                $headers['Authorization'] = 'Bearer ' . trim($token);
+            }
+
+            if (is_string($bodyData)) {
+                
+                json_decode($bodyData);
+
+                if (json_last_error() === JSON_ERROR_NONE) {
+                    
+                    $request_body = $bodyData;
+
+                } else {
+
+                    $request_body = '"' . $bodyData . '"';
+
+                }
+
+            } else {
+                
+                $request_body = wp_json_encode($bodyData);
+
             }
         
             $request_args = [
                 'method' => 'DELETE', // Указываем метод DELETE
+                'body' => $request_body,
                 'headers' => $headers,
                 'timeout' => 30,
                 'redirection' => 5,
@@ -437,24 +458,5 @@
             
         }
     }
-/*global $exchangeServiceUrl;
-
-$response = wp_remote_post($exchangeServiceUrl . 'v1/autorize/autenticate', array(
-    'timeout' => 30,
-    'headers' => array(
-        'Content-Type' => 'application/json',
-        'accept' => 'application/json'
-    ),
-    'body' => json_encode(array(
-        'userName' => 'Administrator',
-        'password' => 'Qwerty1234!'
-    ))
-));
-
-if (!is_wp_error($response)) {
-    $body = wp_remote_retrieve_body($response);
-    $token = json_decode($body);
-    // Обработка ответа
-}*/
 
 ?>

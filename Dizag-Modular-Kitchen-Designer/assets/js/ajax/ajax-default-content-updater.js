@@ -12,8 +12,6 @@ function Handler($form)
 {
     //const data = $form.serialize();
 
-    //console.log(data);
-    
     const $blockedElement = $form.find('input[name="BLOCKED_ELEMENT"]').val();
 
     const $targetContainerMobile = $form.find('input[name="TARGET_CONTAINER_MOBILE"]').val(); //$form.find('#TARGET_CONTEINER').val();
@@ -24,8 +22,14 @@ function Handler($form)
 
     const $dependentFormSecond =  $form.find('input[name="DEPENDENT_FORM_SECOND"]').val(); //$form.find('#DEPENDENT_FORM').val();
     
-    const $errorContainer =  $form.find('input[name="ERROR_CONTAINER"]').val();
+    var $errorContainer =  $form.find('input[name="ERROR_CONTAINER"]').val();
+
+    const $errorMobileContainer =  $form.find('input[name="ERROR_CONTAINER_MOBILE"]').val();
     
+    if(window.innerWidth < 992 && $errorMobileContainer && $errorMobileContainer !== '')
+        $errorContainer = $errorMobileContainer;
+
+
     //console.log($errorContainer);
     
     let $activateElement = $();
@@ -59,18 +63,18 @@ function Handler($form)
 
         const delayMs = parseInt($delay, 10);
 
-        setTimeout(executeAjax, delayMs);
+        setTimeout(ExecuteAjax, delayMs);
 
     } else {
 
-        executeAjax();
+        ExecuteAjax();
 
     }
     
     /*const serializedData = $form.serialize();
 
     console.log('Serialized data:', serializedData); */
-    function executeAjax() {
+    function ExecuteAjax() {
 
         $.ajax(
             {
@@ -99,7 +103,9 @@ function Handler($form)
 
                     }else{
 
-                        $($targetContainer).html( $arParams.HTML_CONTENT );
+                        if($($targetContainer).length){
+                            $($targetContainer).html( $arParams.HTML_CONTENT );
+                        }
 
                         if ($dependentForm && $dependentForm !== '')
                             $($dependentForm).trigger('submit');
@@ -122,8 +128,6 @@ function Handler($form)
                     }
 
                     $($blockedElement).unblock();
-
-                    console.log("success");
                 }
             }
         );  
