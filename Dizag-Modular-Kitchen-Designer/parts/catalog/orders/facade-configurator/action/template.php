@@ -168,8 +168,6 @@ if($errors === 0)
     {
         $Result = $ModuleProvider->Create($arParams);
 
-        //print_r($Result);
-
         if(!$Result->isSuccess())
         {
 

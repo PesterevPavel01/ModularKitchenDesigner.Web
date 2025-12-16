@@ -5,7 +5,15 @@ $(document).ready(function() {
     
 });
 
-/*CONFIGURATOR SCRIPT*/
+/*CONFIGURATOR SCRIPTS*/
+
+$(document).ready(function() {
+    MasterSlaveSelectsInit('data-membrane-master', 'data-membrane-slave');
+});
+/*
+$(document).ajaxComplete(function() {
+    MasterSlaveSelectsRefresh('data-membrane-master', 'data-membrane-slave');
+});*/
 
 $(document).ajaxComplete(reinitComboboxHandlers);
 
@@ -32,8 +40,6 @@ function resetConfigurationForm(button) {
     if(deactivateGroup != ""){
 
         const elements = $('[data-form-group="' + deactivateGroup + '"]');
-
-        console.log(elements);
         
         if (elements.length > 0) {
             elements.removeClass('active');
@@ -55,6 +61,8 @@ function resetConfigurationForm(button) {
     form.find('input[type="number"]').val('');
 
     form.find('input[type="hidden"]:not([data-no-reset="true"])').val('');
+
+    console.log(form.find('input[type="hidden"]:not([data-no-reset="true"])'));
     
     form.find('.combobox-input').val('');
     

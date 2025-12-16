@@ -49,7 +49,7 @@ $prevPage = ($page > 0) ? ($page-1) : $page;
 
         <div class="m-0 align-middle text-center">
             <div class="border rounded height-40 w-100 d-flex flex-column align-items-center justify-content-center p-2">
-                стрстраница <?=$page + 1?> из <?=$totalPages?>
+                стрстраница <?=$page + 1?> из <?=$totalPages == 0 ? 1 : $totalPages?>
             </div>
         </div>
 
@@ -65,7 +65,7 @@ $prevPage = ($page > 0) ? ($page-1) : $page;
             <input type="hidden" name = "INCOMPLETE_ONLY" value = <?=$incompleteOnly?>>
             <input type="hidden" name = "CUSTOM_ONLY" value = <?=$customOnly?>>
 
-            <button type = "submit" class = "btn-primary white-background d-flex flex-column align-items-center justify-content-center p-2 pointer hover-white border rounded height-40 w-100 <?=$page == ($totalPages - 1) ? 'd-none':''?>"
+            <button type = "submit" class = "btn-primary white-background d-flex flex-column align-items-center justify-content-center p-2 pointer hover-white border rounded height-40 w-100 <?=$page >= ($totalPages - 1) ? 'd-none':''?>"
                 data-form-group="specification-item-change-button">
 
                 <i class = "bi bi-caret-right-fill primary-dark pointer hover-white"              

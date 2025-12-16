@@ -1,5 +1,4 @@
-<?
-/*Стили и скрипты вынесены в Order*/
+<?/*Стили и скрипты вынесены в Order*/
 
 require_once get_template_directory() . '/core/services/processors/catalog/components/ComponentProvider.php';
 require_once get_template_directory() . '/core/Result.php';
@@ -8,7 +7,6 @@ global $moduleServiceUrl;
 global $componentServiceUrl;
 ?>
 <?
-
 $user = isset($args['USER']) ? sanitize_text_field($args['USER']) : "";
 
 $role = isset($args['ROLE']) ? sanitize_text_field($args['ROLE']) : "";
@@ -32,7 +30,10 @@ if(isset($args['MODULE']) && $args['MODULE']){
 
             $module = [];
 
-            echo 'Ошибка декодирования JSON: ' . json_last_error_msg();
+            get_template_part("parts/catalog/errors/default-error-message/template", null, 
+            [
+                'MESSAGE' => 'Ошибка декодирования JSON: ' . json_last_error_msg()
+            ]);
             
             return;
         }
@@ -214,69 +215,25 @@ $componentProvider = new ComponentProvider($componentServiceUrl, $user);
                 <?get_template_part("parts/catalog/orders/configurator-blueprints/template",null,
                     [
                         'COMPONENT' =>  (!empty($currentHingeComponent) && $isCustom) ? $currentHingeComponent : null,
-                        'COMPONENT_TYPE' => 'hinge'
+                        'COMPONENT_TYPE' => 'hinge',
+                        'USER' => $user,
+                        'ROLE' => $role
                     ]);?>
 
             </ul>
 
         </li>
-    
-        <li class="facade-configurator-membrane combobox-conteiner d-flex flex-column w-100 m-0">
 
-            <?
-            $membraneCode = get_field('membrane', $order_page_id);
+        <?
+        $membraneCode = get_field('membrane', $order_page_id);
 
-            if(!empty($components))
-            {
-                $currentComponents = array_filter($components, function($item) use ($membraneCode)
-                    {
-                        return $item['componentTypeCode'] === $membraneCode;
-                    }
-                );
-
-                $currentComponent = reset($currentComponents);
-            }
-
-            $Result = $componentProvider->GetComponentsByType($membraneCode);
-
-            if(!$Result->isSuccess())
-            {                    
-                get_template_part("parts/catalog/errors/default-error-message/template", null, 
-                [
-                    'TITLE' => $Result->ErrorMessage,
-                    'MESSAGE' => $Result->data
-                ]);
-                
-                return;
-            }
-
-            $membranes = $Result->data;
-            ?>
-
-            <input type="text" value="<?= empty($currentComponents) ? "" : $currentComponent['componentCode']?>" class="combobox-input membrane w-100 d-none" name="MEMBRANE" id = "order-item-configurator-membrane"/>
-            <input type="hidden" data-no-reset="true" value="<?= $membraneCode ?>" name="MEMBRANE_TYPE_CODE"/>
-
-            <label for="membrane-combobox" class="membrane-combobox-label dark fw-bold p-1  m-0">пленка</label>
-
-            <select class="configurator-combobox" id="membrane-combobox">
-
-                <option value="0"></option>
-
-                <?foreach ($membranes as $membrane) {?>
-
-                    <option value="<?= esc_attr($membrane['componentCode']) ?>" 
-
-                        <?= (!empty($currentComponent) && $membrane['componentCode'] === $currentComponent['componentCode']) ? 'selected' : ''?>>
-
-                        <?= $membrane['componentTitle'] ?>
-
-                    </option>
-
-                <?}?>
-
-            </select>
-
-        </li>
+        get_template_part("parts/catalog/orders/facade-configurator-membrane/template", null, 
+            [
+                'COMPONENTS' => $components,
+                'MEMBRANE_CODE' => $membraneCode,
+                'USER' => $user,
+                'ROLE' => $role
+            ]);?>
 
         <li class="facade-configurator-lenght d-flex flex-column w-100 m-0">
 

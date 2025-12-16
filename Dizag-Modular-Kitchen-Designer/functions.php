@@ -136,6 +136,7 @@ function theme_styles_and_scripts() {
 	if (is_page('order')){
 
 		enqueue_versioning_script( 'blueprints-modal-js', $js_url , $js_path,  'blueprints/modal.js', ['jquery']);
+		enqueue_versioning_script( 'master-slave-select-js', $js_url , $js_path,  'animations/master-slave-selects.js', ['jquery']);
 
 	}
 	
@@ -168,4 +169,39 @@ function enqueue_versioning_script( $handle, $url, $path, $file_src, $deps = [],
 function enqueue_versioning_style( $handle, $url, $path, $file_src, $deps = [], $media = 'all'){
 	wp_enqueue_style($handle, $url . $file_src, $deps, file_exists($path . $file_src) ? filemtime($path . $file_src) : null, $media);
 }	
+
+// Удаляем мета-тег generator
+remove_action('wp_head', 'wp_generator');
+// Дополнительно убираем версию из RSS-лент
+add_filter('the_generator', '__return_empty_string');
+// Удаляем ссылку на JSON REST API из заголовков
+remove_action( 'wp_head', 'rest_output_link_wp_head', 10 );
+// Удаляем ссылку на RSD (Really Simple Discovery)
+remove_action( 'wp_head', 'rsd_link' );
+// Ограничиваем доступ к REST API только для авторизованных пользователей
+add_filter( 'rest_authentication_errors', function( $result ) {
+    if ( ! empty( $result ) ) {
+        return $result;
+    }
+    if ( ! is_user_logged_in() ) {
+        return new WP_Error( 'rest_not_logged_in', 'Вы не авторизованы для доступа к REST API.', array( 'status' => 401 ) );
+    }
+    return $result;
+});
+// Удаляем короткую ссылку (shortlink) WordPress
+remove_action('wp_head', 'wp_shortlink_wp_head', 10);
+
+// Отключаем Emoji в WordPress
+remove_action( 'wp_head', 'print_emoji_detection_script', 7 );
+remove_action( 'admin_print_scripts', 'print_emoji_detection_script' );
+remove_action( 'wp_print_styles', 'print_emoji_styles' );
+remove_action( 'admin_print_styles', 'print_emoji_styles' );
+remove_filter( 'the_content_feed', 'wp_staticize_emoji' );
+remove_filter( 'comment_text_rss', 'wp_staticize_emoji' );
+remove_filter( 'wp_mail', 'wp_staticize_emoji_for_email' );
+// Убираем Emoji из TinyMCE редактора
+add_filter( 'tiny_mce_plugins', 'disable_emojis_tinymce' );
+function disable_emojis_tinymce( $plugins ) {
+    return is_array( $plugins ) ? array_diff( $plugins, array( 'wpemoji' ) ) : array();
+}
 ?>

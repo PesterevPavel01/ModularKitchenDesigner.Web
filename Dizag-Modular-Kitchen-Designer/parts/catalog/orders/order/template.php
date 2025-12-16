@@ -1,5 +1,5 @@
 <?
-enqueue_template_part_styles_scripts( __DIR__, "catalog-order");
+enqueue_template_part_styles_scripts( __DIR__, "catalog-order","master-slave-select-js");
 require_once get_template_directory() . '/core/Result.php';
 require_once get_template_directory() . '/core/services/processors/catalog/orders/OrderByCodeProcessor.php';
 ?>
