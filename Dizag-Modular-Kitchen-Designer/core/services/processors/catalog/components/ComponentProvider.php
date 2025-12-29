@@ -23,7 +23,8 @@
 
         public function GetComponentsByType($type)
         {
-            $url = $this->Url . "/by-type/" . urlencode($type);
+            $url = $this->Url . "/by-type/" . urlencode($type)
+            . '?ascending=true';
 
             $this->Result = $this->HttpConnector->GetMessageByUrl($url);
 

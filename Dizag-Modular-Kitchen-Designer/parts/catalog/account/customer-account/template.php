@@ -6,6 +6,7 @@ if (function_exists('enqueue_template_part_styles_scripts')) {
 
 <?
 $role = isset($args['ROLE']) ? sanitize_text_field($args['ROLE']) : '';
+$userName = isset($args['USER']) ? sanitize_text_field($args['USER']) : '';
 ?>
 <section class="customer-account-content d-flex flex-column align-items-start flex-lg-row w-100 gap-2 gap-lg-0" id = "customer-account-content">
 
@@ -23,13 +24,24 @@ $role = isset($args['ROLE']) ? sanitize_text_field($args['ROLE']) : '';
         
     </div>
 
-    <?get_template_part("parts/catalog/forms/order-list-parameters-form/template", null,                 
-        [
-            'ROLE' => $role
-        ]);
+    <div class="customer-account-additional-content d-flex flex-column gap-2 order-1 order-lg-2 col-12 col-lg-3 order-1 order-lg-2">
 
-    if( $role == 'customer')
+        <?get_template_part("parts/catalog/forms/order-list-parameters-form/template", null,                 
+            [
+                'ROLE' => $role,
+                'USER' => $userName
+            ]);
+
+        get_template_part("parts/catalog/account/last-events/template", null,                 
+            [
+                'ROLE' => $role,
+                'USER' => $userName
+            ]);?>
+    </div>
+
+    <?if( $role == 'customer')
         get_template_part("parts/catalog/forms/remove-order-form/template");
     ?>
+
 
 </section>

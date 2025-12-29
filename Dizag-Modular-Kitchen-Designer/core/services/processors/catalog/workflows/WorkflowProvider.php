@@ -28,13 +28,44 @@
             return $this->Result;
         }
 
-        public function Approve($workflowCode, $login)
+        public function Approve($orderCode, $login)
         {
             $url = $this->Url . "approve";
 
             $body = [
-                'workflowCode' => $workflowCode,
-                'userName' => $login
+                'code' => $orderCode,
+                'userName' => $login,
+                'IsCompleted' => false
+            ];
+
+            $this->Result = $this->HttpConnector->wp_post($url, $body);
+            
+            return $this->Result;
+        }
+
+        public function Reject($orderCode, $login)
+        {
+            $url = $this->Url . "reject";
+
+            $body = [
+                'code' => $orderCode,
+                'userName' => $login,
+                'IsCompleted' => false
+            ];
+
+            $this->Result = $this->HttpConnector->wp_post($url, $body);
+            
+            return $this->Result;
+        }
+
+        public function RemoveOrderWorkflows($orderCode, $login)
+        {
+            $url = $this->Url . "remove";
+
+            $body = [
+                'Code' => $orderCode,
+                'UserName' => $login,
+                'IsCompleted' => false
             ];
 
             $this->Result = $this->HttpConnector->wp_post($url, $body);

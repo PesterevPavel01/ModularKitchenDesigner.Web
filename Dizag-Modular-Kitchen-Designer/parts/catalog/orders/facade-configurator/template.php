@@ -472,8 +472,6 @@ $componentProvider = new ComponentProvider($componentServiceUrl, $user);
                         <?
                         $cornerBottomCode = get_field('corner-bottom', $order_page_id);
 
-                        //print_r($components);
-
                         if(!empty($components))
                         {
                             $currentBottomComponents = array_filter($components, function($item) use ($cornerBottomCode)

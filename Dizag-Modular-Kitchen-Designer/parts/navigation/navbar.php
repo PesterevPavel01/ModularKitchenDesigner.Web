@@ -15,7 +15,9 @@
         </a>
         <div class="navbar-collapse">
             <ul class="navbar-nav">
+
                 <?if (is_user_logged_in()){
+
                     $current_user = wp_get_current_user();
 
                     $login = sanitize_text_field($current_user->user_login);
@@ -28,10 +30,13 @@
                             <div class="bi bi-box-arrow-right"></div>
                         </a>
                     </li>
+
                 <?}else{?>
+
                     <li class>
                         <a class="bi bi-person-circle white" href="/authorization/"></a>
                     </li>
+                    
                 <?}?>
             </ul>
         </div>

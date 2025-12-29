@@ -2,7 +2,7 @@
 $role = isset($args['ROLE']) ? sanitize_text_field($args['ROLE']) : '';
 ?>
 
-<form class="order-list-parameters-form order-1 order-lg-2 col-12 col-lg-3 order-1 order-lg-2" id = "order-list-parameters-form" data-ajax-default-content-updater="refresh">
+<form class="order-list-parameters-form" id = "order-list-parameters-form" data-ajax-default-content-updater="refresh">
         
         <div class="order-list-parameters-form-content d-flex flex-column align-items-start justify-content-start gap-2 m-0 ms-lg-3">
 

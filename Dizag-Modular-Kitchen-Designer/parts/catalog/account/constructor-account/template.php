@@ -1,5 +1,8 @@
 <?//необходимо получить список заказов, которые находятся на согласовании у конструктора
 enqueue_template_part_styles_scripts( __DIR__, "constructor-account");//подключаю файл <style class="css"></style>
+
+$role = isset($args['ROLE']) ? sanitize_text_field($args['ROLE']) : '';
+$userName = isset($args['USER']) ? sanitize_text_field($args['USER']) : '';
 ?>
 
 <div  class="navigation-block update-trigger gap-2 d-flex justify-content-start align-items-center">
@@ -20,7 +23,11 @@ enqueue_template_part_styles_scripts( __DIR__, "constructor-account");//подк
 <div class="account-swiper">
     <div class="swiper-wrapper slider">
         <section class="customer-section m-0 swiper-slide">
-            <?get_template_part("parts/catalog/account/customer-account/template");?>
+            <?get_template_part("parts/catalog/account/customer-account/template", null,
+                [
+                    'ROLE' => $role,
+                    'USER' => $userName
+                ]);?>
         </section>
 
         <form class="approval-customer-section m-0 swiper-slide" id = "approval-customer-section" data-ajax-default-content-updater="refresh">

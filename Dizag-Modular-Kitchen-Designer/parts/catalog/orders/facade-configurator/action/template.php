@@ -161,8 +161,23 @@ if($errors === 0)
     if($arParams['MILLING'] === "CUSTOM_MILLING")
         $arParams['MILLING'] = $arParams['CUSTOM_MILLING_COMPONENT_CODE'];
 
-    if($arParams['HINGE'] === "CUSTOM_HINGE")
-        $arParams['HINGE'] = $arParams['CUSTOM_HINGE_COMPONENT_CODE'];
+    if( $arParams['HINGE'] === "CUSTOM_HINGE" ){
+     
+        if(!isset($arParams['CUSTOM_HINGE_COMPONENT_CODE']) || trim($arParams['CUSTOM_HINGE_COMPONENT_CODE']) === '' || $arParams['CUSTOM_HINGE_COMPONENT_CODE'] === "0"){
+
+            get_template_part("parts/catalog/errors/default-error-message/template", null, 
+            [
+                'TITLE' => 'Внимание! Необходимо прикрепить чертеж для нестандартных петель!',
+            ]);
+
+            $errors++;
+
+        }else{
+
+            $arParams['HINGE'] = $arParams['CUSTOM_HINGE_COMPONENT_CODE'];
+
+        }
+    }
 
     if(!$moduleCode)
     {

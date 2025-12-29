@@ -56,7 +56,10 @@ function SwiperInit($updateButtons) {
             crossFade: true // ДОБАВИТЬ ЭТО
         },
         centeredSlides: true,
-        simulateTouch: false, // Отключаем свайп если не нужно
+        simulateTouch: false,
+        touchRatio: 0,
+        touchAngle: 0,
+        allowTouchMove: false, 
 
         keyboard: {
             enabled: true,

@@ -49,7 +49,7 @@ $prevPage = ($page > 0) ? ($page-1) : $page;
 
         <div class="m-0 align-middle text-center">
             <div class="border rounded height-40 w-100 d-flex flex-column align-items-center justify-content-center p-2">
-                стрстраница <?=$page + 1?> из <?=$totalPages == 0 ? 1 : $totalPages?>
+                страница <?=$page + 1?> из <?=$totalPages == 0 ? 1 : $totalPages?>
             </div>
         </div>
 

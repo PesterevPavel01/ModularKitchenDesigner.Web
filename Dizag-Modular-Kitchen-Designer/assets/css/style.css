@@ -19,6 +19,9 @@ body {
     position: relative;
 }
 
+main{
+  min-height: 100%;
+}
 /*---------------------------------------
   TYPOGRAPHY               
 -----------------------------------------*/
@@ -669,6 +672,13 @@ body.noscroll {
 /*----------------------------------------
   CUSTOM CONTROLS & ICON              
 -----------------------------------------*/
+
+.primary-border{
+  border: solid 0.5px;
+  border-color: var(--primary-color) !important;
+  color: var(--primary-color);
+}
+
 .custom-checkbox{
   border-color: var(--primary-color);
   accent-color: var(--primary-color) !important;

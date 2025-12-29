@@ -49,10 +49,10 @@ if(empty($workflows) && $args['ACTIVE'] && $args['ROLE'] === 'customer') {?>
         <input type="hidden" data-no-reset="true" name = "TARGET_CONTAINER" value="#order-submit-block">
         <input type="hidden" data-no-reset="true" name="ERROR_CONTAINER" value="#catalog-order-item-list-errors">
         <input type="hidden" data-no-reset="true" name="DEPENDENT_FORM" value="#order-item-send-to-configurator-form-">
+        <input type="hidden" data-no-reset="true" name="DEPENDENT_FORM_SECOND" value="#order-submit-reset-form">
         <input type="hidden" name = "ORDER_CODE" value = "<?=$orderCode?>">
         <input type="hidden" data-no-reset="true" name="USER" value="<?=$user?>">
         <input type="hidden" data-no-reset="true" name="ROLE" value="<?=$role?>">
-        <?// $args['ACTIVE'] = true - значит заказ запущен в работу?>
 
         <button type="submit" class="ajax-update-button btn btn-primary m-0 w-100 border"
             data-bs-toggle="tooltip" 
@@ -63,40 +63,71 @@ if(empty($workflows) && $args['ACTIVE'] && $args['ROLE'] === 'customer') {?>
 
     </form>
 
-    <?}else if(!empty($workflows)){
+<?}else if(!empty($workflows)){
 
-        $activeWorkflows = [];
+    $activeWorkflows = [];
 
-        $activeWorkflows = array_filter($workflows, function($item)
-            {
-                return $item['isCompleted'] === false;
-            }
-        );
+    $activeWorkflows = array_filter($workflows, function($item)
+        {
+            return $item['isCompleted'] === false;
+        }
+    );
 
-        if(empty($activeWorkflows)){?>
+    if(empty($activeWorkflows)){?>
 
-            <small class="error-message black text-center border p-2 m-width-200 w-100">Заказ оформлен!</small>
+        <div class = "d-flex flex-column flex-lg-row justify-content-center align-items-center gap-2 w-100">
+            
+            <div class = "d-flex align-items-center gap-2 w-100">
 
-        <?}else{?>
+                <?get_template_part("parts/catalog/workflow/reject-form/template", null,
+                    [
+                        'USER' =>  $user,
+                        'ORDER_CODE' => $orderCode,
+                        'ROLE' => $role
+                    ]);?>
 
-            <?if($user === ''){
+                <?get_template_part("parts/catalog/workflow/remove-workflows-form/template", null,
+                    [
+                        'USER' =>  $user,
+                        'ORDER_CODE' => $orderCode,
+                        'ROLE' => $role
+                    ]);?>
 
-                get_template_part("parts/catalog/errors/default-error-message/template", null, 
-                [
-                    'TITLE' => 'Не найден логин!',
-                ]);
+            </div>
 
-            }else{
-                
-                get_template_part("parts/catalog/workflow/approval-form/template", null,
-                [
-                    'WORKFLOWS' => $activeWorkflows,
-                    'USER' =>  $user,
-                    'ORDER_CODE' => $orderCode,
-                    'ROLE' => $role
-                ]);
+            <small class="error-message black text-center p-2 w-100 primary-border">ОФОРМЛЕН</small>
 
-            }?>
-        <?}?>
+        </div>
 
+    <?}else{?>
+
+        <?if($user === ''){
+
+            get_template_part("parts/catalog/errors/default-error-message/template", null, 
+            [
+                'TITLE' => 'Не найден логин!',
+            ]);
+
+            return;
+
+        }else{
+            
+            get_template_part("parts/catalog/workflow/approval-form/template", null,
+            [
+                'WORKFLOWS' => $activeWorkflows,
+                'USER' =>  $user,
+                'ORDER_CODE' => $orderCode,
+                'ROLE' => $role
+            ]);
+
+            get_template_part("parts/catalog/workflow/remove-workflows-form/template", null,
+            [
+                'USER' =>  $user,
+                'ORDER_CODE' => $orderCode,
+                'ROLE' => $role
+            ]);
+
+        }?>
     <?}?>
+
+<?}?>

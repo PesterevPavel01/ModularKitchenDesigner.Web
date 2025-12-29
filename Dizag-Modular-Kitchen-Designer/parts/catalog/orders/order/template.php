@@ -35,14 +35,14 @@ $order = $Result->data[0];
 <block class="title-block d-flex flex-column w-100 justify-content-lg-between flex-lg-row align-items-lg-center gap-1 gap-lg-0">
     
     <a href="<?=home_url('/account/')?>" class="m-0 p-0 order-2 order-lg-1">
-        <button class="btn btn-primary m-0 w-100 m-width-200 border">МОИ ЗАКАЗЫ</button>
+        <button class="btn btn-primary m-0 w-100 m-width-200 border ">МОИ ЗАКАЗЫ</button>
     </a>
 
     <t1 class="title w-100 text-center text-lg-start order-1 order-lg-2">Заказ: <?=esc_html($order['title'])?></t1>
 
     <?// СТАТУС ЗАКАЗА?>
             
-    <block class="panel-control d-flex justify-content-start justify-content-xl-end gap-2 order-3 col-12 col-lg-2" id = "order-submit-block">
+    <block class="panel-control d-flex justify-content-start justify-content-xl-end gap-2 order-3" id = "order-submit-block">
 
         <?//загружаю через ajax после загрузки страницы, вызовом события submit формы #order-submit-reset-form в файле script.js?>
         
