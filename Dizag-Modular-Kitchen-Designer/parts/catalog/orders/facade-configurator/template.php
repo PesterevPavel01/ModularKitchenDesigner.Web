@@ -7,6 +7,7 @@ global $moduleServiceUrl;
 global $componentServiceUrl;
 ?>
 <?
+
 $user = isset($args['USER']) ? sanitize_text_field($args['USER']) : "";
 
 $role = isset($args['ROLE']) ? sanitize_text_field($args['ROLE']) : "";
@@ -103,25 +104,6 @@ $componentProvider = new ComponentProvider($componentServiceUrl, $user);
             <strong class="black p-1 m-0">Конфигуратор</strong>
             <button type="button" class="btn-close" data-bs-dismiss="offcanvas"></button>
         </div>
-
-        <li class="button-conteiner d-flex w-100">
-
-            <?if(!$args['IS_COMPLETED']){?>
-
-                <div class="save-button col-8 pe-2">
-
-                    <button type="submit" class="btn btn-primary w-100">Сохранить</button>
-
-                </div>
-            
-            <?}?>
-
-            <button type="button" class="btn btn-primary <?=$args['IS_COMPLETED'] ? 'w-100' : 'col-4'?>" id = "order-item-facade-configurator-clear"
-                <?//data-bs-deactivate-element - класс, который есть у всех кнопок "редактировать элемент"?>
-                data-bs-deactivate-element="specification-item-change-button" 
-                >Отмена</button>
-
-        </li>
 
         <div class = "w-100" id='catalog-facade-configurator-errors'></div>
 
@@ -736,6 +718,25 @@ $componentProvider = new ComponentProvider($componentServiceUrl, $user);
                     ]);?>
 
             </ul>
+
+        </li>
+        
+        <li class="button-conteiner d-flex w-100 pt-3">
+
+            <?if(!$args['IS_COMPLETED']){?>
+
+                <div class="save-button col-8 pe-2">
+
+                    <button type="submit" class="btn btn-primary w-100">Сохранить</button>
+
+                </div>
+            
+            <?}?>
+
+            <button type="button" class="btn btn-primary <?=$args['IS_COMPLETED'] ? 'w-100' : 'col-4'?>" id = "order-item-facade-configurator-clear"
+                <?//data-bs-deactivate-element - класс, который есть у всех кнопок "редактировать элемент"?>
+                data-bs-deactivate-element="specification-item-change-button" 
+                >Отмена</button>
 
         </li>
 

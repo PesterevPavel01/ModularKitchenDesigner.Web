@@ -321,14 +321,22 @@ $hingeCode = get_field('hinge', $order_page_id);
                     );
 
                     $hinge = reset($hinge);?>
-
+<?//---------------------------------------?>
                     <div class="d-none d-lg-table-cell hinge catalog-order-specification-cell pb-lg-2 ps-1 m-0 align-middle text-center">
                         <div class="specification-item-control-conteiner border rounded height-40 w-100 d-flex flex-column align-items-center justify-content-center p-2">
                             <i class = "<?=!empty($hinge) ? 'bi-check-lg fs-3 primary' : "bi-x-lg"?> bi">
                             </i>
                         </div>
                     </div>
-                    
+
+<?//---------------------------------------?>
+                    <div class="d-none d-lg-table-cell hinge catalog-order-specification-cell pb-lg-2 ps-1 m-0 align-middle text-center">
+                        <div class="specification-item-control-conteiner border rounded height-40 w-100 d-flex flex-column align-items-center justify-content-center p-2">
+                            <i class = "<?=$moduleItem['messages'] ? 'bi-chat-fill primary' : "bi-chat gray"?> bi">
+                            </i>
+                        </div>
+                    </div>
+
                     <div class="order-specification-item-controls d-flex flex-row w-100">
                     
                         <?if(!$isCompleted){?>

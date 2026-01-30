@@ -33,11 +33,21 @@ if(!$pageSize || trim($pageSize) === "")
     return;
 }
 
+
+if(isset($args['TITLE_PATTERN']))
+    $arParams['TITLE_PATTERN'] = $args['TITLE_PATTERN'];
+
 $arParams['PAGE_INDEX'] = $page;
 
 $arParams['PAGE_SIZE'] = $pageSize;
 
 $arParams['PAGED'] = true;
+
+if(isset($args['statuses']))
+    $arParams['STATUSES'] = $args['statuses'];
+
+if(isset($args['users']))
+    $arParams['USERS'] = $args['users'];
 
 if(in_array('constructor', $roles))
 {
@@ -81,7 +91,6 @@ else
 {
     return;
 }
-
 ?>
 <section class="customer-account-oder-list-content d-flex flex-column align-items-start w-100 justify-content-start gap-2 w-100 order-2 order-lg-1">
     
@@ -106,7 +115,14 @@ else
 
     <block class="list-items d-flex flex-column align-items-start w-100 justify-content-start gap-2 gap-lg-1">
 
-        <?foreach($Result->data['items'] as $item){
+        <?
+        if(empty($Result->data['items']))
+            get_template_part("parts/catalog/errors/default-error-message/template", null, 
+            [
+                'TITLE' => "Не найдено ни одного заказа, удовлетворяющего условиям поиска!"
+            ]);
+            
+        foreach($Result->data['items'] as $item){
 
             $params = [];
 
@@ -117,6 +133,7 @@ else
                     'ORDER_CODE' => $item['code'],
                     'IS_CUSTOM' => $item['isCustom'],
                     'IS_COMPLETED' => $item['isCompleted'],
+                    'STATUS' => $item['status'],
                     'ROLE' => $role,
                 ]
             ];
@@ -129,7 +146,8 @@ else
 
         }?>
 
-        <?get_template_part("parts/catalog/forms/order-list-page-switcher-form/template", null,                 
+        <?
+        get_template_part("parts/catalog/forms/order-list-page-switcher-form/template", null,                 
             [
                 'PERIOD' => $args['PERIOD'],
                 'ASCENDING' => isset($arParams['ASCENDING']) && $arParams['ASCENDING'] ? true : false,
@@ -137,7 +155,10 @@ else
                 'CUSTOM_ONLY' => isset($arParams['CUSTOM_ONLY']) && $arParams['CUSTOM_ONLY'] ? true : false, 
                 'TOTAL_COUNT' => $Result->data['totalCount'],
                 'TOTAL_PAGES' => $Result->data['totalPages'],
-                'PAGE' => $Result->data['pageIndex']
+                'PAGE' => $Result->data['pageIndex'],
+                'STATUSES' => $arParams['STATUSES'],
+                'USERS' => $arParams['USERS'],
+                'TITLE_PATTERN' => $arParams['TITLE_PATTERN'],
             ]);?>
 
     </block>

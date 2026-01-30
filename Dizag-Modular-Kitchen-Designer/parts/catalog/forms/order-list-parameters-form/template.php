@@ -1,4 +1,5 @@
 <?
+enqueue_template_part_styles_scripts( __DIR__, "order-list-parameters-form");
 $role = isset($args['ROLE']) ? sanitize_text_field($args['ROLE']) : '';
 ?>
 
@@ -16,9 +17,20 @@ $role = isset($args['ROLE']) ? sanitize_text_field($args['ROLE']) : '';
 
             <ul class="parameters-section d-flex flex-column align-items-start justify-content-start gap-1 white-background m-0 p-4 w-100 shadow-lg shadow-lg-sm">
 
+                <?if($role === 'constructor'){?>
+
+                    <li class="parameter-item d-flex w-100 justify-content-start pb-4">
+                        <div class="d-flex flex-column align-items-start w-100">
+                            <small class="checkbox_label text-start primary-dark m-0 p-0">Поиск:</small>
+                            <input type="number" class ="w-100 m-0" name = "TITLE_PATTERN" step="1" min="0" placeholder="Введите номер заказа">
+                        </div>
+                    </li>
+                    
+                <?}?>
+
                 <li class="parameter-item d-flex w-100 justify-content-start">
                     <div class="approval-orders-only d-flex align-items-center w-100 gap6">
-                        <small class="checkbox_label">Период, дн.</small>
+                        <small class="checkbox_label primary-dark">Период, дн.</small>
                         <input type="number" name = "PERIOD" step="1" min="0" max="100" value="30" class="period" id = "catalog-order-list-period"/>
                     </div>
                 </li>
@@ -30,13 +42,22 @@ $role = isset($args['ROLE']) ? sanitize_text_field($args['ROLE']) : '';
 
                 <li class="parameter-item-approval d-flex align-items-center w-100 gap6justify-content-start gap6">
                     <input class="custom-checkbox border-primary" name = "CUSTOM_ONLY" type="checkbox" id="catalog-order-list-custom-only">
-                    <small class="checkbox_label">только на согласовании</small>
+                    <small class="checkbox_label">только нестандартные</small>
                 </li>
 
                 <li class="parameter-item-sort d-flex align-items-center w-100 gap6justify-content-start gap6">
                     <input class="custom-checkbox border-primary" name = "ASCENDING" type="checkbox" id="catalog-order-list-ascending">
                     <small class="checkbox_label">сначала старые заказы</small>
                 </li>
+
+                <?if($role === 'constructor'){
+
+                    get_template_part("/parts/catalog/forms/order-list-parameters-form/clients-filter/template");
+
+                    get_template_part("/parts/catalog/forms/order-list-parameters-form/statuses-filter/template");
+
+                }
+                ?>
 
                 <button type="submit" class="btn btn-primary border w-100 mt-2">
                     <span class="btn_label">Применить</span>

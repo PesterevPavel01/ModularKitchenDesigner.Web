@@ -290,7 +290,7 @@ else{
 
     $order = $Result->data[0];
 
-    if($orderCode && $role !=='constructor' && trim($user) !== trim($order['userName']) ){
+    if($orderCode && $role !=='constructor' && trim($user) !== trim($order['user']) ){
 
         get_template_part("parts/catalog/errors/default-error-message/template", null, 
         [

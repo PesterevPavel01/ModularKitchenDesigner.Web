@@ -36,3 +36,7 @@
 .order-list-item-user span{
     font-size: var(--small-font-size);
 }
+
+.order-status{
+    font-size: var(--product-link-font-size) !important;
+}

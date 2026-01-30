@@ -12,7 +12,6 @@ if($orderCode === ""){
 }
 
 $user = isset($args['USER']) ? sanitize_text_field($args['USER']) : "";
-
 ?>
 <form class="order-item-new-message-panel d-flex w-100 m-0 p-0" data-ajax-default-content-updater>
 

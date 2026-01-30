@@ -34,7 +34,7 @@
 
             $body = [
                 'code' => $orderCode,
-                'userName' => $login,
+                'user' => $login,
                 'IsCompleted' => false
             ];
 
@@ -49,7 +49,7 @@
 
             $body = [
                 'code' => $orderCode,
-                'userName' => $login,
+                'user' => $login,
                 'IsCompleted' => false
             ];
 
@@ -64,7 +64,7 @@
 
             $body = [
                 'Code' => $orderCode,
-                'UserName' => $login,
+                'User' => $login,
                 'IsCompleted' => false
             ];
 

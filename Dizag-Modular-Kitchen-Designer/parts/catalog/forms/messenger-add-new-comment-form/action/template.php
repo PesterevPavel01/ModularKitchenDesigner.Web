@@ -31,7 +31,7 @@ if(!$Result->isSuccess())
     get_template_part("parts/catalog/errors/default-error-message/template", null, 
     [
         'TITLE' => $Result->ErrorMessage,
-        'MESSAGE' => $Result->data
+        'MESSAGE' => $Result->ErrorMessage
     ]);
 
     $errors++;

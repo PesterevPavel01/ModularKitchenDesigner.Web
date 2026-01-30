@@ -50,12 +50,12 @@ $order = $Result->data[0];
 
     <?//КОНФИГУРАТОР //КНОПКА "НОВЫЙ МОЛУЛЬ" В МОБИЛЬНОЙ ВЕРСИИ?>
 
-    <div class="catalog-add-new-module-button order-3 d-flex <?=$order['isCompleted'] ? 'd-none' : 'd-lg-none'?>">
+    <div class="catalog-add-new-module-button order-3 d-flex <?=$order['isApprovalCompleted'] ? 'd-none' : 'd-lg-none'?>">
 
         <?get_template_part("parts/catalog/forms/order-item-send-to-configurator-form/template", null, 
             [
                 'ORDER_CODE' => $code,
-                "IS_COMPLETED" => $order['isCompleted'],
+                "IS_COMPLETED" => $order['isApprovalCompleted'],
                 'USER' => $login,
                 'ROLE' => $role,
             ]);?>
@@ -74,7 +74,7 @@ $order = $Result->data[0];
             [
                 'ORDER_CODE' =>  $code,
                 'MODULES' =>  $order['modules'],
-                'IS_COMPLETED' => $order['isCompleted'],
+                'IS_COMPLETED' => $order['isApprovalCompleted'],
                 'USER' => $login,
                 'ROLE' => $role,
             ]);?>
@@ -85,7 +85,7 @@ $order = $Result->data[0];
 
 </block>
 
-<?if(!$order['isCompleted']){
+<?if(!$order['isApprovalCompleted']){
 
     get_template_part("parts/catalog/forms/order-blueprints-form/template", null, 
         [

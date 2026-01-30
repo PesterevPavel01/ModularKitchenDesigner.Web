@@ -6,7 +6,13 @@ $totalPages = isset($args['TOTAL_PAGES']) ? sanitize_text_field($args['TOTAL_PAG
 
 $period = isset($args['PERIOD']) ? sanitize_text_field($args['PERIOD']) : null;
 
+$titlePattern = isset($args['TITLE_PATTERN']) ? sanitize_text_field($args['TITLE_PATTERN']) : null;
+
 $ascending = isset($args['ASCENDING']) && $args['ASCENDING'] ? true : false;
+
+$statuses = isset($args['STATUSES']) && $args['STATUSES'] ? $args['STATUSES'] : null;
+
+$users = isset($args['USERS']) && $args['USERS'] ? $args['USERS'] : null;
 
 $incompleteOnly = isset($args['INCOMPLETE_ONLY']) && $args['INCOMPLETE_ONLY'] ? true : false;
 
@@ -18,6 +24,7 @@ $nextPage = ($page < $totalPages - 1) ? ($page + 1) : $page;
 
 $prevPage = ($page > 0) ? ($page-1) : $page;
 ?>
+
 <div class="order-list-page-switcher-block d-flex flex-column flex-lg-row gap-1 gap-lg-2 w-100 justify-content-center justify-content-lg-start">
 
     <div class="order-list-page-switcher-controls d-flex gap-1 gap-lg-2 justify-content-center justify-content-lg-start">
@@ -33,6 +40,19 @@ $prevPage = ($page > 0) ? ($page-1) : $page;
             <input type="hidden" name = "ASCENDING" value = <?=$ascending?>>
             <input type="hidden" name = "INCOMPLETE_ONLY" value = <?=$incompleteOnly?>>
             <input type="hidden" name = "CUSTOM_ONLY" value = <?=$customOnly?>>
+            
+            <?if (isset($arParams['TITLE_PATTERN']) && $arParams['TITLE_PATTERN'])?>
+                <input type="hidden" name = "TITLE_PATTERN" value = <?=$titlePattern?>>
+            
+            <?if(!empty($statuses)) 
+                foreach($statuses as $status){ ?>
+                    <input type="hidden" name="STATUSES[]" value="<?= htmlspecialchars($status) ?>">
+                <?}?>
+
+            <?if(!empty($users)) 
+                foreach($users as $user){ ?>
+                    <input type="hidden" name="USERS[]" value="<?= htmlspecialchars($user) ?>">
+                <?}?>
 
             <button type = "submit" class = "btn-primary white-background d-flex flex-column align-items-center justify-content-center p-2 pointer hover-white border rounded height-40 w-100 <?=$page == 0 ? 'd-none':''?>"
                 data-form-group="specification-item-change-button">
@@ -64,6 +84,19 @@ $prevPage = ($page > 0) ? ($page-1) : $page;
             <input type="hidden" name = "ASCENDING" value = <?=$ascending?>>
             <input type="hidden" name = "INCOMPLETE_ONLY" value = <?=$incompleteOnly?>>
             <input type="hidden" name = "CUSTOM_ONLY" value = <?=$customOnly?>>
+
+            <?if (isset($arParams['TITLE_PATTERN']) && $arParams['TITLE_PATTERN'])?>
+                <input type="hidden" name = "TITLE_PATTERN" value = <?=$titlePattern?>>
+
+            <?if(!empty($statuses)) 
+                foreach($statuses as $status){ ?>
+                    <input type="hidden" name="STATUSES[]" value="<?= htmlspecialchars($status) ?>">
+                <?}?>
+
+            <?if(!empty($users)) 
+                foreach($users as $user){ ?>
+                    <input type="hidden" name="USERS[]" value="<?= htmlspecialchars($user) ?>">
+                <?}?>
 
             <button type = "submit" class = "btn-primary white-background d-flex flex-column align-items-center justify-content-center p-2 pointer hover-white border rounded height-40 w-100 <?=$page >= ($totalPages - 1) ? 'd-none':''?>"
                 data-form-group="specification-item-change-button">

@@ -37,10 +37,16 @@ if($arParams){
 
     </div>
 
-    <div class="order-list-item-user d-flex flex-column align-items-center m-sm-0 p-0 col-12 col-sm-5 justify-content-start justify-content-sm-center">
+    <div class="order-list-item-user d-flex flex-column align-items-center m-sm-0 p-0 col-12 col-sm-3 justify-content-start justify-content-sm-center">
         <span class="dark m-0 p-0 w-100 text-start text-sm-start">Пользователь:</span>
         <p class="order-title black d-none d-lg-flex text-start align-items-center m-0 p-0 w-100"><?= empty($user) ? $login : $user['full_name'] ?></p>
         <strong class="order-title black d-flex d-lg-none text-start align-items-center m-0 p-0 w-100"><?= empty($user) ? $login : $user['full_name'] ?></strong>
+    </div>
+
+    <div class="order-list-item-user d-flex flex-column align-items-center m-sm-0 p-0 col-12 col-sm-2 justify-content-start justify-content-sm-end">
+        <?/*<span class="dark m-0 p-0 w-100 text-start text-sm-end">Статус:</span>*/?>
+        <span class = "order-status black m-0 p-0 w-100 text-start text-sm-end"><?= $arParams['STATUS'] ?></span>
+        <strong class="order-status black d-flex d-lg-none text-start text-sm-end align-items-center m-0 p-0 w-100"><?= $arParams['STATUS'] ?></strong>
     </div>
 
     <?php
@@ -60,6 +66,7 @@ if($arParams){
         <div class="d-flex flex-row justify-content-start justify-content-sm-end align-items-center p-0 p-sm-2 gap-1 <?=($role == 'customer' ||  $role == 'Administrator') ? "col-12 col-sm-8" : "col-12 col-sm-6"?>">
             
             <?if( $role == 'customer' ||  $role == 'Administrator' ){?>
+
                 <button type="button" class="btn btn-primary border col-6"
                     data-bs-toggle="modal"
                     data-bs-target="#remove-order-modal"
@@ -69,6 +76,7 @@ if($arParams){
                     data-bs-parameters = <?= ($filter || !empty($filter))? htmlspecialchars(json_encode($filter, JSON_UNESCAPED_UNICODE | JSON_HEX_QUOT | JSON_HEX_APOS), ENT_QUOTES, 'UTF-8') : ""?>>
                     Удалить
                 </button>
+                
             <?}?>
             <a href="<?=esc_url($order_url)?>" class= "<?=($role == 'customer' ||  $role == 'Administrator') ? "col-6" : "w-100"?>">
                 <button class="btn btn-primary border w-100">Открыть</button>

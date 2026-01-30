@@ -36,11 +36,11 @@ if(!$Result->isSuccess())
 
 if(!empty($Result->data['items'])){
 ?>
-    <div class="order-list-last-events">
+    <div class="order-list-last-events" id="order-list-last-events">
         
         <div class="order-list-last-events-content d-flex flex-column align-items-start justify-content-start gap-2 m-0 ms-lg-3">
 
-            <t2 class="title ps-2">Последние события</t2>
+            <t2 class="title ps-2">Последнии события</t2>
 
             <ul class="events-section d-flex flex-column align-items-start gap-1 white-background m-0 p-4 w-100 shadow-lg shadow-lg-sm gap-3 rounded">
 

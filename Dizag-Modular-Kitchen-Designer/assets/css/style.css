@@ -186,6 +186,7 @@ MAIN
 .white{
   color: var(--white-color);
 }
+
 .primary-dark{
   color: var(--primary-dark-color)!important;
 }

@@ -27,6 +27,29 @@
             . '&pageSize=' . sanitize_text_field($arParams['PAGE_SIZE'])
             . '&pageIndex=' . ($arParams['PAGE_INDEX'] ? sanitize_text_field($arParams['PAGE_INDEX']) : '0');
 
+            if (isset($arParams['TITLE_PATTERN']) && $arParams['TITLE_PATTERN']) 
+                $url = $url . '&titlePattern=' . sanitize_text_field($arParams['TITLE_PATTERN']);
+
+            if (!empty($arParams['STATUSES']) && is_array($arParams['STATUSES'])) {
+                foreach ($arParams['STATUSES'] as $status) {
+                    $clean_status = sanitize_text_field(trim($status));
+                    if (!empty($clean_status)) {
+                        $url .= '&statuses=' . urlencode($clean_status);
+                    }
+                }
+            }
+
+            if (!empty($arParams['USERS']) && is_array($arParams['USERS'])) {
+                foreach ($arParams['USERS'] as $users) {
+                    $clean_status = sanitize_text_field(trim($users));
+                    if (!empty($clean_status)) {
+                        $url .= '&customers=' . urlencode($clean_status);
+                    }
+                }
+            }
+
+            //$this->Result->ErrorMessage = $url;
+            //$this->Result->data = $arParams['STATUSES'];
             $this->Result = $this->HttpConnector->GetMessageByUrl($url);
             
             return $this->Result;
