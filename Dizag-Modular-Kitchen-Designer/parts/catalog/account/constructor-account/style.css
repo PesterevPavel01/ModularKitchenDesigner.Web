@@ -1,10 +1,15 @@
 .navigation-block > *{
     font-size: var(--bootstrap-icon-size);
+    color: var(--grey-color);
 }
 
-.navigation-block{
-    padding: 0 0 20px 0;
-}
+/*.navigation-block > .active{
+    color: var(--dark-color);
+}*/
+
+/*.navigation-block{
+    height: 45px;
+}*/
 
 /* Стили для полноэкранного слайдера */
 .account-swiper {
@@ -30,14 +35,64 @@
     height: 100%;
 }
 
-.approval-customer-section {
-    font-family: var(--catalog-font-family);
-}
-
 .customer-list-title-conteiner .title{
     font-weight: bold;
     font-size: var(--p-font-size);
     padding-left: 15px;
     min-height: 38px;
     align-content: center;
+}
+
+
+.catalog-navbar span, h2 span, h4 span {
+	color: var(--dark-color);
+}
+
+.catalog-nav-link {
+  font-family: var(--body-font-family);
+  padding: 0 20px;
+  color: var(--grey-color);
+  font-size: 16px;
+  position: relative;
+  height: var(--catalog-navbar-height);
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+
+}
+
+.catalog-navbar .catalog-nav-link::after {
+  position: absolute;
+  top: 100%;
+  left: 0;
+  width: 100%;
+  height: 2px;
+  background: var(--dark-color);
+  content: '';
+  opacity: 0;
+  -webkit-transition: opacity 0.3s, -webkit-transform 0.3s;
+  -moz-transition: opacity 0.3s, -moz-transform 0.3s;
+  transition: opacity 0.3s, transform 0.3s;
+  -webkit-transform: translateY(10px);
+  -moz-transform: translateY(10px);
+  transform: translateY(10px);
+}
+
+.catalog-navbar .catalog-nav-link.active::after, 
+.catalog-navbar .catalog-nav-link:hover::after {
+  opacity: 1;
+  -webkit-transform: translateY(0px);
+  -moz-transform: translateY(0px);
+  transform: translateY(0px);
+}
+
+.catalog-navbar .catalog-nav-link.active,
+.catalog-navbar .catalog-nav-link:hover {
+  color: var(--dark-color);
+}
+
+.catalog-nav-link:focus, 
+.catalog-nav-link:hover {
+  color: var(--p-color);
 }

@@ -39,6 +39,8 @@ function Handler($form)
     //console.log('$successContainerSelector: ' +$successContainerSelector);
     
     
+    const $successContainerSelectors = $form.find('input[name="SUCCESS_CONTAINERS[]"]');
+
     //Если нужно выделить элемент этой формы классом 'active', а у других форм группы удалить класс active, при его наличии
     const $activateElementInput = $form.find('input[name="ACTIVATE_ELEMENT_GROUP"]');
     
@@ -71,9 +73,8 @@ function Handler($form)
 
     }
     
-    /*const serializedData = $form.serialize();
+    const $postFormDelay =  $form.find('input[name="POST_FORM_DELAY"]').val(); //$form.find('#DEPENDENT_FORM').val();
 
-    console.log('Serialized data:', serializedData); */
     function ExecuteAjax() {
 
         $.ajax(
@@ -105,16 +106,22 @@ function Handler($form)
 
                         if($($targetContainer).length){
                             $($targetContainer).html( $arParams.HTML_CONTENT );
+                        } 
+
+                        /*Применяем задержку непосредственно перед выполнением зависимых форм, если она задана*/
+                        if ($postFormDelay && $postFormDelay !== '') {
+
+                            const delayMs = parseInt($postFormDelay, 10);
+
+                            setTimeout( function() {
+                                submitDependentForms([$dependentForm, $dependentFormSecond], $errorContainer)
+                            }, delayMs);
+                    
+                        }else{
+
+                            submitDependentForms([$dependentForm, $dependentFormSecond]);
+
                         }
-
-                        if ($dependentForm && $dependentForm !== '')
-                            $($dependentForm).trigger('submit');
-
-                        if ($dependentFormSecond && $dependentFormSecond !== '')
-                            $($dependentFormSecond).trigger('submit');
-
-                        if($($errorContainer).length)
-                            $($errorContainer).html( "" );
 
                     }
 
@@ -130,9 +137,49 @@ function Handler($form)
 
                     }
 
+                    if ($successContainerSelectors.length > 0) {
+
+                        $successContainerSelectors.each(function() {
+
+                            const selector = $(this).val();
+
+                            console.log(this);
+
+                            if (selector && selector.trim() !== '') {
+                                const $element = $(selector);
+                                if ($element.length > 0) {
+                                    $element.addClass('success');
+                                }
+                            }
+
+                        });
+                    }
+
                     $($blockedElement).unblock();
                 }
             }
         );  
+    }
+}
+
+function submitDependentForms(dependentForms, errorContainer) {
+    
+    // Проверка на массив
+    if (!Array.isArray(dependentForms)) {
+        console.error('submitDependentForms: expected array, got', dependentForms);
+        return;
+    }
+
+    const [$form1, $form2] = dependentForms;
+    const $errorContainer = errorContainer;
+    
+    if ($form1 && $form1 !== '') {
+        $($form1).trigger('submit');
+    }
+    if ($form2 && $form2 !== '') {
+        $($form2).trigger('submit');
+    }
+    if($($errorContainer).length) {
+        $($errorContainer).html("");
     }
 }

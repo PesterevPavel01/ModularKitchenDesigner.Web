@@ -16,7 +16,7 @@ $Result = new BaseResult();
 
 $OrderByCodeProcessor = new OrderByCodeProcessor($orderServiceUrl);
 
-$Result = $OrderByCodeProcessor->Process($code);
+$Result = $OrderByCodeProcessor->Process($code, true);
 
 if(!$Result->isSuccess())
 {        
@@ -35,7 +35,7 @@ $order = $Result->data[0];
 <block class="title-block d-flex flex-column w-100 justify-content-lg-between flex-lg-row align-items-lg-center gap-1 gap-lg-0">
     
     <a href="<?=home_url('/account/')?>" class="m-0 p-0 order-2 order-lg-1">
-        <button class="btn btn-primary m-0 w-100 m-width-200 border ">МОИ ЗАКАЗЫ</button>
+        <button class="custom-btn black m-0 w-100 m-width-200 border bold-font">МОИ ЗАКАЗЫ</button>
     </a>
 
     <t1 class="title w-100 text-center text-lg-start order-1 order-lg-2">Заказ: <?=esc_html($order['title'])?></t1>
@@ -68,20 +68,20 @@ $order = $Result->data[0];
 
     <div class="catalog-order-item-list-errors w-100" id = "catalog-order-item-list-errors"></div>
 
-        <section class="catalog-oder-section d-flex flex-column justify-content-centr gap-2 w-100 p-1 p-lg-3 rounded white-background" id = catalog-oder-section>
-            
-            <?get_template_part("parts/catalog/orders/order-item-list/template",null,
-            [
-                'ORDER_CODE' =>  $code,
-                'MODULES' =>  $order['modules'],
-                'IS_COMPLETED' => $order['isApprovalCompleted'],
-                'USER' => $login,
-                'ROLE' => $role,
-            ]);?>
+    <section class="catalog-oder-section d-flex flex-column justify-content-centr gap-2 w-100 p-1 p-lg-0 rounded white-background" id = catalog-oder-section>
+        
+        <?get_template_part("parts/catalog/orders/order-item-list/template",null,
+        [
+            'ORDER_CODE' =>  $code,
+            'MODULES' =>  $order['modules'],
+            'IS_COMPLETED' => $order['isApprovalCompleted'],
+            'USER' => $login,
+            'ROLE' => $role
+        ]);?>
 
-            <?get_template_part("parts/catalog/orders/order-item-messenger/template",null,[]);?>
+        <?get_template_part("parts/catalog/orders/order-item-messenger/template",null,[]);?>
 
-        </section>
+    </section>
 
 </block>
 

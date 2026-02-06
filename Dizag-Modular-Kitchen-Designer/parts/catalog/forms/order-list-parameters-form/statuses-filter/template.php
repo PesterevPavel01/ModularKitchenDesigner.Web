@@ -1,6 +1,6 @@
 <?get_template_part("/parts/controls/fieldset/template", null,
     [
-        'TITLE' =>  'Статусы',
+        'TITLE' =>  'СТАТУСЫ',
         'LIST_NAME' => 'statuses',
         'ITEMS' => [
             [ 
@@ -31,5 +31,7 @@
                 'NAME' => 'Завершен',
                 'VALUE' => '9'
             ],
-        ]
+        ],
+        'MAIN_CONTEINER_CLASS' => 'statuses-filter-conteiner',
+        'CONTENT_CONTEINER_CLASS' => 'statuses-filter-content'
     ]);

@@ -99,11 +99,11 @@ foreach($activeWorkflows as $workflow){
     <input type="hidden" data-no-reset="true" name = "USER" value = <?=$user?>>
     <input type="hidden" data-no-reset="true" name = "ROLE" value = <?=$role?>>
 
-    <button type="submit" class="ajax-update-button btn btn-primary border m-0 w-100"
+    <button type="submit" class="custom-btn white p-2 border normal-font m-0"
         data-bs-toggle="tooltip" 
         data-bs-placement="top"    
         title="Согласовать">
-        Согласовать
+        СОГЛАСОВАТЬ
     </button>
 
 </form>

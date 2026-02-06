@@ -20,6 +20,7 @@ function Select($currentBtn, $updateButtons)
     $currentBtn.toggleClass('active');
 
     console.log($currentBtn);
+    
     if(!$updateButtons)
         return;
 

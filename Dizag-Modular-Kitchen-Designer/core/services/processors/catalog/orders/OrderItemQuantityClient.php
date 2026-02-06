@@ -24,7 +24,7 @@ Class OrderItemQuantityClient
             return $this->Result;
         }
 
-        $url = $this->Url . $orderItemCode . "/set-quantity";
+        $url = $this->Url . "/set-quantity";
 
         $body = [
             "orderCode" => $orderCode,

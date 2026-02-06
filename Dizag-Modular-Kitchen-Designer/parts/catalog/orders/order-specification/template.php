@@ -106,7 +106,7 @@ $cornerRightCode = get_field('corner-right', $order_page_id);
 $hingeCode = get_field('hinge', $order_page_id);
 ?>
 
-<p class="d-none d-lg-block specification-title black p-3 p-lg-1 m-0">Спецификация</p>
+<p class="d-none d-lg-block specification-title black normal-font p-3 p-lg-1 m-0">СПЕЦИФИКАЦИЯ</p>
 
 <div class="catalog-order-specification-list-conteiner h-100 background-lg-white pt-3 p-lg-3 m-0 rounded w-100 shadow-sm">
     
@@ -120,15 +120,15 @@ $hingeCode = get_field('hinge', $order_page_id);
             
             <li class="catalog-order-specification-header w-100 d-none d-lg-table-row">
 
-                <span class="d-table-cell order-specification-cell dark fw-bold p-1 col-4">Пленка</span>
-                <span class="d-table-cell order-specification-cell dark fw-bold p-1 col-1">Высота, мм</span>
-                <span class="d-table-cell order-specification-cell dark fw-bold p-1 col-1">Ширина, мм</span>
-                <span class="d-table-cell order-specification-cell dark fw-bold p-1 col-1">Количество</span>
-                <span class="d-table-cell order-specification-cell dark fw-bold p-1 col-1">Площадь, м2</span>
-                <span class="d-table-cell order-specification-cell dark fw-bold p-1 col-1">Плита</span>
-                <span class="d-table-cell order-specification-cell dark fw-bold p-1 col-3">Фрезеровка</span>
-                <span class="d-table-cell order-specification-cell dark fw-bold p-1 col-1">Кромка фасада</span>
-                <span class="d-table-cell order-specification-cell dark fw-bold p-1">отверстие под петли</span>
+                <span class="d-table-cell order-specification-cell p-1 col-4">Пленка</span>
+                <span class="d-table-cell order-specification-cell p-1 col-1">Высота, мм</span>
+                <span class="d-table-cell order-specification-cell p-1 col-1">Ширина, мм</span>
+                <span class="d-table-cell order-specification-cell p-1 col-1">Количество</span>
+                <span class="d-table-cell order-specification-cell p-1 col-1">Площадь, м2</span>
+                <span class="d-table-cell order-specification-cell p-1 col-1">Плита</span>
+                <span class="d-table-cell order-specification-cell p-1 col-3">Фрезеровка</span>
+                <span class="d-table-cell order-specification-cell p-1 col-1">Кромка фасада</span>
+                <span class="d-table-cell order-specification-cell p-1">отверстие под петли</span>
 
             </li>
 
@@ -142,7 +142,7 @@ $hingeCode = get_field('hinge', $order_page_id);
 
                 <li class="catalog-order-specification-item w-100 d-flex flex-column d-lg-table-row white-background shadow-lg shadow-lg-none p-3 p-lg-0">
 
-                    <span class="d-table-cell d-lg-none order-specification-cell dark fw-bold p-1 w-100 pb-lg-2">Пленка</span>
+                    <span class="d-table-cell d-lg-none order-specification-cell fw-bold p-1 w-100 pb-lg-2">Пленка</span>
 
                     <?
                     $membrane = array_filter($components, function($item) use ($membraneCode)
@@ -161,7 +161,7 @@ $hingeCode = get_field('hinge', $order_page_id);
                         <input type="text" readonly value="<?=esc_html($membrane['componentTitle'])?>" class="membrane w-100 border rounded height-40" name="membrane"/>
                     </div>
 
-                    <span class="d-table-cell d-lg-none order-specification-cell dark fw-bold p-1 w-100">Высота, мм</span>
+                    <span class="d-table-cell d-lg-none order-specification-cell fw-bold p-1 w-100">Высота, мм</span>
 
                     <?
                     $length = array_filter($module['moduleNumericParameters'], function($item)
@@ -414,7 +414,7 @@ $hingeCode = get_field('hinge', $order_page_id);
                         data-bs-toggle="tooltip" 
                         data-bs-placement="top"    
                         title="Итоговая площадь заказа">
-                        <strong type="text" class="d-none d-lg-table-cell text-center text-lg-start w-100 align-items-center align-items-lg-start">ВСЕГО</strong>
+                        <strong type="text" class="d-none d-lg-table-cell text-center text-lg-start w-100 align-items-center align-items-lg-start">ВСЕГО ( <?=count($modules)?> шт.)</strong>
                         <strong type="text" class="d-lg-table-cell d-lg-none text-center text-lg-start w-100 align-items-center p-2 p-lg-0 align-items-lg-start">ИТОГОВАЯ ПЛОЩАДЬ:</strong>
                     </div>
 

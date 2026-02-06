@@ -37,8 +37,8 @@ add_action('init', 'my_custom_global_variable');
 //CREATE DI CONTEINER
 function DI_conteiner(){
 
-	if(!is_page('kitchen'))
-		return;
+	/*if(!is_page('kitchen'))
+		return;*/
 
 	// Инициализация контейнера
 	global $СontainerDI;

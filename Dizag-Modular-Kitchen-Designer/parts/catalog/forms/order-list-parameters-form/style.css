@@ -3,3 +3,9 @@ input[type="number"] {
     border-radius: 5px;
     height: 40px;
 }
+
+.statuses-filter-content,
+.clients-filter-content
+{
+    height: 120px;
+}

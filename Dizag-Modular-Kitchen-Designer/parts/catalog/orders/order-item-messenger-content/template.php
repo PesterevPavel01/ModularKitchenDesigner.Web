@@ -52,11 +52,11 @@ $messages = isset($args['MASSAGES']) ? $args['MASSAGES'] : [];
                     return;
                 }
 
-                $role = "Клиент";
+                $role = "КЛИЕНТ";
 
             }else{
             
-                $role = "Конструктор";
+                $role = "КОНСТРУКТОР";
 
             }
             

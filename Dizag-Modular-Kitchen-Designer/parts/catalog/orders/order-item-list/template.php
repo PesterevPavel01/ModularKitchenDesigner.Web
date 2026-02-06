@@ -7,14 +7,13 @@ $code = isset($args['ORDER_CODE']) ? sanitize_text_field($args['ORDER_CODE']) : 
 
 $user = isset($args['USER']) ? sanitize_text_field($args['USER']) : "";
 
-$role = isset($args['ROLE']) ? sanitize_text_field($args['ROLE']) : "";
-?>
+$role = isset($args['ROLE']) ? sanitize_text_field($args['ROLE']) : "";?>
 
 <div class="catalog-oder-content-conteiner d-flex flex-column gap20 w-100" id = "catalog-oder-content-conteiner">
 
     <div class="catalog-oder-content d-flex flex-column flex-lg-row">
 
-        <div class="catalog-order-specification-section d-flex flex-column align-items-start justify-content-start gap-2 p-o p-lg-2 m-0 col-12 col-lg-9 order-2 order-lg-1"
+        <div class="catalog-order-specification-section d-flex flex-column align-items-start justify-content-start gap-2 p-o m-0 col-12 col-lg-9 order-2 order-lg-1"
 
             id = "catalog-order-specification-section">
             <?
@@ -31,11 +30,11 @@ $role = isset($args['ROLE']) ? sanitize_text_field($args['ROLE']) : "";
 
         <?//КОНФИГУРАТОР?>
 
-        <div class="catalog-order-item-redactor d-none d-lg-flex gap-2 gap-lg-0 col-12 col-lg-3 p-2 order-1 order-lg-2">
+        <div class="catalog-order-item-redactor d-none d-lg-flex gap-2 gap-lg-0 col-12 col-lg-3 ps-2 order-1 order-lg-2">
 
             <div class="order-item-redactor-content w-100" id = "order-item-redactor-content">
 
-                <?/*При загрузке страницы конфигуратор загрузится через AJAX вызовом события submit формы в файле ../Order/script.js*/ ?>
+                <?/*При загрузке страницы конфигуратор загрузится через AJAX вызовом события submit формы в файле ../Order/script.js*/?>
 
             </div>
             

@@ -96,12 +96,12 @@ $componentProvider = new ComponentProvider($componentServiceUrl, $user);
     <input type="hidden" value="Фасад" data-no-reset="true" name="MODULE_TYPE"/>
     <input type="hidden" name = "IS_COMPLETED" value=<?=sanitize_text_field($args['IS_COMPLETED'])?>>
 
-    <p class="specification-title black d-none d-lg-flex p-1 m-0">Конфигуратор</p>
+    <p class="specification-title black normal-font d-none d-lg-flex p-1 m-0">КОНФИГУРАТОР</p>
 
     <ul class="facade-configurator-component-list d-flex flex-column gap-1 w-100 white-background rounded p-2 p-lg-4 m-0 shadow-sm">
 
         <div class="modal-header d-lg-none p-2">
-            <strong class="black p-1 m-0">Конфигуратор</strong>
+            <strong class="black p-1 m-0">КОНФИГУРАТОР</strong>
             <button type="button" class="btn-close" data-bs-dismiss="offcanvas"></button>
         </div>
 
@@ -148,7 +148,7 @@ $componentProvider = new ComponentProvider($componentServiceUrl, $user);
 
             <input type="hidden" data-no-reset="true" value="<?= $hingeCode ?>" name="HINGE_TYPE_CODE"/>
 
-            <label for="hinge-combobox" class="combobox-label dark fw-bold p-1 m-0">петли</label>
+            <label for="hinge-combobox" class="combobox-label dark p-1 m-0">петли</label>
             
             <select class="combobox configurator-combobox" id="hinge-combobox">
 
@@ -230,7 +230,7 @@ $componentProvider = new ComponentProvider($componentServiceUrl, $user);
                 $length = reset($length);
             }?>
 
-            <label for="order-item-configurator-length" class = "dark fw-bold p-1">высота</label>
+            <label for="order-item-configurator-length" class = "dark p-1">высота</label>
             <input type="number" step="0.5" min="0" max="2750" value="<?= !empty($length)? esc_html($length['value']): ''?>" class="length w-100" name="LENGTH" id = "order-item-configurator-length"/>
 
         </li>
@@ -249,14 +249,14 @@ $componentProvider = new ComponentProvider($componentServiceUrl, $user);
 
             }?>
 
-            <label for="order-item-configurator-width" class = "dark fw-bold p-1">ширина</label>
+            <label for="order-item-configurator-width" class = "dark p-1">ширина</label>
             <input type="number" step="0.5" min="0" max="2000" value="<?= !empty($width)? $width['value']: ''?>" class="width w-100" name="WIDTH" id = "order-item-configurator-width"/>
 
         </li>
 
         <li class="facade-configurator-quantity d-flex flex-column w-100 m-0">
             
-            <label for="order-item-configurator-quantity" class = "dark fw-bold p-1">количество</label>
+            <label for="order-item-configurator-quantity" class = "dark p-1">количество</label>
             <input type="number" step="1" min="0" max="2000" value="<?= $args['QUANTITY'] ? esc_html($args['QUANTITY']) : '' ?>" class="w-100" name="QUANTITY" id = "order-item-configurator-quantity"/>
 
         </li>
@@ -296,7 +296,7 @@ $componentProvider = new ComponentProvider($componentServiceUrl, $user);
             <input type="text" value="<?= empty($currentComponent) ? "" : esc_html($currentComponent['componentCode'])?>" class="combobox-input board w-100 d-none" name="BOARD" id = "order-item-configurator-board"/>
             <input type="hidden" data-no-reset="true" value="<?= $boardCode ?>" name="BOARD_TYPE_CODE"/>
 
-            <label for="board-combobox" class="combobox-label m-0 dark fw-bold p-1">плита</label>
+            <label for="board-combobox" class="combobox-label m-0 dark p-1">плита</label>
 
             <select class="combobox configurator-combobox" id="board-combobox">
 
@@ -353,7 +353,7 @@ $componentProvider = new ComponentProvider($componentServiceUrl, $user);
             <input type="text" value="<?= empty($currentComponent) ? "" : $currentComponent['componentCode']?>" class="combobox-input corner w-100 d-none" name="CORNER" id = "order-item-configurator-corner"/>
             <input type="hidden" data-no-reset="true" value="<?= $cornerCode ?>" name="CORNER_TYPE_CODE"/>
 
-            <label for="corner-combobox" class="combobox-label m-0 dark fw-bold p-1">кромка фасада</label>
+            <label for="corner-combobox" class="combobox-label m-0 dark p-1">кромка фасада</label>
 
             <select class="combobox configurator-combobox" id="corner-combobox">
 
@@ -427,7 +427,7 @@ $componentProvider = new ComponentProvider($componentServiceUrl, $user);
                             <input type="text" value="<?= empty($currentComponent) ? "" : $currentComponent['componentCode']?>" class="combobox-input corner-top w-100 d-none" name="CORNER_TOP" id = "order-item-configurator-corner-top"/>
                             <input type="hidden" data-no-reset="true" value="<?= $cornerTopCode ?>" name="CORNER_TOP_TYPE_CODE"/>
 
-                            <label for="corner-combobox" class="combobox-label m-0 dark fw-bold p-1">верх</label>
+                            <label for="corner-combobox" class="combobox-label m-0 dark p-1">верх</label>
 
                             <select class="combobox configurator-combobox" id="corner-top-combobox">
 
@@ -484,7 +484,7 @@ $componentProvider = new ComponentProvider($componentServiceUrl, $user);
                             <input type="text" value="<?= empty($currentComponent) ? "" : $currentComponent['componentCode']?>" class="combobox-input corner-bottom w-100 d-none" name="CORNER_BOTTOM" id = "order-item-configurator-corner-bottom"/>
                             <input type="hidden" data-no-reset="true" value="<?= $cornerBottomCode ?>" name="CORNER_BOTTOM_TYPE_CODE"/>
                             
-                            <label for="corner-combobox" class="combobox-label m-0 dark fw-bold p-1">низ</label>
+                            <label for="corner-combobox" class="combobox-label m-0 dark p-1">низ</label>
 
                             <select class="combobox configurator-combobox" id="corner-bottom-combobox">
 
@@ -541,7 +541,7 @@ $componentProvider = new ComponentProvider($componentServiceUrl, $user);
                             <input type="text" value="<?= empty($currentComponent) ? "" : $currentComponent['componentCode']?>" class="combobox-input corner-left w-100 d-none" name="CORNER_LEFT" id = "order-item-configurator-corner-left"/>
                             <input type="hidden" data-no-reset="true" value="<?= $cornerLeftCode ?>" name="CORNER_LEFT_TYPE_CODE"/>
                             
-                            <label for="corner-combobox" class="combobox-label m-0 dark fw-bold p-1">лево</label>
+                            <label for="corner-combobox" class="combobox-label m-0 dark p-1">лево</label>
 
                             <select class="combobox configurator-combobox" id="corner-left-combobox">
 
@@ -598,7 +598,7 @@ $componentProvider = new ComponentProvider($componentServiceUrl, $user);
                             <input type="text" value="<?= empty($currentComponent) ? "" : $currentComponent['componentCode']?>" class="combobox-input corner-right w-100 d-none" name="CORNER_RIGHT" id = "order-item-configurator-corner-right"/>
                             <input type="hidden" data-no-reset="true" value="<?= $cornerRightCode ?>" name="CORNER_RIGHT_TYPE_CODE"/>
                             
-                            <label for="corner-combobox" class="combobox-label m-0 dark fw-bold p-1">право</label>
+                            <label for="corner-combobox" class="combobox-label m-0 dark p-1">право</label>
 
                             <select class="combobox configurator-combobox" id="corner-right-combobox">
 
@@ -665,7 +665,7 @@ $componentProvider = new ComponentProvider($componentServiceUrl, $user);
 
             <input type="hidden" data-no-reset="true" value="<?= $millingCode ?>" name="MILLING_TYPE_CODE"/>
 
-            <label for="milling-combobox" class="combobox-label dark fw-bold p-1 m-0">фрезеровка</label>
+            <label for="milling-combobox" class="combobox-label dark p-1 m-0">фрезеровка</label>
             
             <select class="combobox configurator-combobox" id="milling-combobox">
 
@@ -727,17 +727,18 @@ $componentProvider = new ComponentProvider($componentServiceUrl, $user);
 
                 <div class="save-button col-8 pe-2">
 
-                    <button type="submit" class="btn btn-primary w-100">Сохранить</button>
+                    <button type="submit" class="custom-btn black w-100 p-2 border normal-font">СОХРАНИТЬ</button>
 
                 </div>
             
             <?}?>
 
-            <button type="button" class="btn btn-primary <?=$args['IS_COMPLETED'] ? 'w-100' : 'col-4'?>" id = "order-item-facade-configurator-clear"
+            <div class="<?=$args['IS_COMPLETED'] ? 'w-100' : 'col-4'?>">
+            <button type="button" class="custom-btn white p-2 border normal-font " id = "order-item-facade-configurator-clear"
                 <?//data-bs-deactivate-element - класс, который есть у всех кнопок "редактировать элемент"?>
                 data-bs-deactivate-element="specification-item-change-button" 
-                >Отмена</button>
-
+                >ОТМЕНА</button>
+            </div>
         </li>
 
     </ul>

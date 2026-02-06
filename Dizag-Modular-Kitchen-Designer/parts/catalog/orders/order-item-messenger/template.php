@@ -4,7 +4,7 @@
 
     <div class="messenger-section-title d-flex w-100 align-items-center gap-1">
 
-        <p class="massenger-title black p-1 m-0">Комментарии</p>
+        <p class="massenger-title black normal-font p-1 m-0">КЩММЕНТАРИИ</p>
 
         <div id = "catalog-order-item-message-counter"></div>
 

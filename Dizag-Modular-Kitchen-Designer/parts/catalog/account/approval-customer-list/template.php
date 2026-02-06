@@ -16,14 +16,25 @@ global $clientServiceUrl;
 
     $unassignedUsersResult = $UnassignedUserProcessor->Process(); 
 
-    if(!$unassignedUsersResult->IsSuccess())
+    if(!$unassignedUsersResult->IsSuccess() )
     {
-        ?>
-        <p class="error-message black"><?=$unassignedUsersResult->ErrorMessage == "Users not found!" ? "Нет новых пользователей!" : $unassignedUsersResult->ErrorMessage?></p>
-        <?
+        get_template_part("parts/catalog/errors/default-error-message/template", null, 
+        [
+            'TITLE' => $unassignedUsersResult->ErrorMessage == "Users not found!" ? "Нет новых пользователей!" : $unassignedUsersResult->ErrorMessage
+        ]);
+        return;
+    }
+
+    if(empty($unassignedUsersResult->data))
+    {
+        get_template_part("parts/catalog/errors/default-error-message/template", null, 
+        [
+            'TITLE' => "Нет новых пользователей!"
+        ]);
         return;
     }
     ?>
+
     <?foreach ($unassignedUsersResult->data as $user) {
         get_template_part("parts/catalog/account/approval-costomer-list-item/template", null,                 
         [

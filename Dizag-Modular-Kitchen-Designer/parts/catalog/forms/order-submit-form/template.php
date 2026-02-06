@@ -54,11 +54,11 @@ if(empty($workflows) && $args['ACTIVE'] && $args['ROLE'] === 'customer') {?>
         <input type="hidden" data-no-reset="true" name="USER" value="<?=$user?>">
         <input type="hidden" data-no-reset="true" name="ROLE" value="<?=$role?>">
 
-        <button type="submit" class="ajax-update-button btn btn-primary m-0 w-100 border"
+        <button type="submit" class="custom-btn white m-0 border"
             data-bs-toggle="tooltip" 
             data-bs-placement="top"    
             title="Заказать">
-            Заказать
+            ЗАКАЗАТЬ
         </button>
 
     </form>

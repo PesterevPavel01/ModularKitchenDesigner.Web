@@ -84,7 +84,7 @@ function SwiperInit($updateButtons) {
         });
     
         function updateButtonStates(activeIndex) {
-            $('.ajax-update-button').removeClass('active');
-            $('.ajax-update-button').eq(activeIndex).addClass('active');
+            $('.switch-button').removeClass('active');
+            $('.switch-button').eq(activeIndex).addClass('active');
         }
 }

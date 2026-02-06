@@ -78,7 +78,7 @@ if($selectedMembrane)
 
 <li class="facade-configurator-membrane combobox-conteiner d-flex flex-column w-100 m-0">
 
-    <label for="supplier-combobox" class="dark fw-bold p-1  m-0">поставщик</label>
+    <label for="supplier-combobox" class="dark p-1  m-0">поставщик</label>
 
     <select id="supplier-combobox" class="configurator-combobox" data-membrane-master class="form-select">
 
@@ -97,7 +97,7 @@ if($selectedMembrane)
 
     <input type="hidden" data-no-reset="true" value="<?= $membraneCode ?>" name="MEMBRANE_TYPE_CODE"/>
 
-    <label for="membrane-combobox" class="membrane-combobox-label dark fw-bold p-1  m-0">пленка</label>
+    <label for="membrane-combobox" class="membrane-combobox-label dark p-1  m-0">пленка</label>
 
     <select class="configurator-combobox" data-membrane-slave id="membrane-combobox">
 

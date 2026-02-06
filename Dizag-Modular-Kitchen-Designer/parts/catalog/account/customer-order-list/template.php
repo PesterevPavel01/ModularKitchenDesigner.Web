@@ -92,27 +92,8 @@ else
     return;
 }
 ?>
-<section class="customer-account-oder-list-content d-flex flex-column align-items-start w-100 justify-content-start gap-2 w-100 order-2 order-lg-1">
-    
-    <block class="title-block  d-flex align-items-center w-100 justify-content-between">
+<section class="customer-account-oder-list-content d-flex flex-column align-items-start w-100 justify-content-start w-100 order-2 order-lg-1">
         
-        <t2 class="title ps-2">Заказы</t2>
-
-        <?if(in_array('customer', $roles)){?>
-
-            <a href="<?=home_url('/order/')?>">
-                <button class="ajax-update-button btn btn-primary m-0"
-                    data-bs-toggle="tooltip" 
-                    data-bs-placement="top"    
-                    title="Добавить новый заказ">
-                    Новый заказ
-                </button>
-            </a>
-
-        <?}?>
-
-    </block> 
-
     <block class="list-items d-flex flex-column align-items-start w-100 justify-content-start gap-2 gap-lg-1">
 
         <?

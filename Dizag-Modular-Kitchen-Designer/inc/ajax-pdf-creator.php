@@ -5,7 +5,7 @@ add_action('wp_ajax_pdf_creator_process', 'pdf_creator_process_callback');
 add_action('wp_ajax_nopriv_pdf_creator_process', 'pdf_creator_process_callback');
 
 function pdf_creator_process_callback() {
-
+    
     global $СontainerDI;
 
     try {
@@ -16,8 +16,9 @@ function pdf_creator_process_callback() {
     } catch (Exception $e) {
         wp_send_json_error($e->getMessage());
     }
-
+    
     wp_send_json_success($url); 
+    
     wp_die();
 }
 

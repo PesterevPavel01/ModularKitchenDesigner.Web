@@ -1,4 +1,5 @@
 <?
+enqueue_template_part_styles_scripts( __DIR__, "account","account-css");
 require_once get_template_directory() . '/core/Result.php';
 require_once get_template_directory() . '/core/services/processors/catalog/user/PermissionProcessor.php';
 
@@ -20,7 +21,7 @@ if($current_user){
 
         if($Result->isSuccess() && in_array('customer', $Result->data["roles"]) && $Result->data["externalId"] != "none"){
             ?>
-                <section class="section-custormer-account account-trigger-form">
+                <section class="section-custormer-account">
                     <?get_template_part("parts/catalog/account/customer-account/template", null, 
                         [
                             'ROLE' => 'customer',
@@ -31,7 +32,7 @@ if($current_user){
         }
         elseif($Result->isSuccess() && in_array('constructor', $Result->data["roles"]) && $Result->data["externalId"] != "none"){
             ?>
-                <section class="section-constructor-account account-trigger-form">
+                <section class="section-constructor-account">
                     <?get_template_part("parts/catalog/account/constructor-account/template", null, 
                         [
                             'ROLE' => 'constructor',

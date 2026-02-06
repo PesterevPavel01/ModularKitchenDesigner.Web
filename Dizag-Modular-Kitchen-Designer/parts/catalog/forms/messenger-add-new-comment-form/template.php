@@ -35,9 +35,10 @@ $user = isset($args['USER']) ? sanitize_text_field($args['USER']) : "";
         </li>
 
         <li class="component-panel-controls d-flex flex-column w-100 gap-1">
-            <div class="w-100 m-0 d-flex justify-content-end">
+            
+            <div class="col-2 m-0 d-flex">
 
-                <button type="submit" class="btn btn-primary d-flex">Добавить</button>
+                <button type="submit" class="custom-btn white m-0 border p-2 normal-font">ОТПРАВИТЬ</button>
 
             </div>
         </li>

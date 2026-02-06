@@ -275,7 +275,7 @@ else{
 
     $OrderByCodeProcessor = new OrderByCodeProcessor($orderServiceUrl);
 
-    $Result = $OrderByCodeProcessor->Process($orderCode);
+    $Result = $OrderByCodeProcessor->Process($orderCode, false);
 
     if(!$Result->isSuccess())
     {

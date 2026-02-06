@@ -22,11 +22,11 @@ if($args['ROLE'] === 'constructor') {?>
         <input type="hidden" data-no-reset="true" name="USER" value="<?=$user?>">
         <input type="hidden" data-no-reset="true" name="ROLE" value="<?=$role?>">
 
-        <button type="submit" class="ajax-update-button btn btn-primary m-0 w-100 border"
+        <button type="submit" class="custom-btn white p-2 border normal-font w-0"
             data-bs-toggle="tooltip" 
             data-bs-placement="top"    
             title="Удалить все процессы согласования у заказа!">
-            Отменить
+            ОТМЕНИТЬ
         </button>
 
     </form>

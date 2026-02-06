@@ -45,9 +45,11 @@ if (!empty($result)) {
 
     get_template_part("/parts/controls/fieldset/template", null,
     [
-        'TITLE' =>  'Клиенты',
+        'TITLE' =>  'КЛИЕНТЫ',
         'LIST_NAME' => 'users',
-        'ITEMS' => $result
+        'ITEMS' => $result,
+        'MAIN_CONTEINER_CLASS' => 'clients-filter-conteiner',
+        'CONTENT_CONTEINER_CLASS' => 'clients-filter-content'
     ]);
 
 }

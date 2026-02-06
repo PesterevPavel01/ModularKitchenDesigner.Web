@@ -27,5 +27,5 @@ if(!$result->isSuccess())
     return;
 }
 
-get_template_part("parts/catalog/account/customer-order-list/template", null, $args);
+/*get_template_part("parts/catalog/account/customer-order-list/template", null, $args);*/
 ?>

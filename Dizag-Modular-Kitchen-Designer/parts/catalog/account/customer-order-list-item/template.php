@@ -20,7 +20,7 @@ if($arParams){
 ?>
 <div class="customer-order-list-item white-background d-flex flex-column flex-sm-row p-3 p-sm-0 w-100 align-items-sm-center align-items-start shadow-lg shadow-lg-sm gap-1 gap-sm-0">
 
-    <div class="order-list-item-title d-flex flex-row align-items-center justify-content-between justify-content-sm-start p-sm-2 col-12 col-sm-2">
+    <div class="order-list-item-title d-flex flex-row align-items-center justify-content-between justify-content-sm-start p-sm-2 col-12 col-sm-1">
 
         <?if(!$arParams['IS_COMPLETED']){?>
 
@@ -32,21 +32,21 @@ if($arParams){
 
         <?}?>
 
-        <p class="order-title black d-none d-lg-flex justify-content-start align-items-center ps-sm-2 m-0 order-1 order-lg-2"><?=sanitize_text_field($arParams['TITLE'])?></p>
+        <p class="order-title black d-none d-lg-flex justify-content-start align-items-center ps-sm-2 m-0 order-1 order-lg-2 normal-font"><?=sanitize_text_field($arParams['TITLE'])?></p>
         <strong class="order-title black d-flex d-lg-none justify-content-start align-items-center ps-sm-2 m-0 order-1 order-lg-2"><?=sanitize_text_field($arParams['TITLE'])?></strong>
 
     </div>
 
-    <div class="order-list-item-user d-flex flex-column align-items-center m-sm-0 p-0 col-12 col-sm-3 justify-content-start justify-content-sm-center">
-        <span class="dark m-0 p-0 w-100 text-start text-sm-start">Пользователь:</span>
-        <p class="order-title black d-none d-lg-flex text-start align-items-center m-0 p-0 w-100"><?= empty($user) ? $login : $user['full_name'] ?></p>
-        <strong class="order-title black d-flex d-lg-none text-start align-items-center m-0 p-0 w-100"><?= empty($user) ? $login : $user['full_name'] ?></strong>
+    <div class="order-list-item-user d-flex flex-column align-items-center m-sm-0 p-0 ps-sm-3 col-12 col-sm-3 justify-content-start justify-content-sm-center">
+        <span class="m-0 p-0 w-100 text-start text-sm-start primary-dark">ПОЛЬЗОВАТЕЛЬ:</span>
+        <p class="order-title black d-none d-lg-flex text-start align-items-center m-0 p-0 w-100 normal-font primary-dark"><?= empty($user) ? $login : mb_strtoupper($user['full_name']) ?></p>
+        <strong class="order-title black d-flex d-lg-none text-start align-items-center m-0 p-0 w-100 primary-dark"><?= empty($user) ? $login : mb_strtoupper($user['full_name']) ?></strong>
     </div>
 
-    <div class="order-list-item-user d-flex flex-column align-items-center m-sm-0 p-0 col-12 col-sm-2 justify-content-start justify-content-sm-end">
-        <?/*<span class="dark m-0 p-0 w-100 text-start text-sm-end">Статус:</span>*/?>
-        <span class = "order-status black m-0 p-0 w-100 text-start text-sm-end"><?= $arParams['STATUS'] ?></span>
-        <strong class="order-status black d-flex d-lg-none text-start text-sm-end align-items-center m-0 p-0 w-100"><?= $arParams['STATUS'] ?></strong>
+    <div class="order-list-item-user d-flex flex-column align-items-center m-sm-0 p-0 col-12 col-sm-3 justify-content-start justify-content-sm-end">
+        <span class="black d-flex d-lg-none dark m-0 p-0 w-100 text-start text-sm-start primary-dark">СТАТУС:</span>
+        <span class = "order-status black d-none d-lg-flex m-0 p-0 w-100 text-start text-sm-end mini-font"><?= mb_strtoupper($arParams['STATUS']) ?></span>
+        <strong class="order-status black d-flex d-lg-none text-start text-sm-end align-items-center m-0 p-0 w-100"><?= mb_strtoupper($arParams['STATUS']) ?></strong>
     </div>
 
     <?php
@@ -67,19 +67,23 @@ if($arParams){
             
             <?if( $role == 'customer' ||  $role == 'Administrator' ){?>
 
-                <button type="button" class="btn btn-primary border col-6"
-                    data-bs-toggle="modal"
-                    data-bs-target="#remove-order-modal"
-                    data-bs-code="<?=htmlspecialchars($Code)?>"
-                    data-bs-title="<?=sanitize_text_field($arParams['TITLE'])?>"
-                    data-bs-order-user="<?=$login?>"
-                    data-bs-parameters = <?= ($filter || !empty($filter))? htmlspecialchars(json_encode($filter, JSON_UNESCAPED_UNICODE | JSON_HEX_QUOT | JSON_HEX_APOS), ENT_QUOTES, 'UTF-8') : ""?>>
-                    Удалить
-                </button>
-                
+                <div class="remove-order-button-container col-6">
+
+                    <button type="button" class="custom-btn white remove-btn p-2 border dark-weight primary-dark user-select-none" id = <?= "remove-btn-" . $Code?>
+                        data-bs-toggle="modal"
+                        data-bs-target="#remove-order-modal"
+                        data-bs-code="<?=htmlspecialchars($Code)?>"
+                        data-bs-title="<?=sanitize_text_field($arParams['TITLE'])?>"
+                        data-bs-order-user="<?=sanitize_text_field($login)?>"
+                        data-bs-parameters = <?= ($filter || !empty($filter))? htmlspecialchars(json_encode($filter, JSON_UNESCAPED_UNICODE | JSON_HEX_QUOT | JSON_HEX_APOS), ENT_QUOTES, 'UTF-8') : ""?>>
+                        УДАЛИТЬ
+                    </button>
+
+                </div>
+
             <?}?>
             <a href="<?=esc_url($order_url)?>" class= "<?=($role == 'customer' ||  $role == 'Administrator') ? "col-6" : "w-100"?>">
-                <button class="btn btn-primary border w-100">Открыть</button>
+                <button class="custom-btn white p-2 border normal-font user-select-none">ОТКРЫТЬ</button>
             </a>
 
         </div>

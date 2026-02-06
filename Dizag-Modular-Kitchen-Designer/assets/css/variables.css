@@ -1,6 +1,7 @@
 :root {
 	--body-color:                 #f6f6f6;
 	--white-color:                #FFFFFF;
+	--remove-color:               #3b0303;
 	--primary-color:              #1d9e26;
 	--primary-dark-color:         #606363;
 	--section-bg-color:           #f0f8ff;
@@ -17,12 +18,13 @@
 	--catalog-font-family:        'PT Sans', Helvetica, Arial, sans-serif;
 	
   
-	--navbar-height:          80px;
+	--navbar-height:               80px;
+	--catalog-navbar-height:       60px;
   
 	--section-max-width:          1600px;
   
 
-	--bootstrap-icon-size:         40px;
+	--bootstrap-icon-size:         20px;
 	--bootstrap-icon-size-medium:  30px;
 
 	--h5-font-size:               24px;
@@ -39,6 +41,7 @@
 	--font-weight-thin:           100;
 	--font-weight-light:          300;
 	--font-weight-normal:         400;
+	--font-weight-dark:           600;
 	--font-weight-bold:           700;
 	--font-weight-black:          900;
 } 

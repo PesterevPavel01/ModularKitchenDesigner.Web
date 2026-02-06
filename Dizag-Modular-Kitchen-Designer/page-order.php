@@ -66,69 +66,64 @@ the_content();
     <?get_template_part("parts/navigation/navbar")?>
 </header>
 
-<main class = "white-background">
+<main class = "gap40 mx-width-1380 m-auto pt-90">
 
-    <section class="section-content flex-column gap40 mx-width-1380 m-auto">
+    <?if(!is_user_logged_in())
+    {
+        get_template_part("parts/navigation/authorization",null,
+        [
+            'ERROR_MESSAGE' => "Для получения доступа необходимо",
+        ]);
+
+        return;
+    }
+
+    if(!$role){
+
+        $Result = new BaseResult();
+
+        $PermissionProcessor = new PermissionProcessor($clientServiceUrl);
+    
+        $Result = $PermissionProcessor->Process(sanitize_user($current_user->user_login));
         
-        <?
-        if(!is_user_logged_in())
-        {
-            get_template_part("parts/navigation/authorization",null,
-            [
-                'ERROR_MESSAGE' => "Для получения доступа необходимо",
-            ]);
+        if(!$Result->isSuccess() || !in_array('customer', $Result->data["roles"]) || $Result->data["externalId"] == "none"){
+        ?>
+            <section class="permission-request-section ajax-update-trigger flex-column gap40">
 
-            return;
-        }
-
-        if(!$role){
-
-            $Result = new BaseResult();
-
-            $PermissionProcessor = new PermissionProcessor($clientServiceUrl);
-        
-            $Result = $PermissionProcessor->Process(sanitize_user($current_user->user_login));
-            
-            if(!$Result->isSuccess() || !in_array('customer', $Result->data["roles"]) || $Result->data["externalId"] == "none"){
-            ?>
-                <section class="permission-request-section ajax-update-trigger flex-column gap40">
-
-                    <?get_template_part("parts/catalog/account/permission-request",null,
-                        [
-                            'ACTION' => 'content_update',
-                            'PARAMETER' =>  null,
-                            'TEMPLATE_PART_TO_UPDATE' => "parts/catalog/account/permission-request",
-                            'HTML_BLOCK_TO_UPDATE_CLASS' => 'permission-request-section',
-                        ]);?>
-
-                </section>
-            <?
-            }else
-            {
-                get_template_part("parts/catalog/errors/default-error-message/template", null, 
-                [
-                    'TITLE' => "У пользователя нет необходимых прав, обратитесь к администратору!",
-                ]);
-            }
-            return;
-        }
-        
-        if (!empty($Code)) {?>
-        
-            <section id = "catalog-section-order" class="section-order d-flex flex-column align-items-start gap-3 w-100 catalog_content_update">
-            
-                <?get_template_part("parts/catalog/orders/order/template",null,
-                [
-                    'ORDER_CODE' =>  $Code,
-                    'USER' => $login,
-                    'ROLE' => $role,
-                ]);?>
+                <?get_template_part("parts/catalog/account/permission-request",null,
+                    [
+                        'ACTION' => 'content_update',
+                        'PARAMETER' =>  null,
+                        'TEMPLATE_PART_TO_UPDATE' => "parts/catalog/account/permission-request",
+                        'HTML_BLOCK_TO_UPDATE_CLASS' => 'permission-request-section',
+                    ]);?>
 
             </section>
-            
-        <?}?>
+        <?
+        }else
+        {
+            get_template_part("parts/catalog/errors/default-error-message/template", null, 
+            [
+                'TITLE' => "У пользователя нет необходимых прав, обратитесь к администратору!",
+            ]);
+        }
+        return;
+    }
+    
+    if (!empty($Code)) {?>
+    
+        <section id = "catalog-section-order" class="section-order d-flex flex-column align-items-start gap-2 w-100 catalog_content_update">
         
-    </section>
+            <?get_template_part("parts/catalog/orders/order/template",null,
+            [
+                'ORDER_CODE' =>  $Code,
+                'USER' => $login,
+                'ROLE' => $role,
+            ]);?>
+
+        </section>
+        
+    <?}?>
 
 </main>
 

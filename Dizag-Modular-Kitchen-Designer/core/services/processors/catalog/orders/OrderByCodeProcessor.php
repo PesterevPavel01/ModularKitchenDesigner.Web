@@ -14,9 +14,10 @@
             $this->Url = $orderServiceUrl . "v2/orders/by-code";
         }
 
-        public function Process($orderCode)
+        public function Process($orderCode, $cache = false)
         {
-            $url = $this->Url . "/" . urlencode($orderCode);
+            $url = $this->Url . "/" . urlencode($orderCode)
+                .'?cache=' . ($cache ? 'true' : 'false');
 
             $this->Result = $this->HttpConnector->GetMessageByUrl($url);
             

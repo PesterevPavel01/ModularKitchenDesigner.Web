@@ -2,19 +2,18 @@
 enqueue_template_part_styles_scripts( __DIR__, "remove-order-form");
 ?>
 <form class="remove-order-modal modal fade" data-ajax-default-content-updater="refresh" id="remove-order-modal" tabindex="-1">
-    
+
     <input type="hidden" data-no-reset="true" name = "BLOCKED_ELEMENT" value = "#remove-order-modal">
     <input type="hidden" data-no-reset="true" name = "TEMPLATE_PART" value = "parts/catalog/forms/remove-order-form/action/template">
     <input type="hidden" data-no-reset="true" name = "action" value="default_content_updater">
-    <input type="hidden" data-no-reset="true" name = "TARGET_CONTAINER" value="#customer-account-order-list">
-    <input type="hidden" data-no-reset="true" name = "SUCCESS_CONTAINER" value="#remove-order-modal-dialog">
+    <input type="hidden" data-no-reset="true" name = "TARGET_CONTAINER" value="#remove-order-result">
+    <input type="hidden" data-no-reset="true" name = "SUCCESS_CONTAINERS[]" value="#remove-order-modal-dialog">
+    <?/*<input type="hidden" data-no-reset="true" name = "SUCCESS_CONTAINERS[]" value="#второй элемент">*/?>
+    <input type="hidden" data-no-reset="true" name = "POST_FORM_DELAY" value="3000">
+    <input type="hidden" data-no-reset="true" name = "DEPENDENT_FORM" value="#order-list-parameters-form">
+    <input type="hidden" data-no-reset="true" name = "DEPENDENT_FORM_SECOND" value="#catalog-last-events-reset-form">
     <input type="hidden" data-no-reset="true" name = "USER" value="">
     <input type="hidden" id="remove-order-code" name = "ORDER_CODE" value="">
-    <?//Актуальные параметры фильтра для шаблона?>
-    <input type="hidden" name = "ASCENDING" value="">
-    <input type="hidden" name = "INCOMPLETE_ONLY" value="">
-    <input type="hidden" name = "CUSTOM_ONLY" value="">
-    <input type="hidden" name = "PERIOD" value=30>
     
     <div class="modal-dialog" id = "remove-order-modal-dialog">
 

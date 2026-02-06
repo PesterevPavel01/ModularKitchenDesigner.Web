@@ -7,12 +7,11 @@
 
 <?php the_content(); ?>
 
-<main>
+<main class = "pt-80 mx-width-1380 m-auto">
+
     <?get_template_part("parts/navigation/navbar")?>
-    
-    <section class="section-content flex-column gap40 mx-width-1380 m-auto">
-    
-    <? if(is_user_logged_in()){
+
+    <?if(is_user_logged_in()){
 
         get_template_part("parts/catalog/account/role-content-manager");
         
@@ -23,8 +22,7 @@
             'ERROR_MESSAGE' => "Для получения доступа необходимо",
         ]);
     }?>
-
-    </section>
+        
 </main>
 
 <?php get_footer();?>
